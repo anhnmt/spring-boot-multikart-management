@@ -11,11 +11,10 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class User {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String email;
-    private String password;
+    private String slug;
 }
