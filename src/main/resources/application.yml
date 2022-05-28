@@ -7,11 +7,10 @@ spring:
     name: base-project
 
   datasource:
-    application:
-      url: jdbc:postgresql://localhost:5432/vlmart
-      username: root
-      password: 123456aA@
-      driverClassName: org.hibernate.dialect.PostgreSQLDialect
+    url: jdbc:mariadb://localhost:3306/vlmart?useSSL=false
+    username: root
+    password: 123456aA@
+    driverClassName: org.mariadb.jdbc.Driver
 
   # ===============================
   # JPA / HIBERNATE
@@ -22,7 +21,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MariaDBDialect
         format_sql: true
 
 # ===============================
