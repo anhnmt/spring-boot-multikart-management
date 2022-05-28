@@ -1,0 +1,49 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: base-project
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/vlmart?useSSL=false
+    username: root
+    password: 123456aA@
+    driverClassName: org.mariadb.jdbc.Driver
+
+  # ===============================
+  # JPA / HIBERNATE
+  # ===============================
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        format_sql: true
+
+# ===============================
+# LOGGING
+# ===============================
+logging:
+  level:
+    org:
+      springframework:
+        web: TRACE
+        ws:
+          client:
+            MessageTracing:
+              sent: TRACE
+              received: TRACE
+          server:
+            MessageTracing:
+              sent: TRACE
+              received: TRACE
+    root: INFO
+    org.hibernate.SQL: INFO
+  pattern:
+    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId},%X{X-Span-Export}] [${spring.application.name}] %-5level [%thread] %logger{50}.%M - %msg%n"
+  file:
+    name: logs/default.log
