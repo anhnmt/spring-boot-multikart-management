@@ -9,9 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    @GetMapping
-    public String homePage(Model model) {
+    @GetMapping("/")
+    public String homePage() {
         return "index";
+    }
+
+    @GetMapping("/contact")
+    public String contactPage() {
+        return "contact";
+    }
+
+    @GetMapping("/about")
+    public String aboutPage() {
+        return "about";
     }
 
 }

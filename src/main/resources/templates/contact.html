@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/frontend/layout}">
 <head>
-    <title>Welcome to Our Site</title>
+    <title>Contact Us</title>
 </head>
 <body>
 
@@ -12,13 +12,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Welcome to Our Site</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur [....]</p>
+                    <h1>Contact Us</h1>
+                    <p>Please send us an email at help@example.com.</p>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<th:block th:fragment="optional">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+</th:block>
 
 </body>
 </html>
