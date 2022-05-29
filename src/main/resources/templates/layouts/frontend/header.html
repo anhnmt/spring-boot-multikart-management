@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body class="theme-color-31 mulish-font">
+
+<header class="header-style-7" th:fragment="header">
+    <div class="container-fluid px-sm-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-menu">
+                    <div class="menu-left">
+                        <div class="navbar d-lg-none d-inline-block">
+                            <a href="#">
+                                <div class="bar-style"><img alt="" class="img-fluid"
+                                                            th:src="@{/assets/images/icon/menu.png}"/>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="brand-logo">
+                            <a href="index.html"><img alt=""
+                                                      class="img-fluid blur-up lazyload"
+                                                      th:src="@{/assets/images/icon/logo/37.png}"/></a>
+                        </div>
+                    </div>
+                    <form class="form_search rounded-0 ms-5" role="form">
+                        <input aria-expanded="true" class="nav-search nav-search-field"
+                               id="query search-autocomplete" placeholder="Search any Device or Gadgets..."
+                               type="search"/>
+                        <button class="btn-search" name="nav-submit-button" type="submit">
+                        </button>
+                    </form>
+                    <div class="menu-right ms-auto d-flex align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-nav">
+                                <ul class="d-flex align-items-center">
+                                    <li class="delivery-area d-xl-none d-inline-flex" data-bs-target="#deliveryarea"
+                                        data-bs-toggle="modal">
+                                        <img alt="" class="img-fluid" th:src="@{/assets/images/icon/location-pin.png}"/>
+                                    </li>
+                                    <li class="delivery-area d-xl-inline-flex d-none" data-bs-target="#deliveryarea"
+                                        data-bs-toggle="modal">
+                                        <div>
+                                            <i aria-hidden="true" class="fa fa-map-marker"></i>
+                                            <h6>Hà Nội</h6>
+                                        </div>
+                                    </li>
+                                    <li class="onhover-div mobile-search d-xl-none">
+                                        <div><img alt="" class="img-fluid blur-up lazyload"
+                                                  onclick="openSearch()"
+                                                  th:src="@{/assets/images/icon/magnifier-zoom.png}"/>
+                                        </div>
+                                        <div class="search-overlay" id="search-overlay">
+                                            <div><span class="closebtn" onclick="closeSearch()"
+                                                       title="Close Overlay">×</span>
+                                                <div class="overlay-content">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-xl-12">
+                                                                <form>
+                                                                    <div class="form-group">
+                                                                        <input class="form-control"
+                                                                               id="exampleInputPassword1"
+                                                                               placeholder="Search a Product"
+                                                                               type="text"/>
+                                                                    </div>
+                                                                    <button class="btn btn-primary" type="submit"><i
+                                                                            class="fa fa-search"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="onhover-div mobile-cart">
+                                        <div><img alt=""
+                                                  class="img-fluid blur-up lazyload"
+                                                  th:src="@{/assets/images/icon/trolley.png}"/></div>
+                                        <span class="cart_qty_cls">2</span>
+                                        <ul class="show-div shopping-cart">
+                                            <li>
+                                                <div class="media">
+                                                    <a href="index.html"><img alt="" class="me-3"
+                                                                              th:src="@{/assets/images/fashion/product/1.jpg}"/></a>
+                                                    <div class="media-body">
+                                                        <a href="index.html">
+                                                            <h4>item name</h4>
+                                                        </a>
+                                                        <h4><span>1 x $ 299.00</span></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="close-circle"><a href="index.html"><i aria-hidden="true"
+                                                                                                  class="fa fa-times"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="media">
+                                                    <a href="index.html"><img alt="" class="me-3"
+                                                                              th:src="@{/assets/images/fashion/product/2.jpg}"/></a>
+                                                    <div class="media-body">
+                                                        <a href="index.html">
+                                                            <h4>item name</h4>
+                                                        </a>
+                                                        <h4><span>1 x $ 299.00</span></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="close-circle"><a href="index.html"><i aria-hidden="true"
+                                                                                                  class="fa fa-times"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="total">
+                                                    <h5>subtotal : <span>$299.00</span></h5>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="buttons"><a class="view-cart" href="cart.html">view
+                                                    cart</a> <a class="checkout" href="index.html">checkout</a></div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+</body>
+</html>
