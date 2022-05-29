@@ -10,17 +10,17 @@ public class HomeController {
 
     @GetMapping
     public String homePage() {
-        return "index";
+        return "frontend/index";
     }
 
     @GetMapping("/contact")
     public String contactPage() {
-        return "contact";
+        return "frontend/contact";
     }
 
     @GetMapping("/about")
     public String aboutPage() {
-        return "about";
+        return "frontend/about";
     }
 
 }
