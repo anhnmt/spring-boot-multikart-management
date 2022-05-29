@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="multikart" name="description"/>
+    <meta content="multikart" name="keywords"/>
+    <meta content="multikart" name="author"/>
+    <link rel="icon" th:href="@{/assets/images/favicon/26.png}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon/26.png}" type="image/x-icon"/>
+    <title>Multikart - Multi-purpose E-commerce Html Template</title>
+
+    <!--Google font-->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&amp;display=swap"
+          rel="stylesheet"/>
+
+    <!-- Icons -->
+    <link rel="stylesheet" th:href="@{/assets/css/vendors/font-awesome.css}" type="text/css"/>
+
+    <!--Slick slider css-->
+    <link rel="stylesheet" th:href="@{/assets/css/vendors/slick.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/vendors/slick-theme.css}" type="text/css"/>
+
+    <!-- Animate icon -->
+    <link rel="stylesheet" th:href="@{/assets/css/vendors/animate.css}" type="text/css"/>
+
+    <!-- Themify icon -->
+    <link rel="stylesheet" th:href="@{/assets/css/vendors/themify-icons.css}" type="text/css"/>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" th:href="@{/assets/css/vendors/bootstrap.css}" type="text/css"/>
+
+    <!-- Theme css -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+</head>
+<body class="theme-color-31 mulish-font">
+
+<!-- header start -->
+<div th:replace="layouts/frontend/header :: header"></div>
+<!-- header end -->
+
+<!-- shop body start -->
+<div class="shop-sidebar-demo">
+    <a class="sidebar-overlay" href="#" onclick="closeNav()"></a>
+    <div th:replace="layouts/frontend/sidebar :: sidebar"></div>
+
+    <div class="shop-main">
+        <div class="pb-0 small-section small-slider">
+            <div class="home">
+                <img alt="" class="bg-img blur-up lazyload" th:src="@{/assets/images/bgg.jpg}"/>
+                <div class="container-lg">
+                    <div class="row">
+                        <div class="col">
+                            <div class="slider-contain product-detail">
+                                <div>
+                                    <h4>50% off on your first order</h4>
+                                    <h2 class="my-3">
+                                        Welcome to Multikart</h2>
+                                    <a class="btn btn-solid rounded-3" href="index.html">shop
+                                        now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bag-product ratio_square section-t-space">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title8">
+                            <h2>grocery &amp; staples</h2>
+                            <p>atta, dal, rice and more</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="slide-6-veg slick-sm-margin no-arrow">
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/1.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/2.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/3.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/4.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/5.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/6.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/7.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/8.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bag-product ratio_square section-t-space">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title8">
+                            <h2>grocery &amp; staples</h2>
+                            <p>atta, dal, rice and more</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="slide-6-veg slick-sm-margin no-arrow">
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/8.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/9.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/10.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/11.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/12.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/13.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/7.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/8.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bag-product ratio_square section-t-space">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title8">
+                            <h2>grocery &amp; staples</h2>
+                            <p>atta, dal, rice and more</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="slide-6-veg slick-sm-margin no-arrow">
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/7.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/14.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/15.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/16.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/5.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/6.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/7.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/8.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bag-product ratio_square section-t-space">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title8">
+                            <h2>grocery &amp; staples</h2>
+                            <p>atta, dal, rice and more</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="slide-6-veg slick-sm-margin no-arrow">
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/1.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/2.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/3.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/4.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/5.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/6.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/7.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/8.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="bag-product ratio_square section-t-space">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title8">
+                            <h2>grocery &amp; staples</h2>
+                            <p>atta, dal, rice and more</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="slide-6-veg slick-sm-margin no-arrow">
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/1.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/2.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/3.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/4.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/5.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/6.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/7.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-box product-style-5">
+                                <a href="product-page.html">
+                                    <h6>Slim Fit Cotton Shirt</h6>
+                                </a>
+                                <h5>1 Kg</h5>
+                                <h4>$500.00</h4>
+                                <div class="addtocart_btn">
+                                    <button class="add-button add_cart" title="Add to cart">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <div class="qty-box cart_qty">
+                                        <div class="input-group">
+                                            <button class="btn quantity-left-minus" data-field="" data-type="minus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-minus"></i>
+                                            </button>
+                                            <input class="form-control input-number qty-input" name="quantity"
+                                                   type="text" value="1"/>
+                                            <button class="btn quantity-right-plus" data-field="" data-type="plus"
+                                                    type="button">
+                                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-wrapper">
+                                    <div class="front">
+                                        <a href="product-page.html"><img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/assets/images/vegetables/pro/png/8.png}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- shop body end -->
+
+<!-- Content Section -->
+<section layout:fragment="content"></section>
+
+<!-- footer start -->
+<div th:replace="layouts/frontend/footer :: footer"></div>
+<!-- footer end -->
+
+<!-- latest jquery-->
+<script th:src="@{/assets/js/jquery-3.3.1.min.js}"></script>
+
+<!-- portfolio js -->
+<script th:src="@{/assets/js/isotope.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+<!-- menu js-->
+<script th:src="@{/assets/js/menu.js}"></script>
+
+<!-- feather icon js-->
+<script th:src="@{/assets/js/feather.min.js}"></script>
+
+<!-- lazyload js-->
+<script th:src="@{/assets/js/lazysizes.min.js}"></script>
+
+<!-- slick js-->
+<script th:src="@{/assets/js/slick.js}"></script>
+<script th:src="@{/assets/js/slick-animation.min.js}"></script>
+
+<!-- Bootstrap js-->
+<script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Bootstrap Notification js-->
+<script th:src="@{/assets/js/bootstrap-notify.min.js}"></script>
+
+<!-- Theme js-->
+<script th:src="@{/assets/js/script.js}"></script>
+<script th:src="@{/assets/js/custom-slick-animated.js}"></script>
+
+
+<script>
+    function openSearch() {
+        document.getElementById("search-overlay").style.display = "block";
+    }
+
+    function closeSearch() {
+        document.getElementById("search-overlay").style.display = "none";
+    }
+
+    feather.replace();
+</script>
+
+</body>
+</html>
