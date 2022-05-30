@@ -1,10 +1,11 @@
 package com.example.vlmart.config;
 
 import com.example.vlmart.domain.model.Role;
+import com.example.vlmart.domain.model.Unit;
 import com.example.vlmart.domain.model.User;
 import com.example.vlmart.repo.RoleRepository;
+import com.example.vlmart.repo.UnitRepository;
 import com.example.vlmart.repo.UserRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,12 +23,15 @@ public class RunnerConfig implements CommandLineRunner {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
+    private UnitRepository unitRepository;
+    @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
         roleSeeder();
         userSeeder();
+        unitSeeder();
     }
 
     private void roleSeeder() {
@@ -41,7 +45,7 @@ public class RunnerConfig implements CommandLineRunner {
                     .name("ROLE_USER")
                     .build());
 
-           roleRepository.saveAll(roles);
+            roleRepository.saveAll(roles);
         }
     }
 
@@ -56,15 +60,44 @@ public class RunnerConfig implements CommandLineRunner {
                     .name("Admin")
                     .roleId(1L)
                     .password(encodedPassword)
+                    .status(1)
                     .build());
             users.add(User.builder()
                     .email("user@gmail.com")
                     .name("User")
                     .roleId(2L)
                     .password(encodedPassword)
+                    .status(1)
                     .build());
 
             userRepository.saveAll(users);
+        }
+    }
+
+    private void unitSeeder() {
+        var count = unitRepository.count();
+        if (count <= 0) {
+            List<Unit> units = new ArrayList<>();
+            units.add(Unit.builder()
+                    .name("Hộp")
+                    .build());
+            units.add(Unit.builder()
+                    .name("Gói")
+                    .build());
+            units.add(Unit.builder()
+                    .name("Khay")
+                    .build());
+            units.add(Unit.builder()
+                    .name("Thùng")
+                    .build());
+            units.add(Unit.builder()
+                    .name("Lon")
+                    .build());
+            units.add(Unit.builder()
+                    .name("Chai")
+                    .build());
+
+            unitRepository.saveAll(units);
         }
     }
 }
