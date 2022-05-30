@@ -9,10 +9,10 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-public class User extends BaseModel {
+public class Customer extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long customerId;
 
     @NotBlank
     private String name;

@@ -9,19 +9,28 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-public class User extends BaseModel {
+public class Product extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long productId;
 
     @NotBlank
     private String name;
 
     @NotBlank
-    private String email;
+    private String slug;
 
-    @NotBlank
-    private String password;
+    @Column(columnDefinition = "integer default 0")
+    private Integer amount;
+
+    @Column(columnDefinition = "float default 0")
+    private Float importPrice;
+
+    @Column(columnDefinition = "float default 0")
+    private Float exportPrice;
+
+    // Mô tả, ghi chú
+    private String description;
 
     // Trạng thái
     @Column(columnDefinition = "integer default 1")

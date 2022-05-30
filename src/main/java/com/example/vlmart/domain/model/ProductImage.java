@@ -5,23 +5,29 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-public class User extends BaseModel {
+public class ProductImage extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long productImageId;
 
     @NotBlank
-    private String name;
+    private Long productId;
 
+    // Đường dẫn tới ảnh
     @NotBlank
-    private String email;
+    private String url;
 
-    @NotBlank
-    private String password;
+    // Số thứ tự
+    @Column(columnDefinition = "integer default 0")
+    private Integer index;
+
+    // Mô tả, ghi chú
+    private String description;
 
     // Trạng thái
     @Column(columnDefinition = "integer default 1")
