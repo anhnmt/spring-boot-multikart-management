@@ -20,14 +20,6 @@ public class DataUtils {
         return Optional.ofNullable(value).orElse(defaultValue);
     }
 
-    public static boolean nonEmpty(String text) {
-        return !DataUtils.isNullOrEmpty(text);
-    }
-
-    public static boolean nonEmpty(Collection collection) {
-        return !isNullOrEmpty(collection);
-    }
-
     public static boolean notNullOrEmpty(String text) {
         return !DataUtils.isNullOrEmpty(text);
     }

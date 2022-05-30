@@ -11,5 +11,5 @@ public interface AuthService {
 
     String backendLogin(Model model);
 
-    String backendPostLogin(@Valid UserLoginRequestDTO userDTO, HttpServletRequest request, BindingResult result, Model model);
+    String backendPostLogin(@Valid UserLoginRequestDTO input, HttpServletRequest request, BindingResult result, Model model);
 }

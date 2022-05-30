@@ -25,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String postLogin(@Valid UserLoginRequestDTO userDTO, HttpServletRequest request, BindingResult result, Model model) {
-        return authService.backendPostLogin(userDTO, request, result, model);
+    public String postLogin(@Valid UserLoginRequestDTO input, HttpServletRequest request, BindingResult result, Model model) {
+        return authService.backendPostLogin(input, request, result, model);
     }
 
 }
