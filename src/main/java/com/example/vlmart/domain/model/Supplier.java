@@ -1,6 +1,7 @@
 package com.example.vlmart.domain.model;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -34,6 +35,7 @@ public class Supplier extends BaseModel {
     private String taxCode;
 
     // Trạng thái
-    @Column(columnDefinition = "integer default 1")
+    @Column(name = "status")
+    @ColumnDefault(value = "1")
     private Integer status;
 }

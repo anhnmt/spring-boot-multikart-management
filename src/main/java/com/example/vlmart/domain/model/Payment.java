@@ -24,6 +24,6 @@ public class Payment extends BaseModel {
     private String description;
 
     // Trạng thái
-    @Column(columnDefinition = "integer default 1")
+    @Column(name = "status", columnDefinition = "integer default 1")
     private Integer status;
 }
