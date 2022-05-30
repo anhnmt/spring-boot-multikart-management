@@ -3,8 +3,6 @@ package com.example.vlmart.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,13 +24,13 @@ public class ProductImage extends BaseModel {
     private String url;
 
     // Số thứ tự
-    @Column(columnDefinition = "integer default 0")
-    private Integer index;
+    @Column(name = "position", columnDefinition = "integer default 0")
+    private Integer position;
 
     // Mô tả, ghi chú
     private String description;
 
     // Trạng thái
-    @Column(columnDefinition = "integer default 1")
+    @Column(name = "status", columnDefinition = "integer default 1")
     private Integer status;
 }
