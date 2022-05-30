@@ -5,23 +5,21 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-public class Category extends BaseModel {
+public class Order extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
-    private Long categoryId;
+    @Column(name = "order_id")
+    private Long orderId;
 
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String slug;
-
-    // Trạng thái
-    @Column(columnDefinition = "integer default 1")
-    private Integer status;
+    // Ngày giao hàng
+    @Column(name = "delivery_date")
+    private LocalDateTime deliveryDate;
 }

@@ -9,17 +9,20 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-public class Category extends BaseModel {
+public class Customer extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
-    private Long categoryId;
+    @Column(name = "customer_id")
+    private Long customerId;
 
     @NotBlank
     private String name;
 
     @NotBlank
-    private String slug;
+    private String email;
+
+    @NotBlank
+    private String password;
 
     // Trạng thái
     @Column(columnDefinition = "integer default 1")
