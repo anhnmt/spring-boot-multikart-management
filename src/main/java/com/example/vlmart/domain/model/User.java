@@ -1,5 +1,6 @@
 package com.example.vlmart.domain.model;
 
+import com.example.vlmart.domain.dto.CreateUserRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,4 +33,12 @@ public class User extends BaseModel {
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1")
     private Integer status;
+
+    public User(CreateUserRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        password = input.getPassword();
+        roleId = input.getRoleId();
+        status = input.getStatus();
+    }
 }

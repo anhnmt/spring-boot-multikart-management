@@ -32,19 +32,19 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String backendPostLogin(@Valid UserLoginRequestDTO userDTO, HttpServletRequest request, BindingResult result, Model model) {
-        log.info("userDTO: {}", userDTO);
+    public String backendPostLogin(@Valid UserLoginRequestDTO input, HttpServletRequest request, BindingResult result, Model model) {
+        log.info("userDTO: {}", input);
 
         if (result.hasErrors()) {
             return "backend/auth/login";
         }
 
-        var user = userRepository.findByEmail(userDTO.getEmail());
+        var user = userRepository.findByEmail(input.getEmail());
         if (DataUtils.isNullOrEmpty(user)) {
             result.rejectValue("email", null, "Email does not exist");
         }
 
-        if (!user.getPassword().equals(userDTO.getPassword())) {
+        if (!user.getPassword().equals(input.getPassword())) {
             result.rejectValue("password", null, "Password does not match");
         }
 

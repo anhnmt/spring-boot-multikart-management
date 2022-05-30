@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/backend/layout}">
 <head>
-    <title>Create Users</title>
+    <title>Create User</title>
 </head>
 <body>
 
@@ -90,12 +90,12 @@
                                                 <label class="d-block" for="status1">
                                                     <input class="radio_animated" id="status1" type="radio"
                                                            checked="checked" th:value="1"
-                                                           th:field="*{status}" th:checked="*{status}">
+                                                           th:field="*{status}" th:checked="*{status} ? 'checked' : ''">
                                                     Active
                                                 </label>
                                                 <label class="d-block" for="status2">
                                                     <input class="radio_animated" id="status2" type="radio" th:value="0"
-                                                           th:field="*{status}" th:checked="*{status}">
+                                                           th:field="*{status}" th:checked="*{status} ? '' : 'checked'">
                                                     Inactive
                                                 </label>
                                             </div>
