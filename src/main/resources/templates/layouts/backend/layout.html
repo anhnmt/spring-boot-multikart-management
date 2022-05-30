@@ -38,6 +38,9 @@
     <!-- Chartist css -->
     <link rel="stylesheet" th:href="@{/backend/assets/css/vendors/chartist.css}" type="text/css"/>
 
+    <!-- Datatables css-->
+    <link rel="stylesheet" th:href="@{/backend/assets/css/vendors/datatables.css}" type="text/css"/>
+
     <!-- Bootstrap css-->
     <link rel="stylesheet" th:href="@{/backend/assets/css/vendors/bootstrap.css}" type="text/css"/>
 
@@ -53,14 +56,15 @@
     <div th:replace="layouts/backend/header :: header"></div>
     <!-- header end -->
 
-    <!--&lt;!&ndash; Content Section &ndash;&gt;-->
-    <!--<section layout:fragment="content"></section>-->
-
     <!-- Page Body Start-->
     <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
         <div th:replace="layouts/backend/sidebar :: sidebar"></div>
         <!-- Page Sidebar Ends-->
+
+        <!-- Page Body start -->
+        <div class="page-body" layout:fragment="content"></div>
+        <!-- Page Body end -->
 
         <!-- footer start -->
         <div th:replace="layouts/backend/footer :: footer"></div>
@@ -80,6 +84,10 @@
 
 <!-- Sidebar jquery-->
 <script th:src="@{/backend/assets/js/sidebar-menu.js}"></script>
+
+<!-- Datatable js-->
+<script th:src="@{/backend/assets/js/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/backend/assets/js/datatables/custom-basic.js}"></script>
 
 <!--chartist js-->
 <script th:src="@{/backend/assets/js/chart/chartist/chartist.js}"></script>
