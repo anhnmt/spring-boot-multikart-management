@@ -23,6 +23,11 @@ spring:
         dialect: org.hibernate.dialect.MariaDBDialect
         format_sql: true
 
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
   # THYMELEAF
   thymeleaf:
     cache: false
