@@ -1,7 +1,6 @@
 package com.example.vlmart.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,9 +8,13 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "suppliers")
 public class Supplier extends BaseModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supplier_id")
     private Long supplierId;
 

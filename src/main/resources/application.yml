@@ -29,7 +29,7 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
-    mode: HTML5
+    mode: HTML
 
 # LOGGING
 logging:
