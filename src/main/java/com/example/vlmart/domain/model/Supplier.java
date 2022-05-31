@@ -22,10 +22,9 @@ public class Supplier extends BaseModel {
     @NotBlank
     private String name;
 
-    @NotBlank
     private String email;
+    private String phone;
 
-    @NotBlank
     private String website;
 
     @NotBlank
@@ -35,7 +34,6 @@ public class Supplier extends BaseModel {
     private String taxCode;
 
     // Trạng thái
-    @Column(name = "status")
-    @ColumnDefault(value = "1")
+    @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 }
