@@ -13,14 +13,4 @@ public class HomeController {
         return "frontend/index";
     }
 
-    @GetMapping("/contact")
-    public String contactPage() {
-        return "frontend/contact";
-    }
-
-    @GetMapping("/about")
-    public String aboutPage() {
-        return "frontend/about";
-    }
-
 }
