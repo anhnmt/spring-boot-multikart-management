@@ -259,7 +259,7 @@ public class RunnerConfig implements CommandLineRunner {
         if (count <= 0) {
             List<Customer> customers = new ArrayList<>();
             customers.add(Customer.builder()
-                    .email("cus1@gmail.com")
+                    .email("cus@gmail.com")
                     .name("Trương Vô Kỵ")
                     .password(encodedPassword)
                     .status(1)

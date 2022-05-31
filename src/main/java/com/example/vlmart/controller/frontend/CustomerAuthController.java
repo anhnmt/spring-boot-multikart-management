@@ -1,4 +1,4 @@
-package com.example.vlmart.controller.backend;
+package com.example.vlmart.controller.frontend;
 
 import com.example.vlmart.domain.dto.UserLoginRequestDTO;
 import com.example.vlmart.service.AuthService;
@@ -14,24 +14,24 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/dashboard")
-public class AuthController {
+@RequestMapping("/")
+public class CustomerAuthController {
     @Autowired
     private AuthService authService;
 
     @GetMapping("/login")
     public String login(Model model) {
-        return authService.backendLogin(model);
+        return authService.frontendLogin(model);
     }
 
     @PostMapping("/login")
     public String postLogin(@Valid UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
-        return authService.backendPostLogin(input, session, result, model);
+        return authService.frontendPostLogin(input, session, result, model);
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session, Model model) {
-        return authService.logout(session, model);
+        return authService.frontendLogout(session, model);
     }
 
 }

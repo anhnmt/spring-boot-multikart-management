@@ -53,13 +53,17 @@
 <div class="page-wrapper">
 
     <!-- header start -->
-    <div th:replace="layouts/backend/header :: header"></div>
+    <div layout:fragment="header">
+        <div th:replace="layouts/backend/header :: header"></div>
+    </div>
     <!-- header end -->
 
     <!-- Page Body Start-->
     <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
-        <div th:replace="layouts/backend/sidebar :: sidebar"></div>
+        <div layout:fragment="sidebar">
+            <div th:replace="layouts/backend/sidebar :: sidebar"></div>
+        </div>
         <!-- Page Sidebar Ends-->
 
         <!-- Page Body start -->
@@ -67,7 +71,9 @@
         <!-- Page Body end -->
 
         <!-- footer start -->
-        <div th:replace="layouts/backend/footer :: footer"></div>
+        <div layout:fragment="footer">
+            <div th:replace="layouts/backend/footer :: footer"></div>
+        </div>
         <!-- footer end -->
     </div>
 </div>

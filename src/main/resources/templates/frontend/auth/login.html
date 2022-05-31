@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/frontend/layout}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>Đăng nhập người dùng</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Đăng nhập</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="login-page section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Đăng nhập</h3>
+                    <div class="theme-card">
+                        <form class="theme-form">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                            </div>
+                            <div class="form-group">
+                                <label for="review">Mật khẩu</label>
+                                <input type="password" class="form-control" id="review" placeholder="Nhập mật khẩu của bạn" required="">
+                            </div><a href="#" class="btn btn-solid">Đăng nhập</a>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 right-login">
+                    <h3>Người dùng mới</h3>
+                    <div class="theme-card authentication-right">
+                        <h6 class="title-font">Tạo mới tài khoản</h6>
+                        <p>Đăng ký một tài khoản miễn phí tại cửa hàng của chúng tôi. Thủ tục đăng kí nhanh chóng và đơn giản. Nó cho phép bạn có thể đặt hàng từ cửa hàng của chúng tôi. Để bắt đầu mua sắm bấm đăng ký.</p><a th:href="@{/register}" class="btn btn-solid">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div layout:fragment="footer">
+    <footer class="footer-light">
+        <section class="section-b-space light-layout">
+            <div class="container">
+                <div class="row footer-theme partition-f">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-title footer-mobile-title">
+                            <h4>about</h4>
+                        </div>
+                        <div class="footer-contant">
+                            <div class="footer-logo"><img src="../assets/images/icon/logo.png" alt=""></div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                            <div class="footer-social">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col offset-xl-1">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>my account</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul>
+                                    <li><a href="#">mens</a></li>
+                                    <li><a href="#">womens</a></li>
+                                    <li><a href="#">clothing</a></li>
+                                    <li><a href="#">accessories</a></li>
+                                    <li><a href="#">featured</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>why we choose</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul>
+                                    <li><a href="#">shipping &amp; return</a></li>
+                                    <li><a href="#">secure shopping</a></li>
+                                    <li><a href="#">gallary</a></li>
+                                    <li><a href="#">affiliates</a></li>
+                                    <li><a href="#">contacts</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="sub-title">
+                            <div class="footer-title">
+                                <h4>store information</h4>
+                            </div>
+                            <div class="footer-contant">
+                                <ul class="contact-list">
+                                    <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India
+                                        345-659</li>
+                                    <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
+                                    <li><i class="fa fa-envelope"></i>Email Us: Support@Multikart.com</li>
+                                    <li><i class="fa fa-fax"></i>Fax: 123456</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="footer-end">
+                            <p><i class="fa fa-copyright" aria-hidden="true"></i> 2017-18 themeforest powered by
+                                pixelstrap</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="payment-card-bottom">
+                            <ul>
+                                <li>
+                                    <a href="#"><img src="../assets/images/icon/visa.png" alt=""></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="../assets/images/icon/mastercard.png" alt=""></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="../assets/images/icon/paypal.png" alt=""></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="../assets/images/icon/american-express.png" alt=""></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="../assets/images/icon/discover.png" alt=""></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

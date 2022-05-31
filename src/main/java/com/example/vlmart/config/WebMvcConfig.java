@@ -1,6 +1,7 @@
 package com.example.vlmart.config;
 
 import com.example.vlmart.common.interceptor.AdminInterceptor;
+import com.example.vlmart.common.interceptor.CustomerInterceptor;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private AdminInterceptor adminInterceptor;
+    @Autowired
+    private CustomerInterceptor customerInterceptor;
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
             "classpath:/META-INF/resources/",
@@ -33,6 +36,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        // Loại đi trường hợp /login, /logout
+        registry.addInterceptor(customerInterceptor)
+                .addPathPatterns("/payment", "/profile**")
+                .excludePathPatterns("/login", "/logout");
+
         // Interceptor này áp dụng cho các URL có dạng /dashboard*
         // Loại đi trường hợp /dashboard/login, /dashboard/logout
         registry.addInterceptor(adminInterceptor)
