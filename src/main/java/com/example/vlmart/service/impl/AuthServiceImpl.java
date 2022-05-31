@@ -1,6 +1,6 @@
 package com.example.vlmart.service.impl;
 
-import com.example.vlmart.common.utils.DataUtils;
+import com.example.vlmart.common.DataUtils;
 import com.example.vlmart.domain.dto.UserLoginRequestDTO;
 import com.example.vlmart.repo.UserRepository;
 import com.example.vlmart.service.AuthService;
@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -32,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String backendPostLogin(@Valid UserLoginRequestDTO input, HttpServletRequest request, BindingResult result, Model model) {
+    public String backendPostLogin(@Valid UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
         log.info("userDTO: {}", input);
 
         if (result.hasErrors()) {
@@ -48,7 +46,13 @@ public class AuthServiceImpl implements AuthService {
             result.rejectValue("password", null, "Password does not match");
         }
 
-        request.getSession().setAttribute("userAuth", user);
+        session.setAttribute("user", user);
         return "redirect:/dashboard";
+    }
+
+    @Override
+    public String logout(HttpSession session, Model model) {
+        session.invalidate();
+        return "redirect:/dashboard/login";
     }
 }
