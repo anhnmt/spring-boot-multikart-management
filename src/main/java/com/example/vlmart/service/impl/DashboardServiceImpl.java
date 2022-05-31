@@ -1,6 +1,5 @@
 package com.example.vlmart.service.impl;
 
-import com.example.vlmart.common.AuthUtils;
 import com.example.vlmart.service.DashboardService;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;

@@ -1,8 +1,10 @@
 package com.example.vlmart.config;
 
+import com.example.vlmart.domain.model.Category;
 import com.example.vlmart.domain.model.Role;
 import com.example.vlmart.domain.model.Unit;
 import com.example.vlmart.domain.model.User;
+import com.example.vlmart.repo.CategoryRepository;
 import com.example.vlmart.repo.RoleRepository;
 import com.example.vlmart.repo.UnitRepository;
 import com.example.vlmart.repo.UserRepository;
@@ -19,13 +21,15 @@ import java.util.List;
 @Component
 public class RunnerConfig implements CommandLineRunner {
     @Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private UnitRepository unitRepository;
     @Autowired
-    private BCryptPasswordEncoder bcryptPasswordEncoder;
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -98,6 +102,18 @@ public class RunnerConfig implements CommandLineRunner {
                     .build());
 
             unitRepository.saveAll(units);
+        }
+    }
+
+    private void categorySeeder() {
+        var count = categoryRepository.count();
+        if (count <= 0) {
+            List<Category> categories = new ArrayList<>();
+            categories.add(Category.builder()
+                    .name("Hộp")
+                    .build());
+
+            categoryRepository.saveAll(categories);
         }
     }
 }
