@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String logout(HttpSession session, Model model) {
-        session.invalidate();
+        session.removeAttribute("user");
         return "redirect:/dashboard/login";
     }
 }
