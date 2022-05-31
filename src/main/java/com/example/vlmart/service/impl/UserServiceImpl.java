@@ -64,13 +64,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUser(Long id, BindingResult result, Model model) {
+    public String deleteUser(Long id, Model model) {
         var user = userRepository.findByUserId(id);
         if (DataUtils.isNullOrEmpty(user)) {
-            result.rejectValue("id", "id.notfound", "User is not exist");
+
         }
         if (user.getStatus() == 0) {
-            result.rejectValue("id", "id.deleted", "User was be deleted");
+
         }
         user.setStatus(0);
         userRepository.save(user);

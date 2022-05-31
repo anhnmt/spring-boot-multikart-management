@@ -32,8 +32,8 @@ public class UserController {
         return userService.storeUser(input, result, model, redirectAttributes);
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@Valid @PathVariable("id") Long id, BindingResult result, Model model) {
-        return userService.deleteUser(id, result, model);
+    @PostMapping("{id}/delete")
+    public String delete(@PathVariable("id") Long id, Model model) {
+        return userService.deleteUser(id, model);
     }
 }
