@@ -104,10 +104,8 @@
                                     <div class="form-group row">
                                         <label for="role" class="col-xl-3 col-md-4"><span>*</span> Role</label>
                                         <div class="col-xl-8 col-md-7">
-                                            <select class="form-control" id="role" th:field="*{roleId}">
-                                                <option th:each="role : ${roles}" th:value="${role.roleId}"
-                                                        th:text="${role.name}"></option>
-                                            </select>
+                                            <input class="form-control" id="role" type="text"
+                                                   required placeholder="Role..." th:field="*{roleId}">
                                         </div>
                                     </div>
 

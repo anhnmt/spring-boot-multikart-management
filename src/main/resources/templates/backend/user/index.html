@@ -62,7 +62,15 @@
                                 <td th:text="${user.email}"></td>
                                 <td th:text="${user.roleId}"></td>
                                 <td><span class="badge badge-success" th:text="${user.status}"></span></td>
-                                <td>Delete</td>
+                                <td>
+                                    <form th:action="@{/dashboard/users/{id}(id=${user.userId})}" action="#"
+                                          th:method="DELETE">
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/dashboard/users/edit/{id}(id=${user.userId})}" class="btn btn-sm btn-warning">edit</a>
+                                            <button th:type="submit" class="btn btn-sm btn-primary">delete</button>
+                                        </div>
+                                    </form>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
