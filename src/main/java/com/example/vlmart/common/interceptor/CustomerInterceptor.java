@@ -11,19 +11,19 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-public class AdminInterceptor implements HandlerInterceptor {
+public class CustomerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 
-        log.info("\n-------- AdminInterceptor.preHandle --- ");
+        log.info("\n-------- CustomerInterceptor.preHandle --- ");
         log.info("Current url: {}", request.getRequestURL());
 
-        var user = request.getSession().getAttribute("user");
-        log.info("User : {}", user);
+        var customer = request.getSession().getAttribute("customer");
+        log.info("User : {}", customer);
 
-        if (!DataUtils.notNullOrEmpty(user)) {
-            response.sendRedirect(request.getContextPath() + "/dashboard/login");
+        if (!DataUtils.notNullOrEmpty(customer)) {
+            response.sendRedirect(request.getContextPath() + "/login");
             return false;
         }
 

@@ -11,11 +11,6 @@ import javax.servlet.http.HttpSession;
 public class DashboardServiceImpl implements DashboardService {
     @Override
     public String dashboard(HttpSession session, Model model) {
-        var auth = AuthUtils.isAuthenticated(session);
-        if (!auth.equals("")) {
-            return auth;
-        }
-
         return "backend/index";
     }
 }
