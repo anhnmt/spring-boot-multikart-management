@@ -1,4 +1,4 @@
-package com.example.vlmart.common.utils;
+package com.example.vlmart.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

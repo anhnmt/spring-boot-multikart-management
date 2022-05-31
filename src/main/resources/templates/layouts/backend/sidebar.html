@@ -20,7 +20,7 @@
         <div class="sidebar-user">
             <img class="img-60" th:src="@{/backend/assets/images/dashboard/user3.jpg}" alt="#"/>
             <div>
-                <h6 class="f-14">JOHN</h6>
+                <h6 class="f-14" th:text="${session.user.name}">JOHN</h6>
                 <p>general manager.</p>
             </div>
         </div>

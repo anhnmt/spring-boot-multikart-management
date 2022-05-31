@@ -1,6 +1,6 @@
 package com.example.vlmart.service.impl;
 
-import com.example.vlmart.common.utils.DataUtils;
+import com.example.vlmart.common.DataUtils;
 import com.example.vlmart.domain.dto.CreateUserRequestDTO;
 import com.example.vlmart.domain.model.User;
 import com.example.vlmart.repo.UserRepository;

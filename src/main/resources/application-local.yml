@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mariadb://localhost/vlmart?useSSL=false
+    url: jdbc:mariadb://localhost:3306/vlmart?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: root
     password: 123456aA@
     driverClassName: org.mariadb.jdbc.Driver
