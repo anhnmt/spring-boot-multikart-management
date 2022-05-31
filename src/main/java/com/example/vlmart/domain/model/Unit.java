@@ -22,4 +22,8 @@ public class Unit extends BaseModel {
     private String name;
 
     private String description;
+
+    // Trạng thái
+    @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
+    private Integer status;
 }

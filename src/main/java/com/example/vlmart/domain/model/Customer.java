@@ -28,6 +28,6 @@ public class Customer extends BaseModel {
     private String password;
 
     // Trạng thái
-    @Column(name = "status", columnDefinition = "integer default 1")
+    @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 }
