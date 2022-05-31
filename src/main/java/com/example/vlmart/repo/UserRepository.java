@@ -9,9 +9,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    List<User> findAll();
+    List<User> findAllByStatus(Integer status);
 
-    Optional<User> findByUserId(Long userId);
+    User findByUserId(Long userId);
 
     User findByEmail(String email);
+    int countByEmail(String email);
 }
