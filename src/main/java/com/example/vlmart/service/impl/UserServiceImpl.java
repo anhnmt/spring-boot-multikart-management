@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -41,10 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String storeUser(@Valid CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String storeUser(CreateUserRequestDTO input, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("user", input);
-            return "redirect:/dashboard/users/create";
+            model.addAttribute("user", input);
+            model.addAttribute("roles", roleRepository.findAll());
+            return "backend/user/create";
         }
 
         input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
@@ -54,7 +55,9 @@ public class UserServiceImpl implements UserService {
         }
 
         if (result.hasErrors()) {
-            return "redirect:/dashboard/users/create";
+            model.addAttribute("user", input);
+            model.addAttribute("roles", roleRepository.findAll());
+            return "backend/user/create";
         }
 
         var newUser = new User(input);

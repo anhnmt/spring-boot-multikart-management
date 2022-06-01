@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -27,9 +27,9 @@ public class UserController {
         return userService.createUser(model);
     }
 
-    @PostMapping
-    public String store(@Valid CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-        return userService.storeUser(input, result, model, redirectAttributes);
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("user") CreateUserRequestDTO input, BindingResult result, Model model) {
+        return userService.storeUser(input, result, model);
     }
 
     @PostMapping("{id}/delete")
