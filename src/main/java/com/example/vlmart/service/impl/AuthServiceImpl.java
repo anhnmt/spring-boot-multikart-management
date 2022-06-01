@@ -1,5 +1,6 @@
 package com.example.vlmart.service.impl;
 
+import com.example.vlmart.common.Const.DefaultStatus;
 import com.example.vlmart.common.DataUtils;
 import com.example.vlmart.domain.dto.UserLoginRequestDTO;
 import com.example.vlmart.repo.CustomerRepository;
@@ -43,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
             return "backend/auth/login";
         }
 
-        var user = userRepository.findByEmailAndStatus(input.getEmail(), 1);
+        var user = userRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             result.rejectValue("email", null, "Email does not exist");
         }
@@ -80,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
             return "frontend/auth/login";
         }
 
-        var cus = customerRepository.findByEmail(input.getEmail());
+        var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(cus)) {
             result.rejectValue("email", null, "Email does not exist");
         }

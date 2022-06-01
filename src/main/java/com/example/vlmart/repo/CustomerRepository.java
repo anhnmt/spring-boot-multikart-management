@@ -5,5 +5,5 @@ import com.example.vlmart.domain.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    Customer findByEmail(String email);
+    Customer findByEmailAndStatus(String email, Integer status);
 }

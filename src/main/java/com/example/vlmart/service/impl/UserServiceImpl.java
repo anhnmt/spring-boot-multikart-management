@@ -1,5 +1,7 @@
 package com.example.vlmart.service.impl;
 
+import com.example.vlmart.common.Const;
+import com.example.vlmart.common.Const.DefaultStatus;
 import com.example.vlmart.common.DataUtils;
 import com.example.vlmart.domain.dto.CreateUserRequestDTO;
 import com.example.vlmart.domain.dto.UpdateUserRequestDTO;
@@ -25,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String findAllUsers(Model model) {
-        var users = userRepository.findAllByStatus(1);
+        var users = userRepository.findAllByStatus(DefaultStatus.ACTIVE);
         model.addAttribute("users", users);
 
         return "backend/user/index";
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String createUser(Model model) {
-        model.addAttribute("user", User.builder().status(1).build());
+        model.addAttribute("user", User.builder().status(DefaultStatus.ACTIVE).build());
         model.addAttribute("roles", roleRepository.findAll());
 
         return "backend/user/create";
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
         }
 
         input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
-        var count = userRepository.countByEmailAndStatus(input.getEmail(), 1);
+        var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (count > 0) {
             result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String edit(Long id, Model model, RedirectAttributes redirect) {
-        var user = userRepository.findByUserIdAndStatus(id, 1);
+        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
             return "redirect:/dashboard/users";
@@ -82,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String update(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var user = userRepository.findByUserIdAndStatus(id, 1);
+        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
             return "redirect:/dashboard/users";
@@ -99,7 +101,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!user.getEmail().equals(input.getEmail())) {
-            var count = userRepository.countByEmailAndStatus(input.getEmail(), 1);
+            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
             if (count > 0) {
                 result.rejectValue("email", "email.required", "Email đã được sử dụng");
             }
@@ -124,13 +126,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUser(Long id, Model model, RedirectAttributes redirect) {
-        var user = userRepository.findByUserIdAndStatus(id, 1);
+        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
             return "redirect:/dashboard/users";
         }
 
-        user.setStatus(0);
+        user.setStatus(DefaultStatus.DELETED);
         userRepository.save(user);
 
         redirect.addFlashAttribute("success", "Xóa thành công");
