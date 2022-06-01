@@ -10,11 +10,9 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findAllByStatus(Integer status);
 
-    User findByUserId(Long userId);
-
     User findByUserIdAndStatus(Long userId, Integer status);
 
-    User findByEmail(String email);
+    User findByEmailAndStatus(String email, Integer status);
 
-    int countByEmail(String email);
+    int countByEmailAndStatus(String email, Integer status);
 }

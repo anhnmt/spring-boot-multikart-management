@@ -1,6 +1,7 @@
 package com.example.vlmart.common.interceptor;
 
 import com.example.vlmart.common.DataUtils;
+import com.example.vlmart.domain.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,7 +20,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         log.info("\n-------- AdminInterceptor.preHandle --- ");
         log.info("Current url: {}", request.getRequestURL());
 
-        var user = request.getSession().getAttribute("user");
+        var user = (User) request.getSession().getAttribute("user");
         log.info("User : {}", user);
 
         if (DataUtils.isNullOrEmpty(user)) {

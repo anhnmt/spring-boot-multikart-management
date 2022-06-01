@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
             return "backend/auth/login";
         }
 
-        var user = userRepository.findByEmail(input.getEmail());
+        var user = userRepository.findByEmailAndStatus(input.getEmail(), 1);
         if (DataUtils.isNullOrEmpty(user)) {
             result.rejectValue("email", null, "Email does not exist");
         }

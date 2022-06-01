@@ -1,6 +1,7 @@
 package com.example.vlmart.controller.backend;
 
 import com.example.vlmart.domain.dto.CreateUserRequestDTO;
+import com.example.vlmart.domain.dto.UpdateUserRequestDTO;
 import com.example.vlmart.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,16 @@ public class UserController {
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("user") CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return userService.storeUser(input, result, model, redirect);
+    }
+
+    @GetMapping("/{id}")
+    public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
+        return userService.edit(id, model, redirect);
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute("user") UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+        return userService.update(id, input, result, model, redirect);
     }
 
     @PostMapping("{id}/delete")
