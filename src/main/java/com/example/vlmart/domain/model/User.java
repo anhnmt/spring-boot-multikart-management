@@ -1,6 +1,7 @@
 package com.example.vlmart.domain.model;
 
 import com.example.vlmart.domain.dto.CreateUserRequestDTO;
+import com.example.vlmart.domain.dto.UpdateUserRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,6 +36,14 @@ public class User extends BaseModel {
     private Integer status;
 
     public User(CreateUserRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        password = input.getPassword();
+        roleId = input.getRoleId();
+        status = input.getStatus();
+    }
+
+    public User(UpdateUserRequestDTO input) {
         name = input.getName();
         email = input.getEmail();
         password = input.getPassword();

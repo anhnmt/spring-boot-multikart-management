@@ -1,7 +1,10 @@
 package com.example.vlmart.service.impl;
 
+import com.example.vlmart.common.Const;
+import com.example.vlmart.common.Const.DefaultStatus;
 import com.example.vlmart.common.DataUtils;
 import com.example.vlmart.domain.dto.CreateUserRequestDTO;
+import com.example.vlmart.domain.dto.UpdateUserRequestDTO;
 import com.example.vlmart.domain.model.User;
 import com.example.vlmart.repo.RoleRepository;
 import com.example.vlmart.repo.UserRepository;
@@ -12,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.validation.Valid;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String findAllUsers(Model model) {
-        var users = userRepository.findAllByStatus(1);
+        var users = userRepository.findAllByStatus(DefaultStatus.ACTIVE);
         model.addAttribute("users", users);
 
         return "backend/user/index";
@@ -34,47 +35,107 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String createUser(Model model) {
-        model.addAttribute("user", User.builder().status(1).build());
+        model.addAttribute("user", User.builder().status(DefaultStatus.ACTIVE).build());
         model.addAttribute("roles", roleRepository.findAll());
 
         return "backend/user/create";
     }
 
     @Override
-    public String storeUser(@Valid CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String storeUser(CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("user", input);
-            return "redirect:/dashboard/users/create";
+            model.addAttribute("user", input);
+            model.addAttribute("roles", roleRepository.findAll());
+            return "backend/user/create";
         }
 
         input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
-        var count = userRepository.countByEmail(input.getEmail());
+        var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (count > 0) {
-            result.rejectValue("email", "email.required", "Email is already exist");
+            result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
 
         if (result.hasErrors()) {
-            return "redirect:/dashboard/users/create";
+            model.addAttribute("user", input);
+            model.addAttribute("roles", roleRepository.findAll());
+            return "backend/user/create";
         }
 
         var newUser = new User(input);
         userRepository.save(newUser);
 
+        redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/users";
     }
 
     @Override
-    public String deleteUser(Long id, Model model) {
-        var user = userRepository.findByUserId(id);
+    public String edit(Long id, Model model, RedirectAttributes redirect) {
+        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
-
+            redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+            return "redirect:/dashboard/users";
         }
-        if (user.getStatus() == 0) {
 
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roleRepository.findAll());
+
+        return "backend/user/edit";
+    }
+
+    @Override
+    public String update(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(user)) {
+            redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+            return "redirect:/dashboard/users";
         }
-        user.setStatus(0);
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", input);
+            model.addAttribute("roles", roleRepository.findAll());
+            return "backend/user/create";
+        }
+
+        if (!input.getPassword().isEmpty()) {
+            user.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
+        }
+
+        if (!user.getEmail().equals(input.getEmail())) {
+            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            if (count > 0) {
+                result.rejectValue("email", "email.required", "Email đã được sử dụng");
+            }
+
+            user.setEmail(input.getEmail());
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", input);
+            model.addAttribute("roles", roleRepository.findAll());
+            return "backend/user/create";
+        }
+
+        user.setName(input.getName());
+        user.setRoleId(input.getRoleId());
+        user.setStatus(input.getStatus());
         userRepository.save(user);
 
+        redirect.addFlashAttribute("success", "Sửa thành công");
+        return "redirect:/dashboard/users";
+    }
+
+    @Override
+    public String deleteUser(Long id, Model model, RedirectAttributes redirect) {
+        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(user)) {
+            redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+            return "redirect:/dashboard/users";
+        }
+
+        user.setStatus(DefaultStatus.DELETED);
+        userRepository.save(user);
+
+        redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/users";
     }
 }

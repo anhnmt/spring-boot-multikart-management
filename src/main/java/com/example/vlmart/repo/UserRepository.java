@@ -5,14 +5,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findAllByStatus(Integer status);
 
-    User findByUserId(Long userId);
+    User findByUserIdAndStatus(Long userId, Integer status);
 
-    User findByEmail(String email);
-    int countByEmail(String email);
+    User findByEmailAndStatus(String email, Integer status);
+
+    int countByEmailAndStatus(String email, Integer status);
 }

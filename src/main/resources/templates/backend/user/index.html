@@ -66,9 +66,9 @@
                                     <form th:action="@{/dashboard/users/{id}/delete(id=${user.userId})}" action="#"
                                           th:method="POST">
                                         <div class="btn-group btn-group-sm">
-                                            <a th:href="@{/dashboard/users/edit/{id}(id=${user.userId})}"
-                                               class="btn btn-sm btn-warning">edit</a>
-                                            <button th:type="submit" class="btn btn-sm btn-primary">delete</button>
+                                            <a th:href="@{/dashboard/users/{id}(id=${user.userId})}"
+                                               class="btn btn-sm btn-warning">sửa</a>
+                                            <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
                                         </div>
                                     </form>
                                 </td>
@@ -81,6 +81,28 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        let success = [[${success}]];
+        let error = [[${error}]];
+
+        if (error && error !== "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi rồi!',
+                text: error
+            });
+        } else if (success && success !== "") {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: success
+            });
+        }
+
+    </script>
 </div>
 
 </body>

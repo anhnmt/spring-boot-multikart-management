@@ -1,12 +1,14 @@
 package com.example.vlmart.controller.backend;
 
 import com.example.vlmart.domain.dto.CreateUserRequestDTO;
+import com.example.vlmart.domain.dto.UpdateUserRequestDTO;
 import com.example.vlmart.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -27,13 +29,23 @@ public class UserController {
         return userService.createUser(model);
     }
 
-    @PostMapping
-    public String store(@Valid CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-        return userService.storeUser(input, result, model, redirectAttributes);
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("user") CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+        return userService.storeUser(input, result, model, redirect);
+    }
+
+    @GetMapping("/{id}")
+    public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
+        return userService.edit(id, model, redirect);
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute("user") UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+        return userService.update(id, input, result, model, redirect);
     }
 
     @PostMapping("{id}/delete")
-    public String delete(@PathVariable("id") Long id, Model model) {
-        return userService.deleteUser(id, model);
+    public String delete(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
+        return userService.deleteUser(id, model, redirect);
     }
 }
