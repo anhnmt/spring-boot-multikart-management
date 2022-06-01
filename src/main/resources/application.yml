@@ -5,9 +5,12 @@ spring:
   application:
     name: base-project
 
+  main:
+    lazy-initialization: true
+
   # DATASOURCE
   datasource:
-    url: jdbc:mariadb://localhost:3306/vlmart?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    url: jdbc:mariadb://localhost:3306/multikart?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: root
     password: 123456aA@
     driverClassName: org.mariadb.jdbc.Driver
