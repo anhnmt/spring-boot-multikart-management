@@ -18,6 +18,15 @@ public class Product extends BaseModel {
     @Column(name = "product_id")
     private Long productId;
 
+    @Column(name = "category_id", nullable = false)
+    private Long categoryId;
+
+    @Column(name = "unit_id", nullable = false)
+    private Long unitId;
+
+    @Column(name = "supplier_id", nullable = false)
+    private Long supplierId;
+
     @NotBlank
     private String name;
 

@@ -19,6 +19,15 @@ public class Order extends BaseModel {
     @Column(name = "order_id")
     private Long orderId;
 
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
+
+    @Column(name = "transport_id", nullable = false)
+    private Long transportId;
+
+    @Column(name = "payment_id", nullable = false)
+    private Long paymentId;
+
     @NotBlank
     private String name;
 
