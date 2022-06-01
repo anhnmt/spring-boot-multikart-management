@@ -22,7 +22,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         var user = request.getSession().getAttribute("user");
         log.info("User : {}", user);
 
-        if (!DataUtils.notNullOrEmpty(user)) {
+        if (DataUtils.isNullOrEmpty(user)) {
             response.sendRedirect(request.getContextPath() + "/dashboard/login");
             return false;
         }

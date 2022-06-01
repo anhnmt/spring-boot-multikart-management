@@ -44,6 +44,9 @@
     <!-- Bootstrap css-->
     <link rel="stylesheet" th:href="@{/backend/assets/css/vendors/bootstrap.css}" type="text/css"/>
 
+    <!-- sweetalert2-->
+    <link rel="stylesheet" th:href="@{/backend/assets/css/sweetalert2/sweetalert2.min.css}"/>
+
     <!-- App css-->
     <link rel="stylesheet" th:href="@{/backend/assets/css/style.css}" type="text/css"/>
 </head>
@@ -129,8 +132,13 @@
 <!-- lazyload js-->
 <script th:src="@{/backend/assets/js/lazysizes.min.js}"></script>
 
+<!-- sweetalert2-->
+<script th:src="@{/backend/assets/js/sweetalert2/sweetalert2.all.min.js}"></script>
+
 <!--script admin-->
 <script th:src="@{/backend/assets/js/admin-script.js}"></script>
+
+<div layout:fragment="customScript"></div>
 
 </body>
 </html>

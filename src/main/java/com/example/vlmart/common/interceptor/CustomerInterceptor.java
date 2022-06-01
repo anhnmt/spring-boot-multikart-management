@@ -22,7 +22,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
         var customer = request.getSession().getAttribute("customer");
         log.info("User : {}", customer);
 
-        if (!DataUtils.notNullOrEmpty(customer)) {
+        if (DataUtils.isNullOrEmpty(customer)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return false;
         }

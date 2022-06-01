@@ -11,9 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String storeUser(CreateUserRequestDTO input, BindingResult result, Model model) {
+    public String storeUser(CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("user", input);
             model.addAttribute("roles", roleRepository.findAll());
@@ -51,7 +49,7 @@ public class UserServiceImpl implements UserService {
         input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
         var count = userRepository.countByEmail(input.getEmail());
         if (count > 0) {
-            result.rejectValue("email", "email.required", "Email is already exist");
+            result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
 
         if (result.hasErrors()) {
@@ -63,21 +61,22 @@ public class UserServiceImpl implements UserService {
         var newUser = new User(input);
         userRepository.save(newUser);
 
+        redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/users";
     }
 
     @Override
-    public String deleteUser(Long id, Model model) {
-        var user = userRepository.findByUserId(id);
+    public String deleteUser(Long id, Model model, RedirectAttributes redirect) {
+        var user = userRepository.findByUserIdAndStatus(id, 1);
         if (DataUtils.isNullOrEmpty(user)) {
-
+            redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+            return "redirect:/dashboard/users";
         }
-        if (user.getStatus() == 0) {
 
-        }
         user.setStatus(0);
         userRepository.save(user);
 
+        redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/users";
     }
 }

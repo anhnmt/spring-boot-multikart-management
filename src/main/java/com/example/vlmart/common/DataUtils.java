@@ -20,24 +20,12 @@ public class DataUtils {
         return Optional.ofNullable(value).orElse(defaultValue);
     }
 
-    public static boolean notNullOrEmpty(String text) {
-        return !DataUtils.isNullOrEmpty(text);
-    }
-
-    public static boolean notNullOrEmpty(Collection collection) {
-        return !isNullOrEmpty(collection);
-    }
-
     public static boolean isNullOrEmpty(Collection objects) {
         return objects == null || objects.isEmpty();
     }
 
     public static boolean isNullOrEmpty(Map<?, ?> map) {
         return map == null || map.isEmpty();
-    }
-
-    public static boolean notNullOrEmpty(Object object) {
-        return !isNullOrEmpty(object);
     }
 
     public static boolean isNullOrEmpty(Object object) {
