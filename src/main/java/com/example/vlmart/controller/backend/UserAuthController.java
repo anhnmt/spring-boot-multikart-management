@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,7 +26,7 @@ public class UserAuthController {
     }
 
     @PostMapping("/login")
-    public String postLogin(@Valid UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
+    public String postLogin(@Valid @ModelAttribute("user") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
         return authService.backendPostLogin(input, session, result, model);
     }
 

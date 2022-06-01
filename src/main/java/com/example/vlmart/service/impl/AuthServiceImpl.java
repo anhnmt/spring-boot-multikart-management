@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
             result.rejectValue("email", null, "Email does not exist");
         }
 
-        if (!bcryptPasswordEncoder.matches(user.getPassword(), input.getPassword())) {
+        if (!bcryptPasswordEncoder.matches(input.getPassword(), user.getPassword())) {
             result.rejectValue("password", null, "Password does not match");
         }
 
@@ -78,16 +78,22 @@ public class AuthServiceImpl implements AuthService {
         log.info("userDTO: {}", input);
 
         if (result.hasErrors()) {
+            model.addAttribute("customer", input);
             return "frontend/auth/login";
         }
 
         var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(cus)) {
-            result.rejectValue("email", null, "Email does not exist");
+            result.rejectValue("email", "", "Email không tồn tại");
         }
 
-        if (!bcryptPasswordEncoder.matches(cus.getPassword(), input.getPassword())) {
-            result.rejectValue("password", null, "Password does not match");
+        if (!bcryptPasswordEncoder.matches(input.getPassword(), cus.getPassword())) {
+            result.rejectValue("password", "", "Mật khẩu không khớp");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("customer", input);
+            return "frontend/auth/login";
         }
 
         session.setAttribute("customer", cus);

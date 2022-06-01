@@ -5,6 +5,9 @@ spring:
   application:
     name: base-project
 
+  main:
+    lazy-initialization: true
+
   # DATASOURCE
   datasource:
     url: jdbc:mariadb://localhost:3306/vlmart?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
