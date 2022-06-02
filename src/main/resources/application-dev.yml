@@ -1,9 +1,0 @@
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:mariadb://pc.xdorro.dev:3306/vlmart?useSSL=false
-    username: root
-    password: 123456aA@
-    driverClassName: org.mariadb.jdbc.Driver
