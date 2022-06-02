@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Danh sách Danh mục</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Orders
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Sales</li>
+                        <li class="breadcrumb-item active">Orders</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <!-- <div class="card-header">
+                        <h5>Manage Order</h5>
+                    </div> -->
+                    <div class="card-body order-datatable">
+                        <table class="display" id="basic-1">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Đường dẫn</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cate : ${categories}">
+                                <td th:text="${cate.categoryId}"></td>
+                                <td th:text="${cate.name}"></td>
+                                <td th:text="${cate.slug}"></td>
+                                <td><span class="badge badge-success" th:text="${cate.status}"></span></td>
+                                <td>
+                                    <form th:action="@{/dashboard/categories/{id}/delete(id=${cate.categoryId})}" action="#"
+                                          th:method="POST">
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/dashboard/categories/{id}(id=${cate.categoryId})}"
+                                               class="btn btn-sm btn-warning">sửa</a>
+                                            <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        let success = [[${success}]];
+        let error = [[${error}]];
+
+        if (error && error !== "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi rồi!',
+                text: error
+            });
+        } else if (success && success !== "") {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: success
+            });
+        }
+
+    </script>
+</div>
+
+</body>
+</html>

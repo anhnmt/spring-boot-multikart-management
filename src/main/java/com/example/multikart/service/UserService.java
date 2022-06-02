@@ -13,9 +13,9 @@ public interface UserService {
 
     String storeUser(CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect);
 
-    String edit(Long id, Model model, RedirectAttributes redirect);
+    String editUser(Long id, Model model, RedirectAttributes redirect);
 
-    String update(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect);
+    String updateUser(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect);
 
     String deleteUser(Long id, Model model, RedirectAttributes redirect);
 }

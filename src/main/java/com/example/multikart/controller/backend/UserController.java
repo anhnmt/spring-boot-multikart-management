@@ -35,12 +35,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
-        return userService.edit(id, model, redirect);
+        return userService.editUser(id, model, redirect);
     }
 
     @PostMapping("/{id}")
     public String update(@PathVariable("id") Long id, @ModelAttribute("user") UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        return userService.update(id, input, result, model, redirect);
+        return userService.updateUser(id, input, result, model, redirect);
     }
 
     @PostMapping("{id}/delete")

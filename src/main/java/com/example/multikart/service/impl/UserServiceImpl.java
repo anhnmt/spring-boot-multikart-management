@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String createUser(Model model) {
         model.addAttribute("user", User.builder().status(DefaultStatus.ACTIVE).build());
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
         return "backend/user/create";
     }
@@ -44,7 +44,8 @@ public class UserServiceImpl implements UserService {
     public String storeUser(CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("user", input);
-            model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
+
             return "backend/user/create";
         }
 
@@ -56,7 +57,8 @@ public class UserServiceImpl implements UserService {
 
         if (result.hasErrors()) {
             model.addAttribute("user", input);
-            model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
+
             return "backend/user/create";
         }
 
@@ -68,30 +70,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String edit(Long id, Model model, RedirectAttributes redirect) {
+    public String editUser(Long id, Model model, RedirectAttributes redirect) {
         var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+
             return "redirect:/dashboard/users";
         }
 
         model.addAttribute("user", user);
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
         return "backend/user/edit";
     }
 
     @Override
-    public String update(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String updateUser(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+
             return "redirect:/dashboard/users";
         }
 
         if (result.hasErrors()) {
             model.addAttribute("user", input);
-            model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
+
             return "backend/user/create";
         }
 
@@ -110,7 +115,8 @@ public class UserServiceImpl implements UserService {
 
         if (result.hasErrors()) {
             model.addAttribute("user", input);
-            model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
+
             return "backend/user/create";
         }
 
@@ -128,6 +134,7 @@ public class UserServiceImpl implements UserService {
         var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+
             return "redirect:/dashboard/users";
         }
 
