@@ -26,14 +26,14 @@
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a class="sidebar-header" href="index.html">
+                <a class="sidebar-header" th:href="@{/dashboard}">
                     <i data-feather="home"></i>
-                    <span>Dashboard</span>
+                    <span>Bảng điều khiển</span>
                 </a>
             </li>
 
             <li>
-                <a class="sidebar-header" href="#">
+                <a class="sidebar-header">
                     <i data-feather="user-plus"></i>
                     <span>Người dùng</span>
                     <i class="fa fa-angle-right pull-right"></i>
@@ -53,7 +53,7 @@
             </li>
 
             <li>
-                <a class="sidebar-header" href="#">
+                <a class="sidebar-header">
                     <i data-feather="user-plus"></i>
                     <span>Phân quyền</span>
                     <i class="fa fa-angle-right pull-right"></i>
@@ -73,7 +73,7 @@
             </li>
 
             <li>
-                <a class="sidebar-header" href="#">
+                <a class="sidebar-header">
                     <i data-feather="users"></i>
                     <span>Danh mục</span>
                     <i class="fa fa-angle-right pull-right"></i>
@@ -93,7 +93,7 @@
             </li>
 
             <li>
-                <a class="sidebar-header" href="#">
+                <a class="sidebar-header">
                     <i data-feather="users"></i>
                     <span>Đơn vị tính</span>
                     <i class="fa fa-angle-right pull-right"></i>
@@ -106,6 +106,126 @@
                     </li>
                     <li>
                         <a th:href="@{/dashboard/units/create}">
+                            <i class="fa fa-circle"></i>Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="sidebar-header">
+                    <i data-feather="users"></i>
+                    <span>Nhà cung cấp</span>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a th:href="@{/dashboard/suppliers}">
+                            <i class="fa fa-circle"></i>Danh sách
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/units/create}">
+                            <i class="fa fa-circle"></i>Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="sidebar-header">
+                    <i data-feather="users"></i>
+                    <span>Khách hàng</span>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a th:href="@{/dashboard/customers}">
+                            <i class="fa fa-circle"></i>Danh sách
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/customers/create}">
+                            <i class="fa fa-circle"></i>Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="sidebar-header">
+                    <i data-feather="users"></i>
+                    <span>Sản phẩm</span>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a th:href="@{/dashboard/products}">
+                            <i class="fa fa-circle"></i>Danh sách
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/products/create}">
+                            <i class="fa fa-circle"></i>Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="sidebar-header">
+                    <i data-feather="users"></i>
+                    <span>Phương thức thanh toán</span>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a th:href="@{/dashboard/payments}">
+                            <i class="fa fa-circle"></i>Danh sách
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/payments/create}">
+                            <i class="fa fa-circle"></i>Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="sidebar-header">
+                    <i data-feather="users"></i>
+                    <span>Đơn vị vận chuyển</span>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a th:href="@{/dashboard/transports}">
+                            <i class="fa fa-circle"></i>Danh sách
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/transports/create}">
+                            <i class="fa fa-circle"></i>Thêm mới
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="sidebar-header">
+                    <i data-feather="users"></i>
+                    <span>Hóa đơn</span>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a th:href="@{/dashboard/orders}">
+                            <i class="fa fa-circle"></i>Danh sách
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/orders/create}">
                             <i class="fa fa-circle"></i>Thêm mới
                         </a>
                     </li>
