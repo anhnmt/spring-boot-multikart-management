@@ -6,5 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface RoleRepository extends CrudRepository<Role, Long> {
-    List<Role> findAll();
+    List<Role> findAllByStatus(Integer status);
+
+    Role findByRoleIdAndStatus(Long categoryId, Integer status);
+
+    int countByNameAndStatus(String name, Integer status);
 }
