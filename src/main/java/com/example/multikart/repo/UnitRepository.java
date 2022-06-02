@@ -1,6 +1,5 @@
 package com.example.multikart.repo;
 
-import com.example.multikart.domain.model.Category;
 import com.example.multikart.domain.model.Unit;
 import org.springframework.data.repository.CrudRepository;
 

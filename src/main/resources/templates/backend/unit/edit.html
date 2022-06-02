@@ -53,7 +53,7 @@
                                                     aria-selected="true" data-original-title="" title="">Đơn vị tính</a>
                             </li>
                         </ul>
-                        <form th:object="${unit}" th:action="@{/dashboard/units/create}" action="#"
+                        <form th:object="${unit}" th:action="@{/dashboard/units/{id}(id=${unit.unitId})}" action="#"
                               class="needs-validation user-add"
                               method="post">
                             <div class="tab-content" id="myTabContent">
