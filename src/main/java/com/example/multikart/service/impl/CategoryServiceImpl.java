@@ -41,10 +41,10 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-//        var count = categoryRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
-//        if (count > 0) {
-//            result.rejectValue("email", "email.required", "Email đã được sử dụng");
-//        }
+        var count = categoryRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+        if (count > 0) {
+            result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
+        }
 
         if (result.hasErrors()) {
             model.addAttribute("category", input);
@@ -88,18 +88,14 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-//        if (!input.getPassword().isEmpty()) {
-//            category.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
-//        }
-//
-//        if (!category.getEmail().equals(input.getEmail())) {
-//            var count = categoryRepository.countByEmailAndStatus(input.getEmail(), Const.DefaultStatus.ACTIVE);
-//            if (count > 0) {
-//                result.rejectValue("email", "email.required", "Email đã được sử dụng");
-//            }
-//
-//            category.setEmail(input.getEmail());
-//        }
+        if (!category.getSlug().equals(input.getSlug())) {
+            var count = categoryRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+            if (count > 0) {
+                result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
+            }
+
+            category.setSlug(input.getSlug());
+        }
 
         if (result.hasErrors()) {
             model.addAttribute("category", input);

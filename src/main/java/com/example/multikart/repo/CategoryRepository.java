@@ -11,4 +11,6 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
     List<Category> findAllByStatus(Integer status);
 
     Category findByCategoryIdAndStatus(Long categoryId, Integer status);
+
+    int countBySlugAndStatus(String slug, Integer status);
 }

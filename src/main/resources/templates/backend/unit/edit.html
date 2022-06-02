@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layouts/backend/layout}">
 <head>
-    <title>Sửa danh mục</title>
+    <title>Sửa đơn vị tính</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Sửa danh mục
+                        <h3>Sửa đơn vị tính
                             <small>Multikart Admin panel</small>
                         </h3>
                     </div>
@@ -32,8 +32,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item">Danh mục</li>
-                        <li class="breadcrumb-item active">Sửa danh mục</li>
+                        <li class="breadcrumb-item">Đơn vị tính</li>
+                        <li class="breadcrumb-item active">Sửa đơn vị tính</li>
                     </ol>
                 </div>
             </div>
@@ -50,10 +50,10 @@
                         <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
                             <li class="nav-item"><a class="nav-link show active" id="account-tab" data-bs-toggle="tab"
                                                     role="tab" aria-controls="account"
-                                                    aria-selected="true" data-original-title="" title="">Danh mục</a>
+                                                    aria-selected="true" data-original-title="" title="">Đơn vị tính</a>
                             </li>
                         </ul>
-                        <form th:object="${category}" th:action="@{/dashboard/categories/create}" action="#"
+                        <form th:object="${unit}" th:action="@{/dashboard/units/create}" action="#"
                               class="needs-validation user-add"
                               method="post">
                             <div class="tab-content" id="myTabContent">
@@ -64,16 +64,8 @@
                                             Tên</label>
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
-                                                   required placeholder="Tên danh mục..." th:field="*{name}">
+                                                   required placeholder="Tên đơn vị tính..." th:field="*{name}">
                                             <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="slug" class="col-xl-3 col-md-4"><span>*</span> Đường dẫn</label>
-                                        <div class="col-xl-8 col-md-7">
-                                            <input class="form-control" id="slug" type="text" th:field="*{slug}"
-                                                   placeholder="Đường dẫn..." required>
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
