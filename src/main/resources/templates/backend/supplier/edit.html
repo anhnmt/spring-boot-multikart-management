@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layouts/backend/layout}">
 <head>
-    <title>Sửa đơn vị tính</title>
+    <title>Sửa nhà cung cấp</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Sửa đơn vị tính
+                        <h3>Sửa nhà cung cấp
                             <small>Multikart Admin panel</small>
                         </h3>
                     </div>
@@ -32,8 +32,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item">Đơn vị tính</li>
-                        <li class="breadcrumb-item active">Sửa đơn vị tính</li>
+                        <li class="breadcrumb-item">Nhà cung cấp</li>
+                        <li class="breadcrumb-item active">Sửa nhà cung cấp</li>
                     </ol>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                         <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
                             <li class="nav-item"><a class="nav-link show active" id="account-tab" data-bs-toggle="tab"
                                                     role="tab" aria-controls="account"
-                                                    aria-selected="true" data-original-title="" title="">Đơn vị tính</a>
+                                                    aria-selected="true" data-original-title="" title="">Nhà cung cấp</a>
                             </li>
                         </ul>
                         <form th:object="${supplier}"
@@ -65,7 +65,7 @@
                                             Tên</label>
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
-                                                   required placeholder="Tên đơn vị tính..." th:field="*{name}">
+                                                   required placeholder="Tên nhà cung cấp..." th:field="*{name}">
                                             <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
                                                  th:errors="*{name}"></div>
                                         </div>
