@@ -1,7 +1,6 @@
 package com.example.multikart.controller.backend;
 
-import com.example.multikart.domain.dto.CreateUserRequestDTO;
-import com.example.multikart.domain.dto.UpdateUserRequestDTO;
+import com.example.multikart.domain.dto.UserRequestDTO;
 import com.example.multikart.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("user") CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String store(@Valid @ModelAttribute("user") UserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return userService.storeUser(input, result, model, redirect);
     }
 
@@ -39,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("user") UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute("user") UserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return userService.updateUser(id, input, result, model, redirect);
     }
 

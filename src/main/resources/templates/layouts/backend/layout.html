@@ -138,6 +138,26 @@
 <!--script admin-->
 <script th:src="@{/backend/assets/js/admin-script.js}"></script>
 
+<script th:inline="javascript">
+    let success = [[${success}]];
+    let error = [[${error}]];
+
+    if (error && error !== "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi rồi!',
+            text: error
+        });
+    } else if (success && success !== "") {
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: success
+        });
+    }
+
+</script>
+
 <div layout:fragment="customScript"></div>
 
 </body>

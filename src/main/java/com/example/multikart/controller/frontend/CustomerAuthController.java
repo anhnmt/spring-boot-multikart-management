@@ -30,7 +30,7 @@ public class CustomerAuthController {
         return authService.frontendPostLogin(input, session, result, model);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session, Model model) {
         return authService.frontendLogout(session, model);
     }

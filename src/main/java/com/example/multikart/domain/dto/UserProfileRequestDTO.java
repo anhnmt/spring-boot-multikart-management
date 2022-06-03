@@ -6,21 +6,14 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Builder
-public class CreateUserRequestDTO {
-    @NotNull
-    private Long roleId;
-
+public class UserProfileRequestDTO {
     @NotBlank
     private String name;
-
     @Email
     private String email;
-    @NotBlank
     private String password;
-    private Integer status;
 }

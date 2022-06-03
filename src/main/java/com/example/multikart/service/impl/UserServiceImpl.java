@@ -2,8 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.CreateUserRequestDTO;
-import com.example.multikart.domain.dto.UpdateUserRequestDTO;
+import com.example.multikart.domain.dto.UserRequestDTO;
 import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.RoleRepository;
 import com.example.multikart.repo.UserRepository;
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String storeUser(CreateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String storeUser(UserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("user", input);
             model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
@@ -85,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateUser(Long id, UpdateUserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String updateUser(Long id, UserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");

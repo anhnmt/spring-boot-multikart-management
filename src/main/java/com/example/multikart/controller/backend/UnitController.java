@@ -1,7 +1,6 @@
 package com.example.multikart.controller.backend;
 
-import com.example.multikart.domain.dto.CreateUnitRequestDTO;
-import com.example.multikart.domain.dto.UpdateUnitRequestDTO;
+import com.example.multikart.domain.dto.UnitRequestDTO;
 import com.example.multikart.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class UnitController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("unit") CreateUnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String store(@Valid @ModelAttribute("unit") UnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return unitService.storeUnit(input, result, model, redirect);
     }
 
@@ -39,7 +38,7 @@ public class UnitController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("unit") UpdateUnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute("unit") UnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return unitService.updateUnit(id, input, result, model, redirect);
     }
 

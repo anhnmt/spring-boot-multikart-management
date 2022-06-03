@@ -3,6 +3,8 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
+import com.example.multikart.domain.dto.UserProfileRequestDTO;
+import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.CustomerRepository;
 import com.example.multikart.repo.UserRepository;
 import com.example.multikart.service.AuthService;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -61,6 +64,59 @@ public class AuthServiceImpl implements AuthService {
     public String backendLogout(HttpSession session, Model model) {
         session.removeAttribute("user");
         return "redirect:/dashboard/login";
+    }
+
+    @Override
+    public String backendProfile(HttpSession session, Model model) {
+        var user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+
+        return "backend/profile/profile";
+    }
+
+    @Override
+    public String backendPostProfile(UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
+        var userSession = (User) session.getAttribute("user");
+
+        var user = userRepository.findByUserIdAndStatus(userSession.getUserId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(user)) {
+            redirect.addFlashAttribute("error", "Người dùng không tồn tại");
+
+            return "redirect:/dashboard/profile";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", input);
+
+            return "backend/profile/profile";
+        }
+
+        if (!input.getPassword().isEmpty()) {
+            user.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
+        }
+
+        if (!user.getEmail().equals(input.getEmail())) {
+            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            if (count > 0) {
+                result.rejectValue("email", "", "Email đã được sử dụng");
+            }
+
+            user.setEmail(input.getEmail());
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", input);
+
+            return "backend/profile/profile";
+        }
+
+        user.setName(input.getName());
+        userRepository.save(user);
+
+        redirect.addFlashAttribute("success", "Sửa thành công");
+
+        session.setAttribute("user", user);
+        return "redirect:/dashboard/profile";
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.multikart.controller.backend;
 
-import com.example.multikart.domain.dto.CreateCategoryRequestDTO;
-import com.example.multikart.domain.dto.UpdateCategoryRequestDTO;
+import com.example.multikart.domain.dto.CategoryRequestDTO;
 import com.example.multikart.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("category") CreateCategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String store(@Valid @ModelAttribute("category") CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return categoryService.storeCategory(input, result, model, redirect);
     }
 
@@ -39,7 +38,7 @@ public class CategoryController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("category") UpdateCategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute("category") CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return categoryService.updateCategory(id, input, result, model, redirect);
     }
 

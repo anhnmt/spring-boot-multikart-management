@@ -10,9 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserRequestDTO {
-    private Long roleId;
-
+public class CustomerRequestDTO {
     @NotBlank
     private String name;
 

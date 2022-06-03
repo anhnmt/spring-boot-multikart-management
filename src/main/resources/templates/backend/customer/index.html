@@ -50,23 +50,21 @@
                                 <th>User Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Role</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user : ${users}">
-                                <td th:text="${user.userId}"></td>
-                                <td th:text="${user.name}"></td>
-                                <td th:text="${user.email}"></td>
-                                <td th:text="${user.roleId}"></td>
-                                <td><span class="badge badge-success" th:text="${user.status}"></span></td>
+                            <tr th:each="customer : ${customers}">
+                                <td th:text="${customer.customerId}"></td>
+                                <td th:text="${customer.name}"></td>
+                                <td th:text="${customer.email}"></td>
+                                <td><span class="badge badge-success" th:text="${customer.status}"></span></td>
                                 <td>
-                                    <form th:action="@{/dashboard/users/{id}/delete(id=${user.userId})}" action="#"
+                                    <form th:action="@{/dashboard/customers/{id}/delete(id=${customer.customerId})}" action="#"
                                           th:method="POST">
                                         <div class="btn-group btn-group-sm">
-                                            <a th:href="@{/dashboard/users/{id}(id=${user.userId})}"
+                                            <a th:href="@{/dashboard/customers/{id}(id=${customer.customerId})}"
                                                class="btn btn-sm btn-warning">sửa</a>
                                             <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
                                         </div>
