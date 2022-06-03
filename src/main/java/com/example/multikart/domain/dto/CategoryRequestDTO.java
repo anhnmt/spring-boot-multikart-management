@@ -1,17 +1,20 @@
 package com.example.multikart.domain.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @Builder
-public class CreateRoleRequestDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CategoryRequestDTO {
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String slug;
 
     private Integer status;
 }

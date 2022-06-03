@@ -44,52 +44,8 @@
                         <div class="profile-details text-center">
                             <img src="/backend/assets/images/dashboard/designer.jpg" alt=""
                                  class="img-fluid img-90 rounded-circle blur-up lazyloaded">
-                            <h5 class="f-w-600 mb-0">John deo</h5>
-                            <span>johndeo@gmail.com</span>
-                            <div class="social">
-                                <div class="form-group btn-showcase">
-                                    <button class="btn social-btn btn-fb d-inline-block"><i
-                                            class="fa fa-facebook"></i></button>
-                                    <button class="btn social-btn btn-twitter d-inline-block"><i
-                                            class="fa fa-google"></i></button>
-                                    <button class="btn social-btn btn-google d-inline-block me-0"><i
-                                            class="fa fa-twitter"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="project-status">
-                            <h5 class="f-w-600">Employee Status</h5>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h6>Performance<span class="pull-right">80%</span></h6>
-                                    <div class="progress sm-progress-bar">
-                                        <div class="progress-bar bg-primary" role="progressbar"
-                                             style="width: 90%" aria-valuenow="25" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h6>Overtime <span class="pull-right">60%</span></h6>
-                                    <div class="progress sm-progress-bar">
-                                        <div class="progress-bar bg-secondary" role="progressbar"
-                                             style="width: 60%" aria-valuenow="25" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h6>Leaves taken<span class="pull-right">70%</span></h6>
-                                    <div class="progress sm-progress-bar">
-                                        <div class="progress-bar bg-danger" role="progressbar"
-                                             style="width: 70%" aria-valuenow="25" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h5 class="f-w-600 mb-0" th:text="${user.name}"></h5>
+                            <span th:text="${user.email}"></span>
                         </div>
                     </div>
                 </div>

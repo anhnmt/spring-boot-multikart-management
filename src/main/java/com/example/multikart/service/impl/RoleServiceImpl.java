@@ -2,8 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.CreateRoleRequestDTO;
-import com.example.multikart.domain.dto.UpdateRoleRequestDTO;
+import com.example.multikart.domain.dto.RoleRequestDTO;
 import com.example.multikart.domain.model.Role;
 import com.example.multikart.repo.RoleRepository;
 import com.example.multikart.service.RoleService;
@@ -34,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public String storeRole(CreateRoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String storeRole(RoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("role", input);
 
@@ -74,7 +73,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public String updateRole(Long id, UpdateRoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String updateRole(Long id, RoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         var role = roleRepository.findByRoleIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(role)) {
             redirect.addFlashAttribute("error", "Quyền không tồn tại");

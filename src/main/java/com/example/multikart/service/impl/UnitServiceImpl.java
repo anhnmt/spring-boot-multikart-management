@@ -2,8 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.CreateUnitRequestDTO;
-import com.example.multikart.domain.dto.UpdateUnitRequestDTO;
+import com.example.multikart.domain.dto.UnitRequestDTO;
 import com.example.multikart.domain.model.Unit;
 import com.example.multikart.repo.UnitRepository;
 import com.example.multikart.service.UnitService;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UnitServiceImpl implements UnitService {
     @Autowired
     private UnitRepository unitRepository;
-
 
     @Override
     public String findAllUnits(Model model) {
@@ -35,7 +33,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public String storeUnit(CreateUnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String storeUnit(UnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("unit", input);
 
@@ -75,7 +73,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public String updateUnit(Long id, UpdateUnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String updateUnit(Long id, UnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         var unit = unitRepository.findByUnitIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(unit)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");

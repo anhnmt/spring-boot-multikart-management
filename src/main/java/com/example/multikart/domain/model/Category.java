@@ -1,7 +1,6 @@
 package com.example.multikart.domain.model;
 
-import com.example.multikart.domain.dto.CreateCategoryRequestDTO;
-import com.example.multikart.domain.dto.UpdateCategoryRequestDTO;
+import com.example.multikart.domain.dto.CategoryRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,13 +29,7 @@ public class Category extends BaseModel {
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 
-    public Category(CreateCategoryRequestDTO input) {
-        name = input.getName();
-        slug = input.getSlug();
-        status = input.getStatus();
-    }
-
-    public Category(UpdateCategoryRequestDTO input) {
+    public Category(CategoryRequestDTO input) {
         name = input.getName();
         slug = input.getSlug();
         status = input.getStatus();

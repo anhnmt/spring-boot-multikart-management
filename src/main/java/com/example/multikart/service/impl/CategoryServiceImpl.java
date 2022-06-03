@@ -2,8 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.CreateCategoryRequestDTO;
-import com.example.multikart.domain.dto.UpdateCategoryRequestDTO;
+import com.example.multikart.domain.dto.CategoryRequestDTO;
 import com.example.multikart.domain.model.Category;
 import com.example.multikart.repo.CategoryRepository;
 import com.example.multikart.service.CategoryService;
@@ -34,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public String storeCategory(CreateCategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String storeCategory(CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("category", input);
 
@@ -74,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public String updateCategory(Long id, UpdateCategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String updateCategory(Long id, CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");

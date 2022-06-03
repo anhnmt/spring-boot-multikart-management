@@ -2,6 +2,7 @@ package com.example.multikart.domain.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
@@ -9,12 +10,14 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCategoryRequestDTO {
+public class UserRequestDTO {
+    private Long roleId;
+
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String slug;
-
+    @Email
+    private String email;
+    private String password;
     private Integer status;
 }

@@ -1,7 +1,6 @@
 package com.example.multikart.controller.backend;
 
-import com.example.multikart.domain.dto.CreateRoleRequestDTO;
-import com.example.multikart.domain.dto.UpdateRoleRequestDTO;
+import com.example.multikart.domain.dto.RoleRequestDTO;
 import com.example.multikart.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class RoleController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("role") CreateRoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String store(@Valid @ModelAttribute("role") RoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return roleService.storeRole(input, result, model, redirect);
     }
 
@@ -39,7 +38,7 @@ public class RoleController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("role") UpdateRoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute("role") RoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return roleService.updateRole(id, input, result, model, redirect);
     }
 

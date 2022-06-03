@@ -1,7 +1,6 @@
 package com.example.multikart.domain.model;
 
-import com.example.multikart.domain.dto.CreateUserRequestDTO;
-import com.example.multikart.domain.dto.UpdateUserRequestDTO;
+import com.example.multikart.domain.dto.UserRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,15 +37,7 @@ public class User extends BaseModel implements Serializable {
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 
-    public User(CreateUserRequestDTO input) {
-        name = input.getName();
-        email = input.getEmail();
-        password = input.getPassword();
-        roleId = input.getRoleId();
-        status = input.getStatus();
-    }
-
-    public User(UpdateUserRequestDTO input) {
+    public User(UserRequestDTO input) {
         name = input.getName();
         email = input.getEmail();
         password = input.getPassword();

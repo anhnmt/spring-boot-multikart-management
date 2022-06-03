@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Danh sách Đơn vị tính</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Orders
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Sales</li>
+                        <li class="breadcrumb-item active">Orders</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body order-datatable">
+                        <table class="display" id="basic-1">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="unit : ${units}">
+                                <td th:text="${unit.unitId}"></td>
+                                <td th:text="${unit.name}"></td>
+                                <td><span class="badge badge-success" th:text="${unit.status}"></span></td>
+                                <td>
+                                    <form th:action="@{/dashboard/units/{id}/delete(id=${unit.unitId})}" action="#"
+                                          th:method="POST">
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/dashboard/units/{id}(id=${unit.unitId})}"
+                                               class="btn btn-sm btn-warning">sửa</a>
+                                            <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+</body>
+</html>
