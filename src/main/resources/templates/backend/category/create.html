@@ -65,7 +65,8 @@
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
                                                    required placeholder="Tên danh mục..." th:field="*{name}">
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                                                 th:errors="*{name}"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -73,7 +74,8 @@
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="slug" type="text" th:field="*{slug}"
                                                    placeholder="Đường dẫn..." required>
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}"></div>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('slug')}"
+                                                 th:errors="*{slug}"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">

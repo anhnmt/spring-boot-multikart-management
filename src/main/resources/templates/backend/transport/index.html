@@ -56,7 +56,8 @@
                                 <td th:text="${transport.name}"></td>
                                 <td><span class="badge badge-success" th:text="${transport.status}"></span></td>
                                 <td>
-                                    <form th:action="@{/dashboard/transports/{id}/delete(id=${transport.transportId})}" action="#"
+                                    <form th:action="@{/dashboard/transports/{id}/delete(id=${transport.transportId})}"
+                                          action="#"
                                           th:method="POST">
                                         <div class="btn-group btn-group-sm">
                                             <a th:href="@{/dashboard/transports/{id}(id=${transport.transportId})}"
