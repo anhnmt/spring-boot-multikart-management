@@ -37,13 +37,17 @@
                         <form class="theme-form" th:action="@{/login}" th:object="${customer}" method="POST">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email của bạn" required="" th:field="*{email}">
-                                <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                <input type="text" class="form-control" id="email" placeholder="Email của bạn"
+                                       required="" th:field="*{email}">
+                                <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                                     th:errors="*{email}"></div>
                             </div>
                             <div class="form-group">
                                 <label for="review">Mật khẩu</label>
-                                <input type="password" class="form-control" id="review" placeholder="Nhập mật khẩu của bạn" required="" th:field="*{password}">
-                                <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                <input type="password" class="form-control" id="review"
+                                       placeholder="Nhập mật khẩu của bạn" required="" th:field="*{password}">
+                                <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}"
+                                     th:errors="*{password}"></div>
                             </div>
                             <button type="submit" class="btn btn-solid">Đăng nhập</button>
                         </form>
@@ -53,7 +57,9 @@
                     <h3>Người dùng mới</h3>
                     <div class="theme-card authentication-right">
                         <h6 class="title-font">Tạo mới tài khoản</h6>
-                        <p>Đăng ký một tài khoản miễn phí tại cửa hàng của chúng tôi. Thủ tục đăng kí nhanh chóng và đơn giản. Nó cho phép bạn có thể đặt hàng từ cửa hàng của chúng tôi. Để bắt đầu mua sắm bấm đăng ký.</p><a th:href="@{/register}" class="btn btn-solid">Đăng ký ngay</a>
+                        <p>Đăng ký một tài khoản miễn phí tại cửa hàng của chúng tôi. Thủ tục đăng kí nhanh chóng và đơn
+                            giản. Nó cho phép bạn có thể đặt hàng từ cửa hàng của chúng tôi. Để bắt đầu mua sắm bấm đăng
+                            ký.</p><a th:href="@{/register}" class="btn btn-solid">Đăng ký ngay</a>
                     </div>
                 </div>
             </div>
@@ -125,7 +131,8 @@
                             <div class="footer-contant">
                                 <ul class="contact-list">
                                     <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India
-                                        345-659</li>
+                                        345-659
+                                    </li>
                                     <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
                                     <li><i class="fa fa-envelope"></i>Email Us: Support@Multikart.com</li>
                                     <li><i class="fa fa-fax"></i>Fax: 123456</li>

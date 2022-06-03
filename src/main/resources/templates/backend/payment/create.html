@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layouts/backend/layout}">
 <head>
-    <title>Thêm đơn vị tính</title>
+    <title>Thêm phương thức thanh toán</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Thêm đơn vị tính
+                        <h3>Thêm phương thức thanh toán
                             <small>Multikart Admin panel</small>
                         </h3>
                     </div>
@@ -32,8 +32,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item">Đơn vị tính</li>
-                        <li class="breadcrumb-item active">Thêm đơn vị tính</li>
+                        <li class="breadcrumb-item">Phương thức thanh toán</li>
+                        <li class="breadcrumb-item active">Thêm phương thức thanh toán</li>
                     </ol>
                 </div>
             </div>
@@ -50,10 +50,11 @@
                         <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
                             <li class="nav-item"><a class="nav-link show active" id="account-tab" data-bs-toggle="tab"
                                                     role="tab" aria-controls="account"
-                                                    aria-selected="true" data-original-title="" title="">Đơn vị tính</a>
+                                                    aria-selected="true" data-original-title="" title="">Phương thức
+                                thanh toán</a>
                             </li>
                         </ul>
-                        <form th:object="${supplier}" th:action="@{/dashboard/suppliers/create}" action="#"
+                        <form th:object="${payment}" th:action="@{/dashboard/payments/create}" action="#"
                               class="needs-validation user-add"
                               method="post">
                             <div class="tab-content" id="myTabContent">
@@ -64,7 +65,8 @@
                                             Tên</label>
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
-                                                   required placeholder="Tên đơn vị tính..." th:field="*{name}">
+                                                   required placeholder="Tên phương thức thanh toán..."
+                                                   th:field="*{name}">
                                             <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
                                                  th:errors="*{name}"></div>
                                         </div>

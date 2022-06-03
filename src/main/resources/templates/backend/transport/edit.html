@@ -50,10 +50,12 @@
                         <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
                             <li class="nav-item"><a class="nav-link show active" id="account-tab" data-bs-toggle="tab"
                                                     role="tab" aria-controls="account"
-                                                    aria-selected="true" data-original-title="" title="">Đơn vị vận chuyển</a>
+                                                    aria-selected="true" data-original-title="" title="">Đơn vị vận
+                                chuyển</a>
                             </li>
                         </ul>
-                        <form th:object="${transport}" th:action="@{/dashboard/transports/{id}(id=${transport.transportId})}" action="#"
+                        <form th:object="${transport}"
+                              th:action="@{/dashboard/transports/{id}(id=${transport.transportId})}" action="#"
                               class="needs-validation user-add"
                               method="post">
                             <div class="tab-content" id="myTabContent">
@@ -65,7 +67,8 @@
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
                                                    required placeholder="Tên đơn vị vận chuyển..." th:field="*{name}">
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                                                 th:errors="*{name}"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">

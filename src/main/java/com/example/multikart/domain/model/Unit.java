@@ -1,7 +1,6 @@
 package com.example.multikart.domain.model;
 
 import com.example.multikart.domain.dto.UnitRequestDTO;
-import com.example.multikart.domain.dto.UnitRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;

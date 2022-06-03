@@ -38,14 +38,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // Loại đi trường hợp /login, /logout
         registry.addInterceptor(customerInterceptor)
-                .addPathPatterns("/payment", "/profile**")
-                .excludePathPatterns("/login", "/logout");
+                .addPathPatterns("/logout", "/payment", "/profile**")
+                .excludePathPatterns("/login");
 
         // Interceptor này áp dụng cho các URL có dạng /dashboard*
         // Loại đi trường hợp /dashboard/login, /dashboard/logout
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/dashboard**", "/dashboard/**")
-                .excludePathPatterns("/dashboard/login", "/dashboard/logout");
+                .excludePathPatterns("/dashboard/login");
     }
 
     @Bean

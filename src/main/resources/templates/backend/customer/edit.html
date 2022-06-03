@@ -53,7 +53,8 @@
                                                     aria-selected="true" data-original-title="" title="">Account</a>
                             </li>
                         </ul>
-                        <form th:object="${customer}" th:action="@{/dashboard/customers/{id}(id=${customer.customerId})}"
+                        <form th:object="${customer}"
+                              th:action="@{/dashboard/customers/{id}(id=${customer.customerId})}"
                               class="needs-validation customer-add"
                               method="post">
                             <div class="tab-content" id="myTabContent">
@@ -74,7 +75,8 @@
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="email" type="email" th:field="*{email}"
                                                    placeholder="Email..." required>
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                                                 th:errors="*{email}"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
