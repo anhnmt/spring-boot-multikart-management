@@ -1,5 +1,6 @@
 package com.example.multikart.domain.model;
 
+import com.example.multikart.domain.dto.CustomerRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,4 +31,11 @@ public class Customer extends BaseModel {
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
+
+    public Customer(CustomerRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        password = input.getPassword();
+        status = input.getStatus();
+    }
 }
