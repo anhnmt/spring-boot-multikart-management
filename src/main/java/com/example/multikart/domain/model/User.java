@@ -5,6 +5,7 @@ import com.example.multikart.domain.dto.UpdateUserRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -13,7 +14,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User extends BaseModel {
+public class User extends BaseModel implements Serializable {
+    private static final long serialVersionUID = -18131459558712226L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
