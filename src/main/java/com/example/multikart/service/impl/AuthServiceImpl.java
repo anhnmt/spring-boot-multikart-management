@@ -44,16 +44,22 @@ public class AuthServiceImpl implements AuthService {
         log.info("userDTO: {}", input);
 
         if (result.hasErrors()) {
+            model.addAttribute("user", input);
             return "backend/auth/login";
         }
 
         var user = userRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
-            result.rejectValue("email", null, "Email does not exist");
+            result.rejectValue("email", "", "Email không tồn tại");
         }
 
         if (!bcryptPasswordEncoder.matches(input.getPassword(), user.getPassword())) {
-            result.rejectValue("password", null, "Password does not match");
+            result.rejectValue("password", "", "Mật khẩu không khớp");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", input);
+            return "backend/auth/login";
         }
 
         session.setAttribute("user", user);
