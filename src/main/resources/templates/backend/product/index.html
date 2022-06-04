@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/backend/layout}">
 <head>
-    <title>Danh sách Đơn vị tính</title>
+    <title>Danh sách Sản phẩm</title>
 </head>
 <body>
 
@@ -46,20 +46,22 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên</th>
+                                <th>Đường dẫn</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="supplier : ${suppliers}">
-                                <td th:text="${supplier.supplierId}"></td>
-                                <td th:text="${supplier.name}"></td>
-                                <td><span class="badge badge-success" th:text="${supplier.status}"></span></td>
+                            <tr th:each="product : ${products}">
+                                <td th:text="${product.productId}"></td>
+                                <td th:text="${product.name}"></td>
+                                <td th:text="${product.slug}"></td>
+                                <td><span class="badge badge-success" th:text="${product.status}"></span></td>
                                 <td>
-                                    <form th:action="@{/dashboard/suppliers/{id}/delete(id=${supplier.supplierId})}" action="#"
+                                    <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}" action="#"
                                           th:method="POST">
                                         <div class="btn-group btn-group-sm">
-                                            <a th:href="@{/dashboard/suppliers/{id}(id=${supplier.supplierId})}"
+                                            <a th:href="@{/dashboard/products/{id}(id=${product.productId})}"
                                                class="btn btn-sm btn-warning">sửa</a>
                                             <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
                                         </div>
