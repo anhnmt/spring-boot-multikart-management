@@ -11,4 +11,5 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     Product findByProductIdAndStatus(Long categoryId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+    int countBySlugAndStatus(String slug, Integer status);
 }
