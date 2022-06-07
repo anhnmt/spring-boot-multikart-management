@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Thêm sản phẩm</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Thêm sản phẩm
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Sản phẩm</li>
+                        <li class="breadcrumb-item active">Thêm sản phẩm</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card tab2-card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
+                            <li class="nav-item"><a class="nav-link show active" id="account-tab" data-bs-toggle="tab"
+                                                    role="tab" aria-controls="account"
+                                                    aria-selected="true" data-original-title="" title="">Sản phẩm</a>
+                            </li>
+                        </ul>
+                        <form th:object="${product}" th:action="@{/dashboard/products/create}" action="#"
+                              class="needs-validation product-add"
+                              method="post">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade active show" id="account" role="tabpanel"
+                                     aria-labelledby="account-tab">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-xl-3 col-md-4"><span>*</span>
+                                            Tên</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="name" type="text"
+                                                   required placeholder="Tên sản phẩm..." th:field="*{name}">
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                                                 th:errors="*{name}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="slug" class="col-xl-3 col-md-4"><span>*</span> Đường dẫn</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="slug" type="text" th:field="*{slug}"
+                                                   placeholder="Đường dẫn..." required>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('slug')}"
+                                                 th:errors="*{slug}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="description" class="col-xl-3 col-md-4"><span>*</span>
+                                            Mô tả</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <textarea class="form-control m-0" id="description"
+                                                      required placeholder="Mô tả..."
+                                                      th:field="*{description}"></textarea>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('description')}"
+                                                 th:errors="*{description}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="amount" class="col-xl-3 col-md-4"><span>*</span>
+                                            Số lượng</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="amount" type="number"
+                                                   required placeholder="Số lượng..." th:field="*{amount}">
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('amount')}"
+                                                 th:errors="*{amount}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="importPrice" class="col-xl-3 col-md-4"><span>*</span>
+                                            Giá nhập</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="importPrice" type="number"
+                                                   required placeholder="Giá nhập..." th:field="*{importPrice}">
+                                            <div class="alert alert-warning"
+                                                 th:if="${#fields.hasErrors('importPrice')}"
+                                                 th:errors="*{importPrice}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="exportPrice" class="col-xl-3 col-md-4"><span>*</span>
+                                            Giá xuất</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="exportPrice" type="text"
+                                                   required placeholder="Giá xuất..." th:field="*{exportPrice}">
+                                            <div class="alert alert-warning"
+                                                 th:if="${#fields.hasErrors('exportPrice')}"
+                                                 th:errors="*{exportPrice}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4"><span>*</span> Trạng thái</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="status1">
+                                                    <input class="radio_animated" id="status1" type="radio"
+                                                           checked="checked" th:value="1"
+                                                           th:field="*{status}" th:checked="*{status} ? 'checked' : ''">
+                                                    Hoạt động
+                                                </label>
+                                                <label class="d-block" for="status2">
+                                                    <input class="radio_animated" id="status2" type="radio" th:value="0"
+                                                           th:field="*{status}" th:checked="*{status} ? '' : 'checked'">
+                                                    Không hoạt động
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="category" class="col-xl-3 col-md-4"><span>*</span> Danh mục</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <select class="form-control" id="category" th:field="*{categoryId}">
+                                                <option th:each="category : ${categories}"
+                                                        th:value="${category.categoryId}"
+                                                        th:text="${category.name}"></option>
+                                            </select>
+                                            <div class="alert alert-warning"
+                                                 th:if="${#fields.hasErrors('categoryId')}"
+                                                 th:errors="*{categoryId}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="unit" class="col-xl-3 col-md-4"><span>*</span> Đơn vị</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <select class="form-control" id="unit" th:field="*{unitId}">
+                                                <option th:each="unit : ${units}" th:value="${unit.unitId}"
+                                                        th:text="${unit.name}"></option>
+                                            </select>
+                                            <div class="alert alert-warning"
+                                                 th:if="${#fields.hasErrors('unitId')}"
+                                                 th:errors="*{unitId}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="supplier" class="col-xl-3 col-md-4"><span>*</span> Nhà cung
+                                            cấp</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <select class="form-control" id="supplier" th:field="*{supplierId}">
+                                                <option th:each="supplier : ${suppliers}"
+                                                        th:value="${supplier.supplierId}"
+                                                        th:text="${supplier.name}"></option>
+                                            </select>
+                                            <div class="alert alert-warning"
+                                                 th:if="${#fields.hasErrors('supplierId')}"
+                                                 th:errors="*{supplierId}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+</body>
+<script layout:fragment="customScript">
+    const convertToSlug = (text) => {
+        text = text.toString().toLowerCase().trim();
+
+        const sets = [
+            {to: 'a', from: '[ÀÁÂÃÄÅÆĀĂĄẠẢẤẦẨẪẬẮẰẲẴẶἀ]'},
+            {to: 'c', from: '[ÇĆĈČ]'},
+            {to: 'd', from: '[ÐĎĐÞ]'},
+            {to: 'e', from: '[ÈÉÊËĒĔĖĘĚẸẺẼẾỀỂỄỆ]'},
+            {to: 'g', from: '[ĜĞĢǴ]'},
+            {to: 'h', from: '[ĤḦ]'},
+            {to: 'i', from: '[ÌÍÎÏĨĪĮİỈỊ]'},
+            {to: 'j', from: '[Ĵ]'},
+            {to: 'ij', from: '[Ĳ]'},
+            {to: 'k', from: '[Ķ]'},
+            {to: 'l', from: '[ĹĻĽŁ]'},
+            {to: 'm', from: '[Ḿ]'},
+            {to: 'n', from: '[ÑŃŅŇ]'},
+            {to: 'o', from: '[ÒÓÔÕÖØŌŎŐỌỎỐỒỔỖỘỚỜỞỠỢǪǬƠ]'},
+            {to: 'oe', from: '[Œ]'},
+            {to: 'p', from: '[ṕ]'},
+            {to: 'r', from: '[ŔŖŘ]'},
+            {to: 's', from: '[ßŚŜŞŠȘ]'},
+            {to: 't', from: '[ŢŤ]'},
+            {to: 'u', from: '[ÙÚÛÜŨŪŬŮŰŲỤỦỨỪỬỮỰƯ]'},
+            {to: 'w', from: '[ẂŴẀẄ]'},
+            {to: 'x', from: '[ẍ]'},
+            {to: 'y', from: '[ÝŶŸỲỴỶỸ]'},
+            {to: 'z', from: '[ŹŻŽ]'},
+            {to: '-', from: '[·/_,:;\']'}
+        ];
+
+        sets.forEach(set => {
+            text = text.replace(new RegExp(set.from, 'gi'), set.to)
+        });
+
+        return text
+            .replace(/\s+/g, '-')    // Replace spaces with -
+            .replace(/[^-a-z0-9а-я\u0370-\u03ff\u1f00-\u1fff]+/g, '') // Remove all non-word chars
+            .replace(/--+/g, '-')    // Replace multiple - with single -
+            .replace(/^-+/, '')      // Trim - from start of text
+            .replace(/-+$/, '')      // Trim - from end of text
+    }
+    document.getElementById("name").onkeyup = (e) => {
+        let name = e.target.value.toString();
+        let slug = convertToSlug(name);
+        document.getElementById("slug").value = slug;
+    }
+</script>
+</html>
