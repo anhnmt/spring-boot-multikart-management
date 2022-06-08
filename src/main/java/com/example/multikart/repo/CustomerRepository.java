@@ -8,7 +8,7 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
     List<Customer> findAllByStatus(Integer status);
 
-    Customer findByCustomerIdAndStatus(Long userId, Integer status);
+    Customer findByCustomerIdAndStatus(Long customerId, Integer status);
 
     Customer findByEmailAndStatus(String email, Integer status);
 

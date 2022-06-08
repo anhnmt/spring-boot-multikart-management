@@ -8,7 +8,7 @@ import java.util.List;
 public interface SupplierRepository extends CrudRepository<Supplier, Long> {
     List<Supplier> findAllByStatus(Integer status);
 
-    Supplier findBySupplierIdAndStatus(Long categoryId, Integer status);
+    Supplier findBySupplierIdAndStatus(Long supplierId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
 }

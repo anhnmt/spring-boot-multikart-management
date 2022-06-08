@@ -34,4 +34,8 @@ public class Order extends BaseModel {
     // Ngày giao hàng
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
+
+    // Trạng thái
+    @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
+    private Integer status;
 }

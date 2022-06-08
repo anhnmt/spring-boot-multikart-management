@@ -8,7 +8,7 @@ import java.util.List;
 public interface UnitRepository extends CrudRepository<Unit, Long> {
     List<Unit> findAllByStatus(Integer status);
 
-    Unit findByUnitIdAndStatus(Long categoryId, Integer status);
+    Unit findByUnitIdAndStatus(Long unitId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
 }

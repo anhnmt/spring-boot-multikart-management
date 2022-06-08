@@ -214,23 +214,10 @@
             </li>
 
             <li>
-                <a class="sidebar-header">
+                <a class="sidebar-header" th:href="@{/dashboard/orders}">
                     <i data-feather="users"></i>
                     <span>Hóa đơn</span>
-                    <i class="fa fa-angle-right pull-right"></i>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a th:href="@{/dashboard/orders}">
-                            <i class="fa fa-circle"></i>Danh sách
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/dashboard/orders/create}">
-                            <i class="fa fa-circle"></i>Thêm mới
-                        </a>
-                    </li>
-                </ul>
             </li>
 
         </ul>
