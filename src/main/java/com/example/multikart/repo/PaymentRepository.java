@@ -8,7 +8,7 @@ import java.util.List;
 public interface PaymentRepository extends CrudRepository<Payment, Long> {
     List<Payment> findAllByStatus(Integer status);
 
-    Payment findByPaymentIdAndStatus(Long categoryId, Integer status);
+    Payment findByPaymentIdAndStatus(Long paymentId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
 }

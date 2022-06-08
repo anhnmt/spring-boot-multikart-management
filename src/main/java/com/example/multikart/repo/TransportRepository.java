@@ -8,7 +8,7 @@ import java.util.List;
 public interface TransportRepository extends CrudRepository<Transport, Long> {
     List<Transport> findAllByStatus(Integer status);
 
-    Transport findByTransportIdAndStatus(Long categoryId, Integer status);
+    Transport findByTransportIdAndStatus(Long transportId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
 }
