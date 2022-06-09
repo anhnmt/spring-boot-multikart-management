@@ -1,4 +1,4 @@
-package com.example.multikart.controller.backend;
+package com.example.multikart.controller;
 
 import com.example.multikart.domain.dto.CustomerRequestDTO;
 import com.example.multikart.service.CustomerService;

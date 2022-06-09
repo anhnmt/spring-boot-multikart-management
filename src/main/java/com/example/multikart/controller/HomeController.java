@@ -1,4 +1,4 @@
-package com.example.multikart.controller.frontend;
+package com.example.multikart.controller;
 
 import com.example.multikart.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
