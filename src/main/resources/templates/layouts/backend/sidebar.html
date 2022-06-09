@@ -10,7 +10,7 @@
 <div th:fragment="sidebar" class="page-sidebar">
     <div class="main-header-left d-none d-lg-block">
         <div class="logo-wrapper">
-            <a href="index.html">
+            <a th:href="@{/dashboard}">
                 <img class="d-none d-lg-block blur-up lazyloaded"
                      th:src="@{/backend/assets/images/dashboard/multikart-logo.png}" alt=""/>
             </a>

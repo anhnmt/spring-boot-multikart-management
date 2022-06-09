@@ -16,31 +16,13 @@
                     </div>
                 </a>
             </li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/vegetable.svg}"/>vegetable &amp; fruit</a>
+            <li th:each="category : ${categories}">
+                <a th:href="@{/danh-muc/{slug}(slug=${category.slug})}">
+                    <img th:alt="${category.name}" class="img-fluid me-3 rounded-0"
+                         th:src="${category.icon}"/>
+                    <span th:text="${category.name}"></span>
+                </a>
             </li>
-            <li><a href="index.html"><img alt=""
-                                          class="img-fluid me-3 rounded-0 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/biscuit.svg}"/>Biscuit &amp; Cookies</a>
-            </li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/breakfast.svg}"/>Breakfast</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/cup.svg}"/>Tea
-                &amp; Coffee</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/drink.svg}"/>Drinks &amp; Juices</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/frozen.svg}"/>Frozen Foods</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/grocery.svg}"/>Grocery items</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/meats.svg}"/>Meat &amp; Fish</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/milk.svg}"/>Milk &amp; Dairy</a></li>
-            <li><a href="index.html"><img alt="" class="img-fluid me-3 rounded-0"
-                                          th:src="@{/assets/svg/vegetables/pet.svg}"/>Pet
-                Food</a></li>
         </ul>
     </div>
 </div>
