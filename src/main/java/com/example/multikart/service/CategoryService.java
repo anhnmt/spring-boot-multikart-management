@@ -17,4 +17,6 @@ public interface CategoryService {
     String updateCategory(Long id, CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect);
 
     String deleteCategory(Long id, Model model, RedirectAttributes redirect);
+
+    String frontendCategory(String slug, Model model, RedirectAttributes redirect);
 }

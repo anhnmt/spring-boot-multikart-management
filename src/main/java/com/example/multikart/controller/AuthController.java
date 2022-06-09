@@ -1,4 +1,4 @@
-package com.example.multikart.controller.backend;
+package com.example.multikart.controller;
 
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
 import com.example.multikart.domain.dto.UserProfileRequestDTO;
@@ -18,33 +18,52 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/dashboard")
-public class UserAuthController {
+public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @GetMapping("/login")
+    @GetMapping("/dashboard/login")
     public String login(Model model) {
         return authService.backendLogin(model);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/dashboard/login")
     public String postLogin(@Valid @ModelAttribute("user") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
         return authService.backendPostLogin(input, session, result, model);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/dashboard/logout")
     public String logout(HttpSession session, Model model) {
         return authService.backendLogout(session, model);
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/dashboard/profile")
     public String profile(HttpSession session, Model model) {
         return authService.backendProfile(session, model);
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/dashboard/profile")
     public String postProfile(@Valid @ModelAttribute("user") UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
         return authService.backendPostProfile(input, session, result, model, redirect);
+    }
+
+    /**
+     * FRONTEND SPACE
+     */
+
+    @GetMapping("/login")
+    public String frontendLogin(Model model) {
+        return authService.frontendLogin(model);
+    }
+
+    @PostMapping("/login")
+    public String frontendPostLogin(@Valid @ModelAttribute("customer") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
+        return authService.frontendPostLogin(input, session, result, model);
+    }
+
+    @PostMapping("/logout")
+    public String frontendLogout(HttpSession session, Model model) {
+        return authService.frontendLogout(session, model);
     }
 
 }

@@ -125,4 +125,12 @@ public class CategoryServiceImpl implements CategoryService {
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/categories";
     }
+
+    @Override
+    public String frontendCategory(String slug, Model model, RedirectAttributes redirect) {
+        var category = categoryRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
+        model.addAttribute("category", category);
+
+        return "frontend/category";
+    }
 }

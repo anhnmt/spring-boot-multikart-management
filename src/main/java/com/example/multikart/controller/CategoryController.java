@@ -1,4 +1,4 @@
-package com.example.multikart.controller.backend;
+package com.example.multikart.controller;
 
 import com.example.multikart.domain.dto.CategoryRequestDTO;
 import com.example.multikart.service.CategoryService;
@@ -12,38 +12,47 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/dashboard/categories")
+@RequestMapping("/")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
+    @GetMapping("/dashboard/categories")
     public String index(Model model) {
         return categoryService.findAllCategories(model);
     }
 
-    @GetMapping("/create")
+    @GetMapping("/dashboard/categories/create")
     public String create(Model model) {
         return categoryService.createCategory(model);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/dashboard/categories/create")
     public String store(@Valid @ModelAttribute("category") CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return categoryService.storeCategory(input, result, model, redirect);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/dashboard/categories/{id}")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
         return categoryService.editCategory(id, model, redirect);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/dashboard/categories/{id}")
     public String update(@PathVariable("id") Long id, @ModelAttribute("category") CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return categoryService.updateCategory(id, input, result, model, redirect);
     }
 
-    @PostMapping("{id}/delete")
+    @PostMapping("/dashboard/categories/{id}/delete")
     public String delete(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
         return categoryService.deleteCategory(id, model, redirect);
+    }
+
+    /**
+     * FRONTEND SPACE
+     */
+
+    @GetMapping("/danh-muc/{slug}")
+    public String view(@PathVariable("slug") String slug, Model model, RedirectAttributes redirect) {
+        return categoryService.frontendCategory(slug, model, redirect);
     }
 }
