@@ -128,6 +128,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String frontendCategory(String slug, Model model, RedirectAttributes redirect) {
+        var category = categoryRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
+        model.addAttribute("category", category);
+
         return "frontend/category";
     }
 }
