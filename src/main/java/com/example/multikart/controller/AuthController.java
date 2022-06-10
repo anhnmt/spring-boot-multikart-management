@@ -39,7 +39,7 @@ public class AuthController {
     }
 
     @GetMapping("/dashboard/profile")
-    public String profile(HttpSession session, Model model) {
+    public String backendProfile(HttpSession session, Model model) {
         return authService.backendProfile(session, model);
     }
 
@@ -75,6 +75,11 @@ public class AuthController {
     @PostMapping("/register")
     public String frontendPostLogin(@Valid @ModelAttribute("customer") UserRegisterRequestDTO input, HttpSession session, BindingResult result, Model model) {
         return authService.frontendPostRegister(input, session, result, model);
+    }
+
+    @GetMapping("/profile")
+    public String frontendProfile(HttpSession session, Model model) {
+        return authService.frontendProfile(session, model);
     }
 
 }
