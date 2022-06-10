@@ -76,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
         var user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
 
-        return "backend/profile/profile";
+        return "backend/profile";
     }
 
     @Override
@@ -93,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
         if (result.hasErrors()) {
             model.addAttribute("user", input);
 
-            return "backend/profile/profile";
+            return "backend/profile";
         }
 
         if (!input.getPassword().isEmpty()) {
@@ -112,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
         if (result.hasErrors()) {
             model.addAttribute("user", input);
 
-            return "backend/profile/profile";
+            return "backend/profile";
         }
 
         user.setName(input.getName());
@@ -198,5 +198,18 @@ public class AuthServiceImpl implements AuthService {
 
         session.setAttribute("customer", newCus);
         return "redirect:/";
+    }
+
+    @Override
+    public String frontendProfile(HttpSession session, Model model) {
+        var customer = (Customer) session.getAttribute("customer");
+        model.addAttribute("customer", customer);
+
+        return "frontend/profile";
+    }
+
+    @Override
+    public String frontendPostProfile(UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
+        return null;
     }
 }

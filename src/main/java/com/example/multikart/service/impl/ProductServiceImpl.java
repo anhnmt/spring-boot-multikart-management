@@ -203,6 +203,9 @@ public class ProductServiceImpl implements ProductService {
         var product = productRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("product", product);
 
+        var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), product.getCategoryId(), DefaultStatus.ACTIVE);
+        model.addAttribute("relatedProducts", relatedProducts);
+
         return "frontend/product";
     }
 }

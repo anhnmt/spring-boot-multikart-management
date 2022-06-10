@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/frontend/layout}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>tài khoản</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/}">trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">tài khoản</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="dashboard-section section-b-space user-dashboard-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="dashboard-sidebar">
+                        <div class="profile-top">
+                            <div class="profile-image">
+                                <img src="../assets/images/avtar.jpg" alt="" class="img-fluid">
+                            </div>
+                            <div class="profile-detail">
+                                <h5 th:text="${customer.name}"></h5>
+                                <h6 th:text="${customer.email}"></h6>
+                            </div>
+                        </div>
+                        <div class="faq-tab">
+                            <ul class="nav nav-tabs" id="top-tab" role="tablist">
+                                <li class="nav-item"><a class="nav-link active">Tài khoản</a></li>
+                                <li class="nav-item"><a class="nav-link">Hóa đơn</a></li>
+                                <li class="nav-item"><a class="nav-link">Giỏ hàng</a></li>
+                                <li class="nav-item">
+                                    <form id="logout" th:action="@{/logout}" th:method="POST">
+                                        <a th:onclick="document.getElementById('logout').submit()" class="nav-link">
+                                            Đăng xuẩt
+                                        </a>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="faq-content tab-content" id="top-tabContent">
+                        <div class="tab-pane fade show active" id="info">
+                            <div class="counter-section">
+                                <div class="welcome-msg">
+                                    <h4>Hello, MARK JECNO !</h4>
+                                    <p>From your My Account Dashboard you have the ability to view a snapshot of your
+                                        recent
+                                        account activity and update your account information. Select a link below to
+                                        view or
+                                        edit information.</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="counter-box">
+                                            <img src="../assets/images/icon/dashboard/sale.png" class="img-fluid">
+                                            <div>
+                                                <h3>25</h3>
+                                                <h5>Total Order</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="counter-box">
+                                            <img src="../assets/images/icon/dashboard/homework.png" class="img-fluid">
+                                            <div>
+                                                <h3>5</h3>
+                                                <h5>Pending Orders</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="counter-box">
+                                            <img src="../assets/images/icon/dashboard/order.png" class="img-fluid">
+                                            <div>
+                                                <h3>50</h3>
+                                                <h5>Wishlist</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-account box-info">
+                                    <div class="box-head">
+                                        <h4>Account Information</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="box">
+                                                <div class="box-title">
+                                                    <h3>Contact Information</h3><a href="#">Edit</a>
+                                                </div>
+                                                <div class="box-content">
+                                                    <h6>Mark Jecno</h6>
+                                                    <h6>mark-jecno@gmail.com</h6>
+                                                    <h6><a href="#">Change Password</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="box">
+                                                <div class="box-title">
+                                                    <h3>Newsletters</h3><a href="#">Edit</a>
+                                                </div>
+                                                <div class="box-content">
+                                                    <p>You are currently not subscribed to any newsletter.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box mt-3">
+                                        <div class="box-title">
+                                            <h3>Address Book</h3><a href="#">Manage Addresses</a>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <h6>Default Billing Address</h6>
+                                                <address>You have not set a default billing address.<br><a href="#">Edit
+                                                    Address</a></address>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h6>Default Shipping Address</h6>
+                                                <address>You have not set a default shipping address.<br><a href="#">Edit Address</a></address>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div layout:fragment="footer">
+    <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+</body>
+</html>
