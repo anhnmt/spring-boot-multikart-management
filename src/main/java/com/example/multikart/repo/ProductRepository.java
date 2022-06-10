@@ -8,6 +8,8 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAllByStatus(Integer status);
 
+    List<Product> findAllByCategoryIdAndStatus(Long categoryId, Integer status);
+
     Product findByProductIdAndStatus(Long productId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
