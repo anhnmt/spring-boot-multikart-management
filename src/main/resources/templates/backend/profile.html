@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Tài khoản</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Tài khoản
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Settings</li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="profile-details text-center">
+                            <img src="/backend/assets/images/dashboard/designer.jpg" alt=""
+                                 class="img-fluid img-90 rounded-circle blur-up lazyloaded">
+                            <h5 class="f-w-600 mb-0" th:text="${user.name}"></h5>
+                            <span th:text="${user.email}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card tab2-card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" id="top-profile-tab"
+                                                    data-bs-toggle="tab" role="tab"
+                                                    aria-controls="top-profile" aria-selected="true"><i
+                                    data-feather="user"
+                                    class="me-2"></i>Tài khoản</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="top-tabContent">
+                            <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                                 aria-labelledby="top-profile-tab">
+
+                                <form th:object="${user}" th:action="@{/dashboard/profile}"
+                                      class="needs-validation user-add"
+                                      method="post">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-xl-3 col-md-4"><span>*</span>
+                                            Tên</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="name" type="text"
+                                                   required placeholder="Name..." th:field="*{name}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-xl-3 col-md-4"><span>*</span> Email</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="email" type="email" th:field="*{email}"
+                                                   placeholder="Email..." required>
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                                                 th:errors="*{email}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="password" class="col-xl-3 col-md-4">
+                                            Mật khẩu</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="password" type="password"
+                                                   placeholder="Password..." th:field="*{password}">
+                                        </div>
+                                    </div>
+
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+</body>
+</html>

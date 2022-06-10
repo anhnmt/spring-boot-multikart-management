@@ -61,7 +61,8 @@
                                 <td th:text="${cate.slug}"></td>
                                 <td><span class="badge badge-success" th:text="${cate.status}"></span></td>
                                 <td>
-                                    <form th:action="@{/dashboard/categories/{id}/delete(id=${cate.categoryId})}" action="#"
+                                    <form th:action="@{/dashboard/categories/{id}/delete(id=${cate.categoryId})}"
+                                          action="#"
                                           th:method="POST">
                                         <div class="btn-group btn-group-sm">
                                             <a th:href="@{/dashboard/categories/{id}(id=${cate.categoryId})}"
@@ -79,28 +80,6 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
-</div>
-
-<div layout:fragment="customScript">
-    <script th:inline="javascript">
-        let success = [[${success}]];
-        let error = [[${error}]];
-
-        if (error && error !== "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Lỗi rồi!',
-                text: error
-            });
-        } else if (success && success !== "") {
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công!',
-                text: success
-            });
-        }
-
-    </script>
 </div>
 
 </body>

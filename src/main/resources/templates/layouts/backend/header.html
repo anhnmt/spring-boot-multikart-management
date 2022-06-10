@@ -11,8 +11,9 @@
     <div class="main-header-right row">
         <div class="main-header-left d-lg-none w-auto">
             <div class="logo-wrapper">
-                <a href="index.html">
-                    <img class="blur-up lazyloaded d-block d-lg-none" th:src="@{/backend/assets/images/dashboard/multikart-logo-black.png}" alt=""/>
+                <a th:href="@{/dashboard}">
+                    <img class="blur-up lazyloaded d-block d-lg-none"
+                         th:src="@{/backend/assets/images/dashboard/multikart-logo-black.png}" alt=""/>
                 </a>
             </div>
         </div>
@@ -39,7 +40,8 @@
                 </li>
                 <li class="onhover-dropdown">
                     <div class="media align-items-center">
-                        <img class="align-self-center pull-right img-50 blur-up lazyloaded" th:src="@{/backend/assets/images/dashboard/user3.jpg}" alt="header-user"/>
+                        <img class="align-self-center pull-right img-50 blur-up lazyloaded"
+                             th:src="@{/backend/assets/images/dashboard/user3.jpg}" alt="header-user"/>
                         <div class="dotted-animation">
                             <span class="animate-circle"></span>
                             <span class="main-circle"></span>
@@ -47,14 +49,16 @@
                     </div>
                     <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
                         <li>
-                            <a href="#">
-                                <i data-feather="user"></i>Edit Profile
+                            <a th:href="@{/dashboard/profile}">
+                                <i data-feather="user"></i>Tài khoản
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/dashboard/logout}">
-                                <i data-feather="log-out"></i>Đăng xuẩt
-                            </a>
+                            <form id="logout" th:action="@{/dashboard/logout}" th:method="POST">
+                                <a th:onclick="document.getElementById('logout').submit()">
+                                    <i data-feather="log-out"></i>Đăng xuẩt
+                                </a>
+                            </form>
                         </li>
                     </ul>
                 </li>

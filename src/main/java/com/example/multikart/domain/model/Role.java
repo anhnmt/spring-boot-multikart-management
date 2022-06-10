@@ -1,7 +1,6 @@
 package com.example.multikart.domain.model;
 
-import com.example.multikart.domain.dto.CreateRoleRequestDTO;
-import com.example.multikart.domain.dto.UpdateRoleRequestDTO;
+import com.example.multikart.domain.dto.RoleRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,12 +28,7 @@ public class Role extends BaseModel {
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 
-    public Role(CreateRoleRequestDTO input) {
-        name = input.getName();
-        status = input.getStatus();
-    }
-
-    public Role(UpdateRoleRequestDTO input) {
+    public Role(RoleRequestDTO input) {
         name = input.getName();
         status = input.getStatus();
     }

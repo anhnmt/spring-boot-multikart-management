@@ -1,9 +1,12 @@
 package com.example.multikart.domain.model;
 
+import com.example.multikart.domain.dto.CustomerRequestDTO;
+import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -12,7 +15,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customers")
-public class Customer extends BaseModel {
+public class Customer extends BaseModel implements Serializable {
+    private static final long serialVersionUID = -1813145955899712226L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
@@ -30,4 +35,17 @@ public class Customer extends BaseModel {
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
+
+    public Customer(CustomerRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        password = input.getPassword();
+        status = input.getStatus();
+    }
+
+    public Customer(UserRegisterRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        password = input.getPassword();
+    }
 }

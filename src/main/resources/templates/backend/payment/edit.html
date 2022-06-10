@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Sửa phương thức thanh toán</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Sửa phương thức thanh toán
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Phương thức thanh toán</li>
+                        <li class="breadcrumb-item active">Sửa phương thức thanh toán</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card tab2-card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
+                            <li class="nav-item"><a class="nav-link show active" id="account-tab" data-bs-toggle="tab"
+                                                    role="tab" aria-controls="account"
+                                                    aria-selected="true" data-original-title="" title="">Phương thức
+                                thanh toán</a>
+                            </li>
+                        </ul>
+                        <form th:object="${payment}" th:action="@{/dashboard/payments/{id}(id=${payment.paymentId})}"
+                              action="#"
+                              class="needs-validation user-add"
+                              method="post">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade active show" id="account" role="tabpanel"
+                                     aria-labelledby="account-tab">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-xl-3 col-md-4"><span>*</span>
+                                            Tên</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="name" type="text"
+                                                   required placeholder="Tên phương thức thanh toán..."
+                                                   th:field="*{name}">
+                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                                                 th:errors="*{name}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4"><span>*</span> Trạng thái</label>
+                                        <div class="col-xl-8 col-md-7">
+                                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="status1">
+                                                    <input class="radio_animated" id="status1" type="radio"
+                                                           checked="checked" th:value="1"
+                                                           th:field="*{status}" th:checked="*{status} ? 'checked' : ''">
+                                                    Active
+                                                </label>
+                                                <label class="d-block" for="status2">
+                                                    <input class="radio_animated" id="status2" type="radio" th:value="0"
+                                                           th:field="*{status}" th:checked="*{status} ? '' : 'checked'">
+                                                    Inactive
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+</body>
+</html>

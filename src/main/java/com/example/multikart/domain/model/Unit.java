@@ -1,7 +1,6 @@
 package com.example.multikart.domain.model;
 
-import com.example.multikart.domain.dto.CreateUnitRequestDTO;
-import com.example.multikart.domain.dto.UpdateUnitRequestDTO;
+import com.example.multikart.domain.dto.UnitRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,12 +28,7 @@ public class Unit extends BaseModel {
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 
-    public Unit(CreateUnitRequestDTO input) {
-        name = input.getName();
-        status = input.getStatus();
-    }
-
-    public Unit(UpdateUnitRequestDTO input) {
+    public Unit(UnitRequestDTO input) {
         name = input.getName();
         status = input.getStatus();
     }

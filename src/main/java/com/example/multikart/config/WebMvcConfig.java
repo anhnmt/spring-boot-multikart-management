@@ -36,16 +36,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // Loại đi trường hợp /login, /logout
+        // Loại đi trường hợp /login
         registry.addInterceptor(customerInterceptor)
-                .addPathPatterns("/payment", "/profile**")
-                .excludePathPatterns("/login", "/logout");
+                .addPathPatterns("/payment", "/profile**", "/profile/**")
+                .excludePathPatterns("/login", "/register");
 
         // Interceptor này áp dụng cho các URL có dạng /dashboard*
-        // Loại đi trường hợp /dashboard/login, /dashboard/logout
+        // Loại đi trường hợp /dashboard/login
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/dashboard**", "/dashboard/**")
-                .excludePathPatterns("/dashboard/login", "/dashboard/logout");
+                .excludePathPatterns("/dashboard/login");
     }
 
     @Bean

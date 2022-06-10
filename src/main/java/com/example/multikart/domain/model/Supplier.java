@@ -1,5 +1,6 @@
 package com.example.multikart.domain.model;
 
+import com.example.multikart.domain.dto.SupplierRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,4 +36,15 @@ public class Supplier extends BaseModel {
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
+
+    public Supplier(SupplierRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        phone = input.getPhone();
+        website = input.getWebsite();
+        address = input.getAddress();
+        taxCode = input.getTaxCode();
+        status = input.getStatus();
+    }
+
 }

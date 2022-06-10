@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/frontend/layout}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2 th:text="${category.name}">danh mục</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/}">trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="${category.name}">danh mục</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ratio_asos">
+        <div class="collection-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="collection-content col">
+                        <div class="page-main-content">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="collection-product-wrapper">
+                                        <div class="product-wrapper-grid">
+                                            <div class="row margin-res">
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/35.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/35.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/36.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/36.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div>
+                                                                <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                                                                <a href="product-page(no-sidebar).html">
+                                                                    <h6>Slim Fit Cotton Shirt</h6>
+                                                                </a>
+                                                                <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                    typesetting industry. Lorem Ipsum has been the
+                                                                    industry's standard dummy text ever since the 1500s,
+                                                                    when an unknown printer took a galley
+                                                                    of type and scrambled it to make a type specimen
+                                                                    book</p>
+                                                                <h4>$500.00</h4>
+                                                                <ul class="color-variant">
+                                                                    <li class="bg-light0"></li>
+                                                                    <li class="bg-light1"></li>
+                                                                    <li class="bg-light2"></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/27.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/28.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/1.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/33.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/34.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/27.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/28.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/35.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/35.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/36.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/36.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/27.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/28.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/1.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/27.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/28.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/1.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/33.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/34.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-6 col-grid-box">
+                                                    <div class="product-box">
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/1.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                            <div class="back">
+                                                                <a href="#" class="bg-size blur-up lazyloaded" style="background-image: url(&quot;../assets/images/pro3/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt="" style="display: none;"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-detail">
+                                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>Slim Fit Cotton Shirt</h6>
+                                                            </a>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley
+                                                                of type and scrambled it to make a type specimen book
+                                                            </p>
+                                                            <h4>$500.00</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-pagination">
+                                            <div class="theme-paggination-block">
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                        <nav aria-label="Page navigation">
+                                                            <ul class="pagination">
+                                                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span> <span class="sr-only">Previous</span></a></li>
+                                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span> <span class="sr-only">Next</span></a></li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                        <div class="product-search-count-bottom">
+                                                            <h5>Showing Products 1-24 of 10 Result</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="footer">
+    <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+</body>
+</html>

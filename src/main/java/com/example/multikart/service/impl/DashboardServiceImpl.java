@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 @Service
 public class DashboardServiceImpl implements DashboardService {
     @Override
-    public String dashboard(HttpSession session, Model model) {
+    public String dashboard(Model model) {
         return "backend/index";
     }
 }

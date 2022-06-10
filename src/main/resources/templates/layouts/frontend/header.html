@@ -20,9 +20,9 @@
                             </a>
                         </div>
                         <div class="brand-logo">
-                            <a href="index.html"><img alt=""
-                                                      class="img-fluid blur-up lazyload"
-                                                      th:src="@{/assets/images/icon/logo/37.png}"/></a>
+                            <a th:href="@{/}"><img alt=""
+                                                   class="img-fluid blur-up lazyload"
+                                                   th:src="@{/assets/images/icon/logo/37.png}"/></a>
                         </div>
                     </div>
                     <form class="form_search rounded-0 ms-5" role="form">
@@ -76,6 +76,36 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="onhover-div mobile-setting">
+                                        <div th:if="${session.customer != null}">
+                                            <div>
+                                                <img src="../assets/images/icon/user-1.png"
+                                                     class="img-fluid blur-up lazyload" alt="">
+                                                <span th:text="${session.customer.name}"></span>
+                                            </div>
+                                            <div class="show-div setting">
+                                                <h6>Cài đặt</h6>
+                                                <ul>
+                                                    <li><a th:href="@{/profile}">tài khoản</a></li>
+                                                    <li>
+                                                        <form id="logout" th:action="@{/logout}" th:method="POST">
+                                                            <a th:onclick="document.getElementById('logout').submit()">
+                                                                Đăng xuẩt
+                                                            </a>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div th:if="${session.customer == null}">
+                                            <div class="setting">
+                                                <a th:href="@{/login}">
+                                                    <img src="../assets/images/icon/user-1.png"
+                                                         class="img-fluid blur-up lazyload" alt=""> Đăng nhập
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li class="onhover-div mobile-cart">
                                         <div><img alt=""
                                                   class="img-fluid blur-up lazyload"
@@ -84,32 +114,32 @@
                                         <ul class="show-div shopping-cart">
                                             <li>
                                                 <div class="media">
-                                                    <a href="index.html"><img alt="" class="me-3"
-                                                                              th:src="@{/assets/images/fashion/product/1.jpg}"/></a>
+                                                    <a th:href="@{/}"><img alt="" class="me-3"
+                                                                           th:src="@{/assets/images/fashion/product/1.jpg}"/></a>
                                                     <div class="media-body">
-                                                        <a href="index.html">
+                                                        <a th:href="@{/}">
                                                             <h4>item name</h4>
                                                         </a>
                                                         <h4><span>1 x $ 299.00</span></h4>
                                                     </div>
                                                 </div>
-                                                <div class="close-circle"><a href="index.html"><i aria-hidden="true"
-                                                                                                  class="fa fa-times"></i></a>
+                                                <div class="close-circle"><a th:href="@{/}"><i aria-hidden="true"
+                                                                                               class="fa fa-times"></i></a>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="media">
-                                                    <a href="index.html"><img alt="" class="me-3"
-                                                                              th:src="@{/assets/images/fashion/product/2.jpg}"/></a>
+                                                    <a th:href="@{/}"><img alt="" class="me-3"
+                                                                           th:src="@{/assets/images/fashion/product/2.jpg}"/></a>
                                                     <div class="media-body">
-                                                        <a href="index.html">
+                                                        <a th:href="@{/}">
                                                             <h4>item name</h4>
                                                         </a>
                                                         <h4><span>1 x $ 299.00</span></h4>
                                                     </div>
                                                 </div>
-                                                <div class="close-circle"><a href="index.html"><i aria-hidden="true"
-                                                                                                  class="fa fa-times"></i></a>
+                                                <div class="close-circle"><a th:href="@{/}"><i aria-hidden="true"
+                                                                                               class="fa fa-times"></i></a>
                                                 </div>
                                             </li>
                                             <li>
@@ -118,8 +148,7 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="buttons"><a class="view-cart" href="cart.html">view
-                                                    cart</a> <a class="checkout" href="index.html">checkout</a></div>
+                                                <div class="buttons"><a class="view-cart" th:href="@{/cart}">giỏ hàng</a> <a class="checkout" th:href="@{/checkout}">thanh toán</a></div>
                                             </li>
                                         </ul>
                                     </li>

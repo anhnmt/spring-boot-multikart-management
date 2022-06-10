@@ -1,10 +1,10 @@
 package com.example.multikart.domain.model;
 
-import com.example.multikart.domain.dto.CreateUserRequestDTO;
-import com.example.multikart.domain.dto.UpdateUserRequestDTO;
+import com.example.multikart.domain.dto.UserRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -13,7 +13,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User extends BaseModel {
+public class User extends BaseModel implements Serializable {
+    private static final long serialVersionUID = -18131459558712226L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -35,15 +37,7 @@ public class User extends BaseModel {
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
 
-    public User(CreateUserRequestDTO input) {
-        name = input.getName();
-        email = input.getEmail();
-        password = input.getPassword();
-        roleId = input.getRoleId();
-        status = input.getStatus();
-    }
-
-    public User(UpdateUserRequestDTO input) {
+    public User(UserRequestDTO input) {
         name = input.getName();
         email = input.getEmail();
         password = input.getPassword();
