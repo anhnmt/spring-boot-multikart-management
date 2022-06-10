@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/frontend/layout}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>Đăng nhập người dùng</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Đăng nhập</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--section start-->
+    <section class="register-page section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>tạọ mới tài khoản</h3>
+                    <div class="theme-card">
+                        <form class="theme-form" th:action="@{/register}" th:object="${customer}" method="POST">
+                            <div class="form-row row">
+                                <div class="col-md-6">
+                                    <label for="name">Họ tên</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Họ và tên"
+                                           required="" th:field="*{name}">
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                                         th:errors="*{name}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Địa chỉ email"
+                                           required="" th:field="*{email}">
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                                         th:errors="*{email}"></div>
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class="col-md-6">
+                                    <label for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Mật khẩu"
+                                           required="" th:field="*{password}">
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}"
+                                         th:errors="*{password}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="confirmPassword">Xác nhận mật khẩu</label>
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                           placeholder="Xác nhận mật khẩu" required="" th:field="*{confirmPassword}">
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('confirmPassword')}"
+                                         th:errors="*{confirmPassword}"></div>
+                                </div>
+                                <button type="submit" class="btn btn-solid w-auto">Thêm tài khoản</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Section ends-->
+</div>
+
+<div layout:fragment="footer">
+    <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+</body>
+</html>

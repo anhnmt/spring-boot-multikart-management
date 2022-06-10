@@ -1,6 +1,7 @@
 package com.example.multikart.domain.model;
 
 import com.example.multikart.domain.dto.CustomerRequestDTO;
+import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,5 +38,11 @@ public class Customer extends BaseModel {
         email = input.getEmail();
         password = input.getPassword();
         status = input.getStatus();
+    }
+
+    public Customer(UserRegisterRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        password = input.getPassword();
     }
 }
