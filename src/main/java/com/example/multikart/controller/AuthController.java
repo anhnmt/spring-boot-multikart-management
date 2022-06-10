@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/dashboard")
+@RequestMapping("/")
 public class AuthController {
     @Autowired
     private AuthService authService;
