@@ -48,19 +48,19 @@
                             <div class="slide-6-veg slick-sm-margin no-arrow">
                                 <div class="product-box product-style-5"
                                      th:each="product : ${categoryProduct.products}">
-                                    <a href="product-page.html">
+                                    <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                         <h6 th:text="${product.name}">Slim Fit Cotton Shirt</h6>
                                     </a>
                                     <h5>1 Kg</h5>
                                     <h4>$500.00</h4>
                                     <div class="addtocart_btn">
-                                        <button class="add-button add_cart" title="Add to cart">
+                                        <a th:href="@{/san-pham/{slug}(slug=${product.slug})}" class="add-button add_cart" title="Add to cart">
                                             <i class="fa fa-plus"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <div class="img-wrapper">
                                         <div class="front">
-                                            <a href="product-page.html">
+                                            <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                                 <img alt="" class="img-fluid blur-up lazyload bg-img"
                                                      th:src="@{/assets/images/vegetables/pro/png/1.png}"/>
                                             </a>

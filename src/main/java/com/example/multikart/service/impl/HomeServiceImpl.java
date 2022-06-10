@@ -33,6 +33,7 @@ public class HomeServiceImpl implements HomeService {
                     stream().map(p -> ItemProductDTO.builder()
                             .productId(p.getProductId())
                             .name(p.getName())
+                            .slug(p.getSlug())
                             .amount(p.getAmount())
                             .categoryId(p.getCategoryId())
                             .build()

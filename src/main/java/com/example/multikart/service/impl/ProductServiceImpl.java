@@ -1,6 +1,6 @@
 package com.example.multikart.service.impl;
 
-import com.example.multikart.common.Const;
+import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.domain.model.Product;
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String findAllProducts(Model model) {
-        var products = productRepository.findAllByStatus(Const.DefaultStatus.ACTIVE);
+        var products = productRepository.findAllByStatus(DefaultStatus.ACTIVE);
         model.addAttribute("products", products);
 
         return "backend/product/index";
@@ -37,10 +37,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String createProduct(Model model) {
-        model.addAttribute("product", Product.builder().status(Const.DefaultStatus.ACTIVE).build());
-        model.addAttribute("categories", categoryRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-        model.addAttribute("units", unitRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-        model.addAttribute("suppliers", supplierRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
+        model.addAttribute("product", Product.builder().status(DefaultStatus.ACTIVE).build());
+        model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
+        model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
+        model.addAttribute("suppliers", supplierRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
         return "backend/product/create";
     }
@@ -49,18 +49,18 @@ public class ProductServiceImpl implements ProductService {
     public String storeProduct(ProductRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             model.addAttribute("product", input);
-            model.addAttribute("categories", categoryRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("units", unitRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("suppliers", supplierRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
+            model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("suppliers", supplierRepository.findAllByStatus(DefaultStatus.ACTIVE));
             return "backend/product/create";
         }
 
-        var count = productRepository.countByNameAndStatus(input.getName(), Const.DefaultStatus.ACTIVE);
+        var count = productRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
         if (count > 0) {
             result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
         }
 
-        var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), Const.DefaultStatus.ACTIVE);
+        var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
         if (countSlug > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -81,9 +81,9 @@ public class ProductServiceImpl implements ProductService {
 
         if (result.hasErrors()) {
             model.addAttribute("product", input);
-            model.addAttribute("categories", categoryRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("units", unitRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("suppliers", supplierRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
+            model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("suppliers", supplierRepository.findAllByStatus(DefaultStatus.ACTIVE));
             return "backend/product/create";
         }
 
@@ -96,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String editProduct(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
 
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
@@ -105,16 +105,16 @@ public class ProductServiceImpl implements ProductService {
         }
 
         model.addAttribute("product", product);
-        model.addAttribute("categories", categoryRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-        model.addAttribute("units", unitRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-        model.addAttribute("suppliers", supplierRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
+        model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
+        model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
+        model.addAttribute("suppliers", supplierRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
         return "backend/product/edit";
     }
 
     @Override
     public String updateProduct(Long id, ProductRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -123,14 +123,14 @@ public class ProductServiceImpl implements ProductService {
 
         if (result.hasErrors()) {
             model.addAttribute("product", input);
-            model.addAttribute("categories", categoryRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("units", unitRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("suppliers", supplierRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
+            model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("suppliers", supplierRepository.findAllByStatus(DefaultStatus.ACTIVE));
             return "backend/product/edit";
         }
 
         if (!product.getName().equals(input.getName())) {
-            var count = productRepository.countByNameAndStatus(input.getName(), Const.DefaultStatus.ACTIVE);
+            var count = productRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
             } else {
@@ -138,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         if (!product.getSlug().equals(input.getSlug())) {
-            var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), Const.DefaultStatus.ACTIVE);
+            var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
             if (countSlug > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             } else {
@@ -162,9 +162,9 @@ public class ProductServiceImpl implements ProductService {
 
         if (result.hasErrors()) {
             model.addAttribute("product", input);
-            model.addAttribute("categories", categoryRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("units", unitRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
-            model.addAttribute("suppliers", supplierRepository.findAllByStatus(Const.DefaultStatus.ACTIVE));
+            model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
+            model.addAttribute("suppliers", supplierRepository.findAllByStatus(DefaultStatus.ACTIVE));
             return "backend/product/edit";
         }
 
@@ -184,17 +184,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String deleteProduct(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
             return "redirect:/dashboard/products";
         }
 
-        product.setStatus(Const.DefaultStatus.DELETED);
+        product.setStatus(DefaultStatus.DELETED);
         productRepository.save(product);
 
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/products";
+    }
+
+    @Override
+    public String frontendProduct(String slug, Model model, RedirectAttributes redirect) {
+        var product = productRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
+        model.addAttribute("product", product);
+
+        return "frontend/product";
     }
 }
