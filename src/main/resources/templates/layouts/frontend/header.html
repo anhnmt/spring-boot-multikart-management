@@ -79,7 +79,7 @@
                                     <li class="onhover-div mobile-setting">
                                         <div th:if="${session.customer != null}">
                                             <div>
-                                                <img src="../assets/images/icon/global.png"
+                                                <img src="../assets/images/icon/user-1.png"
                                                      class="img-fluid blur-up lazyload" alt="">
                                                 <span th:text="${session.customer.name}"></span>
                                             </div>
@@ -100,7 +100,7 @@
                                         <div th:if="${session.customer == null}">
                                             <div class="setting">
                                                 <a th:href="@{/login}">
-                                                    <img src="../assets/images/icon/global.png"
+                                                    <img src="../assets/images/icon/user-1.png"
                                                          class="img-fluid blur-up lazyload" alt=""> Đăng nhập
                                                 </a>
                                             </div>
