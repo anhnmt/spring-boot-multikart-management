@@ -77,22 +77,33 @@
                                         </div>
                                     </li>
                                     <li class="onhover-div mobile-setting">
-                                        <div>
-                                            <img src="../assets/images/icon/global.png"
-                                                 class="img-fluid blur-up lazyload" alt=""> Đăng nhập
+                                        <div th:if="${session.customer != null}">
+                                            <div>
+                                                <img src="../assets/images/icon/global.png"
+                                                     class="img-fluid blur-up lazyload" alt="">
+                                                <span th:text="${session.customer.name}"></span>
+                                            </div>
+                                            <div class="show-div setting">
+                                                <h6>Cài đặt</h6>
+                                                <ul>
+                                                    <li><a th:href="@{/profile}">tài khoản</a></li>
+                                                    <li>
+                                                        <form id="logout" th:action="@{/logout}" th:method="POST">
+                                                            <a th:onclick="document.getElementById('logout').submit()">
+                                                                Đăng xuẩt
+                                                            </a>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="show-div setting">
-                                            <h6>Cài đặt</h6>
-                                            <ul>
-                                                <li><a href="#">tài khoản</a></li>
-                                                <li>
-                                                    <form id="logout" th:action="@{/logout}" th:method="POST">
-                                                        <a th:onclick="document.getElementById('logout').submit()">
-                                                           Đăng xuẩt
-                                                        </a>
-                                                    </form>
-                                                </li>
-                                            </ul>
+                                        <div th:if="${session.customer == null}">
+                                            <div class="setting">
+                                                <a th:href="@{/login}">
+                                                    <img src="../assets/images/icon/global.png"
+                                                         class="img-fluid blur-up lazyload" alt=""> Đăng nhập
+                                                </a>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="onhover-div mobile-cart">

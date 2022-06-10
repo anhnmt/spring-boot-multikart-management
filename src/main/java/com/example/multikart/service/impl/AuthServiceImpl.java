@@ -4,6 +4,8 @@ import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
 import com.example.multikart.domain.dto.UserProfileRequestDTO;
+import com.example.multikart.domain.dto.UserRegisterRequestDTO;
+import com.example.multikart.domain.model.Customer;
 import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.CustomerRepository;
 import com.example.multikart.repo.UserRepository;
@@ -31,10 +33,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String backendLogin(Model model) {
-        model.addAttribute("user", UserLoginRequestDTO.builder()
-                .email("admin@gmail.com")
-                .password("123456")
-                .build());
+        model.addAttribute("user", UserLoginRequestDTO.builder().email("admin@gmail.com").password("123456").build());
 
         return "backend/auth/login";
     }
@@ -127,10 +126,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String frontendLogin(Model model) {
-        model.addAttribute("customer", UserLoginRequestDTO.builder()
-                .email("cus@gmail.com")
-                .password("123456")
-                .build());
+        model.addAttribute("customer", UserLoginRequestDTO.builder().email("cus@gmail.com").password("123456").build());
 
         return "frontend/auth/login";
     }
@@ -165,6 +161,42 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String frontendLogout(HttpSession session, Model model) {
         session.removeAttribute("customer");
+        return "redirect:/";
+    }
+
+    @Override
+    public String frontendRegister(Model model) {
+        model.addAttribute("customer", UserRegisterRequestDTO.builder().name("Tim Văn Cúc").email("demo@gmail.com").password("123456").confirmPassword("123456").build());
+
+        return "frontend/auth/register";
+    }
+
+    @Override
+    public String frontendPostRegister(UserRegisterRequestDTO input, HttpSession session, BindingResult result, Model model) {
+        log.info("userDTO: {}", input);
+
+        if (result.hasErrors()) {
+            model.addAttribute("customer", input);
+            return "frontend/auth/register";
+        }
+
+        var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+        if (!DataUtils.isNullOrEmpty(cus)) {
+            result.rejectValue("email", "", "Email đã tồn tại");
+        }
+
+        if (!input.getPassword().equalsIgnoreCase(input.getConfirmPassword())) {
+            result.rejectValue("password", "", "Mật khẩu không khớp");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("customer", input);
+            return "frontend/auth/register";
+        }
+
+        var newCus = customerRepository.save(new Customer(input));
+
+        session.setAttribute("customer", newCus);
         return "redirect:/";
     }
 }

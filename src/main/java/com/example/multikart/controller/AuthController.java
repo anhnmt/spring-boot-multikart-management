@@ -2,6 +2,7 @@ package com.example.multikart.controller;
 
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
 import com.example.multikart.domain.dto.UserProfileRequestDTO;
+import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import com.example.multikart.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,6 +65,16 @@ public class AuthController {
     @PostMapping("/logout")
     public String frontendLogout(HttpSession session, Model model) {
         return authService.frontendLogout(session, model);
+    }
+
+    @GetMapping("/register")
+    public String frontendRegister(Model model) {
+        return authService.frontendRegister(model);
+    }
+
+    @PostMapping("/register")
+    public String frontendPostLogin(@Valid @ModelAttribute("customer") UserRegisterRequestDTO input, HttpSession session, BindingResult result, Model model) {
+        return authService.frontendPostRegister(input, session, result, model);
     }
 
 }
