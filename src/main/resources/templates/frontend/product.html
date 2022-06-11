@@ -79,23 +79,20 @@
                             </div>
                             <h2 th:text="${product.name}"></h2>
                             <div class="label-section">
-                                <span class="badge badge-grey-color" th:text="${product.name}"></span>
+                                <span class="badge badge-grey-color" th:text="${product.categoryName}"></span>
                             </div>
-                            <h3 class="price-detail">$32.96
+                            <h3 class="price-detail">
+                                <span th:text="${product.exportPrice}"></span>
                                 <del>$459.00</del>
                             </h3>
                             <div id="selectSize" class="addeffect-section product-description border-product">
-                                <h6 class="product-title size-text">select size</h6>
-                                <h6 class="error-message">please select size</h6>
+                                <h6 class="product-title size-text">đơn vị</h6>
                                 <div class="size-box">
                                     <ul>
-                                        <li><a href="javascript:void(0)">s</a></li>
-                                        <li><a href="javascript:void(0)">m</a></li>
-                                        <li><a href="javascript:void(0)">l</a></li>
-                                        <li><a href="javascript:void(0)">xl</a></li>
+                                        <li class="active"><a href="javascript:void(0)" th:text="${product.unitName}"></a></li>
                                     </ul>
                                 </div>
-                                <h6 class="product-title">quantity</h6>
+                                <h6 class="product-title">số lượng</h6>
                                 <div class="qty-box">
                                     <div class="input-group"><span class="input-group-prepend"><button type="button"
                                                                                                        class="btn quantity-left-minus"
@@ -110,10 +107,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-buttons"><a href="javascript:void(0)" id="cartEffect"
-                                                            class="btn btn-solid hover-solid btn-animation"><i
-                                    class="fa fa-shopping-cart me-1"
-                                    aria-hidden="true"></i> thêm vào giỏ</a></div>
+                            <div class="product-buttons">
+                                <form id="addToCart" th:action="@{/cart/{id}(id=${product.productId})}" th:method="POST">
+                                    <button id="cartEffect"
+                                       class="btn btn-solid hover-solid btn-animation">
+                                        <i class="fa fa-shopping-cart me-1"
+                                           aria-hidden="true"></i> thêm vào giỏ</button>
+                                </form>
+                            </div>
                             <div class="product-count">
                                 <ul>
                                     <li>
