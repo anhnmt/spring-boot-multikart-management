@@ -113,7 +113,7 @@
                                                       class="img-fluid blur-up lazyload"
                                                       th:src="@{/assets/images/icon/trolley.png}"/>
                                             </div>
-                                            <span class="cart_qty_cls" th:text="${#lists.isEmpty(session.cart) ? 0 : #lists.size(session.cart)}"></span>
+                                            <span class="cart_qty_cls" th:text="${#lists.isEmpty(session.carts) ? 0 : #lists.size(session.carts)}"></span>
                                         </a>
                                     </li>
                                 </ul>
