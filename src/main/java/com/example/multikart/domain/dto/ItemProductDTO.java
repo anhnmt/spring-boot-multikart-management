@@ -1,5 +1,9 @@
 package com.example.multikart.domain.dto;
 
+import com.example.multikart.domain.model.Category;
+import com.example.multikart.domain.model.Product;
+import com.example.multikart.domain.model.Supplier;
+import com.example.multikart.domain.model.Unit;
 import lombok.*;
 
 @Getter
@@ -7,11 +11,18 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ItemProductDTO {
     private Long productId;
+
     private Long categoryId;
+    private String categoryName;
+
     private Long unitId;
+    private String unitName;
+
     private Long supplierId;
+    private String supplierName;
 
     private String name;
 
@@ -28,4 +39,24 @@ public class ItemProductDTO {
 
     // Trạng thái
     private Integer status;
+
+    public ItemProductDTO(Product product, Category category, Unit unit, Supplier supplier) {
+        productId = product.getProductId();
+        name = product.getName();
+        slug = product.getSlug();
+        amount = product.getAmount();
+        importPrice = product.getImportPrice();
+        exportPrice = product.getExportPrice();
+        description = product.getDescription();
+        status = product.getStatus();
+
+        categoryId = category.getCategoryId();
+        categoryName = category.getName();
+
+        unitId = unit.getUnitId();
+        unitName = unit.getName();
+
+        supplierId = supplier.getSupplierId();
+        supplierName = supplier.getName();
+    }
 }

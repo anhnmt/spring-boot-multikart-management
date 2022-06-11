@@ -34,6 +34,9 @@
     <!-- Themify icon -->
     <link rel="stylesheet" th:href="@{/assets/css/vendors/themify-icons.css}" type="text/css"/>
 
+    <!-- sweetalert2-->
+    <link rel="stylesheet" th:href="@{/backend/assets/css/sweetalert2/sweetalert2.min.css}"/>
+
     <!-- Bootstrap css -->
     <link rel="stylesheet" th:href="@{/assets/css/vendors/bootstrap.css}" type="text/css"/>
 
@@ -129,6 +132,9 @@
 <script th:src="@{/assets/js/script.js}"></script>
 <script th:src="@{/assets/js/custom-slick-animated.js}"></script>
 
+<!-- sweetalert2-->
+<script th:src="@{/backend/assets/js/sweetalert2/sweetalert2.all.min.js}"></script>
+
 <script>
     function openSearch() {
         document.getElementById("search-overlay").style.display = "block";
@@ -147,6 +153,26 @@
         if (scroll >= 100) sticky.addClass('fixed');
         else sticky.removeClass('fixed');
     });
+</script>
+
+<script th:inline="javascript">
+    let success = [[${success}]];
+    let error = [[${error}]];
+
+    if (error && error !== "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi rồi!',
+            text: error
+        });
+    } else if (success && success !== "") {
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: success
+        });
+    }
+
 </script>
 
 </body>
