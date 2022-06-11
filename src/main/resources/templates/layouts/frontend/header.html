@@ -107,50 +107,14 @@
                                         </div>
                                     </li>
                                     <li class="onhover-div mobile-cart">
-                                        <div><img alt=""
-                                                  class="img-fluid blur-up lazyload"
-                                                  th:src="@{/assets/images/icon/trolley.png}"/></div>
-                                        <span class="cart_qty_cls">2</span>
-                                        <ul class="show-div shopping-cart">
-                                            <li>
-                                                <div class="media">
-                                                    <a th:href="@{/}"><img alt="" class="me-3"
-                                                                           th:src="@{/assets/images/fashion/product/1.jpg}"/></a>
-                                                    <div class="media-body">
-                                                        <a th:href="@{/}">
-                                                            <h4>item name</h4>
-                                                        </a>
-                                                        <h4><span>1 x $ 299.00</span></h4>
-                                                    </div>
-                                                </div>
-                                                <div class="close-circle"><a th:href="@{/}"><i aria-hidden="true"
-                                                                                               class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <a th:href="@{/}"><img alt="" class="me-3"
-                                                                           th:src="@{/assets/images/fashion/product/2.jpg}"/></a>
-                                                    <div class="media-body">
-                                                        <a th:href="@{/}">
-                                                            <h4>item name</h4>
-                                                        </a>
-                                                        <h4><span>1 x $ 299.00</span></h4>
-                                                    </div>
-                                                </div>
-                                                <div class="close-circle"><a th:href="@{/}"><i aria-hidden="true"
-                                                                                               class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="total">
-                                                    <h5>subtotal : <span>$299.00</span></h5>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="buttons"><a class="view-cart" th:href="@{/cart}">giỏ hàng</a> <a class="checkout" th:href="@{/checkout}">thanh toán</a></div>
-                                            </li>
-                                        </ul>
+                                        <a class="view-cart" th:href="@{/cart}">
+                                            <div>
+                                                <img alt=""
+                                                      class="img-fluid blur-up lazyload"
+                                                      th:src="@{/assets/images/icon/trolley.png}"/>
+                                            </div>
+                                            <span class="cart_qty_cls" th:text="${#lists.isEmpty(session.cart) ? 0 : #lists.size(session.cart)}"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
