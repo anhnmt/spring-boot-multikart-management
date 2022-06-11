@@ -2,6 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.domain.dto.ItemProductDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.CategoryRepository;
@@ -200,7 +201,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String frontendProduct(String slug, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
+        var product = productRepository.findItemProductBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("product", product);
 
         var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), product.getCategoryId(), DefaultStatus.ACTIVE);

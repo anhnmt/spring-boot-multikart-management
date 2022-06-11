@@ -78,15 +78,8 @@
                                 </ul>
                             </div>
                             <h2 th:text="${product.name}"></h2>
-                            <div class="rating-section">
-                                <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                        class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                </div>
-                                <h6>120 ratings</h6>
-                            </div>
                             <div class="label-section">
-                                <span class="badge badge-grey-color">#1 Best seller</span>
-                                <span class="label-text">in fashion</span>
+                                <span class="badge badge-grey-color" th:text="${product.name}"></span>
                             </div>
                             <h3 class="price-detail">$32.96 <del>$459.00</del></h3>
                             <div id="selectSize" class="addeffect-section product-description border-product">
@@ -113,9 +106,9 @@
                                 </div>
                             </div>
                             <div class="product-buttons"><a href="javascript:void(0)" id="cartEffect"
-                                                            class="btn btn-solid hover-solid btn-animation"><i class="fa fa-shopping-cart me-1"
-                                                                                                               aria-hidden="true"></i> add to cart</a> <a href="#" class="btn btn-solid"><i
-                                    class="fa fa-bookmark fz-16 me-2" aria-hidden="true"></i>wishlist</a></div>
+                                                            class="btn btn-solid hover-solid btn-animation"><i
+                                    class="fa fa-shopping-cart me-1"
+                                    aria-hidden="true"></i> thêm vào giỏ</a></div>
                             <div class="product-count">
                                 <ul>
                                     <li>
