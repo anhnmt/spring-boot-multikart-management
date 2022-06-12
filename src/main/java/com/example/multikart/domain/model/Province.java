@@ -1,5 +1,6 @@
 package com.example.multikart.domain.model;
 
+import com.example.multikart.domain.dto.ProvinceDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,4 +23,10 @@ public class Province extends BaseModel {
     private String name;
 
     private String type;
+
+    public Province(ProvinceDTO province) {
+        provinceId = province.getLevel1Id();
+        name = province.getName();
+        type = province.getType();
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.multikart.domain.model;
 
+import com.example.multikart.domain.dto.WardDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,4 +25,11 @@ public class Ward extends BaseModel {
     private String name;
 
     private String type;
+
+    public Ward(WardDTO ward, Long proId) {
+        wardId = ward.getLevel3Id();
+        districtId = proId;
+        name = ward.getName();
+        type = ward.getType();
+    }
 }

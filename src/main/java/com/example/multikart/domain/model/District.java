@@ -1,5 +1,7 @@
 package com.example.multikart.domain.model;
 
+import com.example.multikart.domain.dto.DistrictDTO;
+import com.example.multikart.domain.dto.ProvinceDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,4 +26,11 @@ public class District extends BaseModel {
     private String name;
 
     private String type;
+
+    public District(DistrictDTO district, Long proId) {
+        districtId = district.getLevel2Id();
+        provinceId = proId;
+        name = district.getName();
+        type = district.getType();
+    }
 }

@@ -14,6 +14,7 @@ spring:
     username: root
     password: 123456aA@
     driverClassName: org.postgresql.Driver
+
   # JPA / HIBERNATE
   jpa:
     show-sql: true
@@ -23,6 +24,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        jdbc:
+          batch_size: 100
 
   session:
     storeType: jdbc
