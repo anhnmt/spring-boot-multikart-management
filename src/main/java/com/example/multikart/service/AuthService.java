@@ -23,7 +23,7 @@ public interface AuthService {
 
     String frontendLogin(Model model);
 
-    String frontendPostLogin(UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model);
+    String frontendPostLogin(String referer, UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model);
 
     String frontendLogout(HttpSession session, Model model);
 

@@ -24,11 +24,11 @@ public class CartDTO implements Serializable {
     private Integer quantity;
     private Float price;
 
-    public CartDTO(Product product) {
+    public CartDTO(Product product, Integer number) {
         productId = product.getProductId();
         name = product.getName();
         slug = product.getSlug();
-        quantity = 1;
+        quantity = number;
         price = product.getExportPrice();
     }
 }

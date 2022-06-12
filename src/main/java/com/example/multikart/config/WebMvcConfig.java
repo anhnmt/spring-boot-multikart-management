@@ -38,8 +38,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // Loại đi trường hợp /login
         registry.addInterceptor(customerInterceptor)
-                .addPathPatterns("/payment", "/profile**", "/profile/**")
-                .excludePathPatterns("/login", "/register");
+                .addPathPatterns("/checkout", "/profile**", "/profile/**")
+                .excludePathPatterns("/signin", "/register", "/cart");
 
         // Interceptor này áp dụng cho các URL có dạng /dashboard*
         // Loại đi trường hợp /dashboard/login
