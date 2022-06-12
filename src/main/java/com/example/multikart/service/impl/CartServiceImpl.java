@@ -43,7 +43,7 @@ public class CartServiceImpl implements CartService {
         var carts = getCartSession(session);
         // add or update cart
         if (!checkExistCart(carts, input.getProductId())) {
-            carts.add(new CartDTO(product));
+            carts.add(new CartDTO(product, input.getQuantity()));
         } else {
             carts.forEach(c -> {
                 if (c.getProductId().equals(input.getProductId())) {

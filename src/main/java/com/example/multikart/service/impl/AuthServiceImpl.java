@@ -132,7 +132,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String frontendPostLogin(UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
+    public String frontendPostLogin(String referer, UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
         log.info("userDTO: {}", input);
 
         if (result.hasErrors()) {
@@ -155,6 +155,11 @@ public class AuthServiceImpl implements AuthService {
         }
 
         session.setAttribute("customer", cus);
+
+        if (!DataUtils.isNullOrEmpty(referer)) {
+            return "redirect:" + referer;
+        }
+
         return "redirect:/";
     }
 

@@ -47,9 +47,9 @@
                         <form id="removeFromCart" th:action="@{/cart/{id}/delete(id=${cart.productId})}" th:method="POST">
                             <tr>
                                 <td>
-                                    <a href="#"><img src="../assets/images/pro3/2.jpg" alt=""></a>
+                                    <a th:href="@{/san-pham/{slug}(slug=${cart.slug})}"><img src="../assets/images/pro3/2.jpg" alt=""></a>
                                 </td>
-                                <td><a href="#" th:text="${cart.name}"></a>
+                                <td><a th:href="@{/san-pham/{slug}(slug=${cart.slug})}" th:text="${cart.name}"></a>
                                     <div class="mobile-cart-content row">
                                         <div class="col">
                                             <div class="qty-box">
