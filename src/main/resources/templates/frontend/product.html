@@ -85,36 +85,45 @@
                                 <span th:text="${product.exportPrice}"></span>
                                 <del>$459.00</del>
                             </h3>
-                            <div id="selectSize" class="addeffect-section product-description border-product">
-                                <h6 class="product-title size-text">đơn vị</h6>
-                                <div class="size-box">
-                                    <ul>
-                                        <li class="active"><a href="javascript:void(0)" th:text="${product.unitName}"></a></li>
-                                    </ul>
-                                </div>
-                                <h6 class="product-title">số lượng</h6>
-                                <div class="qty-box">
-                                    <div class="input-group"><span class="input-group-prepend"><button type="button"
-                                                                                                       class="btn quantity-left-minus"
-                                                                                                       data-type="minus"
-                                                                                                       data-field=""><i
-                                            class="ti-angle-left"></i></button> </span>
-                                        <input type="text" name="quantity" class="form-control input-number" value="1">
-                                        <span class="input-group-prepend"><button type="button"
-                                                                                  class="btn quantity-right-plus"
-                                                                                  data-type="plus" data-field=""><i
-                                                class="ti-angle-right"></i></button></span>
+
+                            <form th:object="${cart}" id="addToCart" th:action="@{/cart}"
+                                  th:method="POST">
+                                <input type="hidden" th:field="*{productId}">
+                                <div id="selectSize" class="addeffect-section product-description border-product">
+                                    <h6 class="product-title size-text">đơn vị</h6>
+                                    <div class="size-box">
+                                        <ul>
+                                            <li class="active"><a href="javascript:void(0)"
+                                                                  th:text="${product.unitName}"></a></li>
+                                        </ul>
+                                    </div>
+                                    <h6 class="product-title">số lượng</h6>
+                                    <div class="qty-box">
+                                        <div class="input-group"><span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-left-minus" data-type="minus"
+                                                    data-field="">
+                                                <i class="ti-angle-left"></i>
+                                            </button>
+                                        </span>
+                                            <input type="text" name="quantity" class="form-control input-number"
+                                                   value="1" th:field="*{quantity}">
+                                            <span class="input-group-prepend">
+                                                <button type="button" class="btn quantity-right-plus"
+                                                        data-type="plus" data-field="">
+                                                    <i class="ti-angle-right"></i>
+                                                </button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="product-buttons">
-                                <form id="addToCart" th:action="@{/cart/{id}(id=${product.productId})}" th:method="POST">
+                                <div class="product-buttons">
                                     <button id="cartEffect"
-                                       class="btn btn-solid hover-solid btn-animation">
+                                            class="btn btn-solid hover-solid btn-animation">
                                         <i class="fa fa-shopping-cart me-1"
-                                           aria-hidden="true"></i> thêm vào giỏ</button>
-                                </form>
-                            </div>
+                                           aria-hidden="true"></i> thêm vào giỏ
+                                    </button>
+                                </div>
+                            </form>
                             <div class="product-count">
                                 <ul>
                                     <li>
