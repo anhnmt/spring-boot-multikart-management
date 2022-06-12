@@ -14,6 +14,8 @@ public class CustomerRequestDTO {
     @NotBlank
     private String name;
 
+    private String phone;
+
     @Email
     private String email;
     private String password;

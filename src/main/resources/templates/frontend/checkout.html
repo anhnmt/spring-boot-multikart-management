@@ -36,27 +36,23 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
-                                    <h3>Billing Details</h3>
+                                    <h3>Chi tiết hóa đơn</h3>
                                 </div>
                                 <div class="row check-out">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">First Name</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Họ tên</div>
+                                        <input type="text" name="field-name" th:value="${customer.name}" placeholder="Họ và tên">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Last Name</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">Số điện thoại</div>
+                                        <input type="text" name="field-name" th:value="${customer.phone}" placeholder="Số điện thoại">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Phone</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Email Address</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">Email</div>
+                                        <input type="text" name="field-name" th:value="${customer.email}" placeholder="Địa chỉ email">
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Country</div>
+                                        <div class="field-label">Tỉnh/Thành phố</div>
                                         <select>
                                             <option>India</option>
                                             <option>South Africa</option>
@@ -65,24 +61,30 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Address</div>
-                                        <input type="text" name="field-name" value="" placeholder="Street address">
+                                        <div class="field-label">Quận/Huyện</div>
+                                        <select>
+                                            <option>India</option>
+                                            <option>South Africa</option>
+                                            <option>United State</option>
+                                            <option>Australia</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Town/City</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">Phường/Xã</div>
+                                        <select>
+                                            <option>India</option>
+                                            <option>South Africa</option>
+                                            <option>United State</option>
+                                            <option>Australia</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">State / County</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Địa chỉ</div>
+                                        <input type="text" name="address" value="" placeholder="Số nhà, tên đường">
                                     </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">Postal Code</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <input type="checkbox" name="shipping-option" id="account-option">  
-                                        <label for="account-option">Create An Account?</label>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Ghi chú</div>
+                                        <input type="text" name="description" value="" placeholder="Nhập yêu cầu khác của bạn nếu có">
                                     </div>
                                 </div>
                             </div>
