@@ -1,5 +1,7 @@
 package com.example.multikart.controller;
 
+import com.example.multikart.common.Utils;
+import com.example.multikart.domain.model.Customer;
 import com.example.multikart.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

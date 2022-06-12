@@ -2,6 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.dto.AddToCartRequestDTO;
 import com.example.multikart.domain.dto.CartDTO;
 import com.example.multikart.repo.ProductRepository;
@@ -12,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -22,11 +21,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public String view(HttpSession session, Model model) {
-        var carts = getCartSession(session);
+        var carts = Utils.getCartSession(session);
         model.addAttribute("carts", carts);
 
-        var total = 0.0f;
-        total = carts.stream().map(cart -> cart.getPrice() * cart.getQuantity()).reduce(total, Float::sum);
+        var total = Utils.getTotalPriceCart(carts);
         model.addAttribute("total", total);
 
         return "frontend/cart";
@@ -40,9 +38,9 @@ public class CartServiceImpl implements CartService {
             return "redirect:/";
         }
 
-        var carts = getCartSession(session);
+        var carts = Utils.getCartSession(session);
         // add or update cart
-        if (!checkExistCart(carts, input.getProductId())) {
+        if (!Utils.checkExistCart(carts, input.getProductId())) {
             carts.add(new CartDTO(product, input.getQuantity()));
         } else {
             carts.forEach(c -> {
@@ -66,9 +64,9 @@ public class CartServiceImpl implements CartService {
             return "redirect:/cart";
         }
 
-        var carts = getCartSession(session);
+        var carts = Utils.getCartSession(session);
         // add or update cart
-        if (!checkExistCart(carts, id)) {
+        if (!Utils.checkExistCart(carts, id)) {
             redirect.addFlashAttribute("error", "Sản phẩm không còn trong giỏ");
             return "redirect:/cart";
         } else {
@@ -79,18 +77,5 @@ public class CartServiceImpl implements CartService {
 
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/cart";
-    }
-
-    private boolean checkExistCart(List<CartDTO> carts, long id) {
-        return carts.stream().anyMatch(c -> c.getProductId().equals(id));
-    }
-
-    private List<CartDTO> getCartSession(HttpSession session) {
-        var carts = (List<CartDTO>) session.getAttribute("carts");
-        if (DataUtils.isNullOrEmpty(carts)) {
-            return new ArrayList<>();
-        }
-
-        return carts;
     }
 }
