@@ -44,45 +44,50 @@
                         </tr>
                         </thead>
                         <tbody th:each="cart : ${carts}">
-                        <tr>
-                            <td>
-                                <a href="#"><img src="../assets/images/pro3/2.jpg" alt=""></a>
-                            </td>
-                            <td><a href="#" th:text="${cart.name}"></a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <div class="qty-box">
-                                            <div class="input-group">
-                                                <input type="text" name="quantity" class="form-control input-number"
-                                                       value="1" th:value="${cart.quantity}">
+                        <form id="removeFromCart" th:action="@{/cart/{id}/delete(id=${cart.productId})}" th:method="POST">
+                            <tr>
+                                <td>
+                                    <a href="#"><img src="../assets/images/pro3/2.jpg" alt=""></a>
+                                </td>
+                                <td><a href="#" th:text="${cart.name}"></a>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input type="text" name="quantity" class="form-control input-number"
+                                                           value="1" th:value="${cart.quantity}">
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <h2 class="td-color" th:text="${cart.price}">$63.00</h2>
+                                        </div>
+                                        <div class="col">
+                                            <h2 class="td-color">
+                                                <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
+                                            </h2>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <h2 class="td-color" th:text="${cart.price}">$63.00</h2>
+                                </td>
+                                <td>
+                                    <h2 th:text="${cart.price}">$63.00</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="number" name="quantity" class="form-control input-number"
+                                                   value="1" th:value="${cart.quantity}">
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2 th:text="${cart.price}">$63.00</h2>
-                            </td>
-                            <td>
-                                <div class="qty-box">
-                                    <div class="input-group">
-                                        <input type="number" name="quantity" class="form-control input-number"
-                                               value="1" th:value="${cart.quantity}">
-                                    </div>
-                                </div>
-                            </td>
-                            <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                            <td>
-                                <h2 class="td-color" th:text="${cart.price * cart.quantity}">$4539.00</h2>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
+                                </td>
+                                <td>
+                                    <h2 class="td-color" th:text="${cart.price * cart.quantity}">$4539.00</h2>
+                                </td>
+                            </tr>
+                        </form>
                         </tbody>
                     </table>
                     <div class="table-responsive-md">

@@ -58,6 +58,29 @@ public class CartServiceImpl implements CartService {
         return "redirect:/cart";
     }
 
+    @Override
+    public String removeFromCart(Long id, HttpSession session, Model model, RedirectAttributes redirect) {
+        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(product)) {
+            redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
+            return "redirect:/cart";
+        }
+
+        var carts = getCartSession(session);
+        // add or update cart
+        if (!checkExistCart(carts, id)) {
+            redirect.addFlashAttribute("error", "Sản phẩm không còn trong giỏ");
+            return "redirect:/cart";
+        } else {
+            carts.removeIf(c -> c.getProductId().equals(id));
+        }
+
+        session.setAttribute("carts", carts);
+
+        redirect.addFlashAttribute("success", "Xóa thành công");
+        return "redirect:/cart";
+    }
+
     private boolean checkExistCart(List<CartDTO> carts, long id) {
         return carts.stream().anyMatch(c -> c.getProductId().equals(id));
     }

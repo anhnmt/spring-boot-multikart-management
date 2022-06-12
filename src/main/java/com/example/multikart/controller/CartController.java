@@ -27,4 +27,9 @@ public class CartController {
         return cartService.addToCart(input, session, model, redirect);
     }
 
+    @PostMapping("{id}/delete")
+    public String removeFromCart(@PathVariable("id") Long id, HttpSession session, Model model, RedirectAttributes redirect) {
+        return cartService.removeFromCart(id, session, model, redirect);
+    }
+
 }

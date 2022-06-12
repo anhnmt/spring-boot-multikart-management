@@ -11,4 +11,6 @@ public interface CartService {
     String view(HttpSession session, Model model);
 
     String addToCart(AddToCartRequestDTO input, HttpSession session, Model model, RedirectAttributes redirect);
+
+    String removeFromCart(Long id, HttpSession session, Model model, RedirectAttributes redirect);
 }
