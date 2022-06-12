@@ -1,5 +1,6 @@
 package com.example.multikart.controller;
 
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,6 @@ public class CheckoutController {
 
     @GetMapping
     public String view(HttpSession session, Model model) {
-        var customer = (Customer) session.getAttribute("customer");
-        model.addAttribute("customer", customer);
-
         return checkoutService.view(session, model);
     }
 

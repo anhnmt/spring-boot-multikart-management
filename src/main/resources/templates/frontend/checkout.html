@@ -92,15 +92,16 @@
                                 <div class="checkout-details">
                                     <div class="order-box">
                                         <div class="title-box">
-                                            <div>Product <span>Total</span></div>
+                                            <div>Sản phẩm <span>Tổng</span></div>
                                         </div>
                                         <ul class="qty">
-                                            <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
-                                            <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
+                                            <li th:each="cart : ${carts}">
+                                                <em style="font-style:normal;" th:text="${cart.name}"/> × <em style="font-style:normal;" th:text="${cart.quantity}"/>
+                                                <span th:text="${cart.price * cart.quantity}"/>
+                                            </li>
                                         </ul>
                                         <ul class="sub-total">
-                                            <li>Subtotal <span class="count">$380.10</span></li>
-                                            <li>Shipping
+                                            <li>Vận chuyển
                                                 <div class="shipping">
                                                     <div class="shopping-option">
                                                         <input type="checkbox" name="free-shipping" id="free-shipping">
@@ -114,7 +115,7 @@
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Total <span class="count">$620.00</span></li>
+                                            <li>Thành tiền <span class="count" th:text="${total}"></span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
@@ -124,17 +125,7 @@
                                                     <li>
                                                         <div class="radio-option">
                                                             <input type="radio" name="payment-group" id="payment-1" checked="checked">
-                                                            <label for="payment-1">Check Payments<span class="small-text">Please send a check to Store
-                                                                    Name, Store Street, Store Town, Store State /
-                                                                    County, Store Postcode.</span></label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-2">
-                                                            <label for="payment-2">Cash On Delivery<span class="small-text">Please send a check to Store
-                                                                    Name, Store Street, Store Town, Store State /
-                                                                    County, Store Postcode.</span></label>
+                                                            <label for="payment-1">Check Payments</label>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -146,7 +137,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="text-end"><a href="#" class="btn-solid btn">Place Order</a></div>
+                                        <div class="text-end">
+                                            <a href="#" class="btn-solid btn">Đặt hàng</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
