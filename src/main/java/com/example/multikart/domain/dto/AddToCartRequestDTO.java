@@ -1,6 +1,5 @@
 package com.example.multikart.domain.dto;
 
-import com.example.multikart.domain.model.Product;
 import lombok.*;
 
 import java.io.Serializable;

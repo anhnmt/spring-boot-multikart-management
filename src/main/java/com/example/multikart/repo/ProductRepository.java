@@ -1,14 +1,15 @@
 package com.example.multikart.repo;
 
 import com.example.multikart.domain.dto.ItemProductDTO;
-import com.example.multikart.domain.model.Category;
 import com.example.multikart.domain.model.Product;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAllByStatus(Integer status);
 
@@ -19,6 +20,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     Product findBySlugAndStatus(String slug, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+
     int countBySlugAndStatus(String slug, Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u ,s)\n" +
