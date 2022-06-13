@@ -25,6 +25,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             "classpath:/META-INF/resources/",
             "classpath:/resources/",
             "classpath:/static/",
+            "classpath:/images/",
             "classpath:/public/"
     };
 
