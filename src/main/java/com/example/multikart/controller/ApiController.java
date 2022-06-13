@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController()
 @RequestMapping("/dvhc")
 @Slf4j
-public class VietnamAddressController {
+public class ApiController {
     @Autowired
     ResourceLoader resourceLoader;
 
