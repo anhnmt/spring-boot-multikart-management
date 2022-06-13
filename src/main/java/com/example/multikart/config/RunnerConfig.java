@@ -1,21 +1,13 @@
 package com.example.multikart.config;
 
-import com.example.multikart.domain.dto.VietnamAddressDTO;
 import com.example.multikart.domain.model.*;
 import com.example.multikart.repo.*;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,12 +151,4 @@ public class RunnerConfig implements CommandLineRunner {
             customerRepository.saveAll(customers);
         }
     }
-
-//    @Bean
-//    public VietnamAddressDTO getVietAddress() throws FileNotFoundException {
-//            File file = ResourceUtils.getFile("classpath:dvhcvn.json");
-//            BufferedReader br = new BufferedReader(new FileReader(file));
-//            VietnamAddressDTO address = new Gson().fromJson(br, VietnamAddressDTO.class);
-//            return address;
-//    }
 }

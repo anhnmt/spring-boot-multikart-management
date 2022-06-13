@@ -3,7 +3,6 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.AddToCartRequestDTO;
-import com.example.multikart.domain.dto.ItemProductDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.CategoryRepository;

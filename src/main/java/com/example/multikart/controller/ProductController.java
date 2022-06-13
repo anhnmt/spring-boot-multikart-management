@@ -1,6 +1,5 @@
 package com.example.multikart.controller;
 
-import com.example.multikart.domain.dto.CategoryRequestDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class ProductController {
     }
 
     @PostMapping("/dashboard/products/{id}")
-    public String update(@PathVariable("id") Long id,@Valid @ModelAttribute("product") ProductRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("product") ProductRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
         return productService.updateProduct(id, input, result, model, redirect);
     }
 

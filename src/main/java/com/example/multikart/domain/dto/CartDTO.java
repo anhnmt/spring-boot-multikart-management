@@ -3,9 +3,6 @@ package com.example.multikart.domain.dto;
 import com.example.multikart.domain.model.Product;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Getter

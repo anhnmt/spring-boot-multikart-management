@@ -4,8 +4,6 @@ import com.example.multikart.service.DashboardService;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpSession;
-
 @Service
 public class DashboardServiceImpl implements DashboardService {
     @Override

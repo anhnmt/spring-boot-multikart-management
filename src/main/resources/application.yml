@@ -28,10 +28,10 @@ spring:
           batch_size: 100
 
   session:
-    storeType: jdbc
-    jdbc:
-      initializeSchema: always
-      tableName: spring_session
+    storeType: redis # Session store type.
+    redis:
+      flush-mode: on_save # Sessions flush mode.
+      namespace: spring:session # Namespace for keys used to store sessions.
 
   # THYMELEAF
   thymeleaf:
@@ -45,6 +45,18 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+  redis:
+    host: localhost # Redis server host.
+    password: # Login password of the redis server.
+    port: 6379 # Redis server port.
+    ssl: false #enable SSL
+    database: 0 # Redis database index.
 
 # LOGGING
 logging:
