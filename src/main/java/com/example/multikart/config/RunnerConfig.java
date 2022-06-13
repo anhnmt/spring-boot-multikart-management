@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -39,12 +40,6 @@ public class RunnerConfig implements CommandLineRunner {
     private SupplierRepository supplierRepository;
     @Autowired
     private CustomerRepository customerRepository;
-    @Autowired
-    private ProvinceRepository provinceRepository;
-    @Autowired
-    private DistrictRepository districtRepository;
-    @Autowired
-    private WardRepository wardRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -56,7 +51,6 @@ public class RunnerConfig implements CommandLineRunner {
         paymentSeeder();
         supplierSeeder();
         customerSeeder();
-        dvhcSeeder();
     }
 
     private void roleSeeder() {
@@ -166,40 +160,11 @@ public class RunnerConfig implements CommandLineRunner {
         }
     }
 
-    private void dvhcSeeder() throws FileNotFoundException {
-        var count = provinceRepository.count();
-        var count2 = districtRepository.count();
-        var count3 = wardRepository.count();
-
-        if (count <= 0 && count2 <= 0 && count3 <= 0) {
-            // Scan json file
-            File file = ResourceUtils.getFile("classpath:dvhcvn.json");
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            VietnamAddressDTO address = new Gson().fromJson(br, VietnamAddressDTO.class);
-            log.info("{}", address);
-
-            // List Province
-            List<Province> provinces = new ArrayList<>();
-
-            address.getData().forEach(p -> {
-                var province = new Province(p);
-
-                // List District
-                List<District> districts = new ArrayList<>();
-                p.getLevel2s().forEach(d -> {
-                    var district = new District(d, province.getProvinceId());
-
-                    // List Ward
-                    List<Ward> wards = new ArrayList<>();
-                    d.getLevel3s().forEach(w -> {
-                        var ward = new Ward(w, district.getDistrictId());
-                        wards.add(ward);
-                    });
-                    wardRepository.saveAll(wards);
-                });
-                districtRepository.saveAll(districts);
-            });
-            provinceRepository.saveAll(provinces);
-        }
-    }
+//    @Bean
+//    public VietnamAddressDTO getVietAddress() throws FileNotFoundException {
+//            File file = ResourceUtils.getFile("classpath:dvhcvn.json");
+//            BufferedReader br = new BufferedReader(new FileReader(file));
+//            VietnamAddressDTO address = new Gson().fromJson(br, VietnamAddressDTO.class);
+//            return address;
+//    }
 }

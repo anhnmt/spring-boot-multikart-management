@@ -12,9 +12,15 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class ProvinceDTO {
-    @SerializedName("level1_id")
-    private Long level1Id;
+    @SerializedName("code")
+    private Long provinceId;
+
     private String name;
     private String type;
-    private List<DistrictDTO> level2s;
+    private String slug;
+
+    @SerializedName("name_with_type")
+    private String nameWithType;
+
+    private List<DistrictDTO> data;
 }
