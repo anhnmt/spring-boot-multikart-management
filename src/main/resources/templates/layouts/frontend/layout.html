@@ -40,6 +40,9 @@
     <!-- Bootstrap css -->
     <link rel="stylesheet" th:href="@{/assets/css/vendors/bootstrap.css}" type="text/css"/>
 
+    <!-- toastr-->
+    <link rel="stylesheet" th:href="@{/assets/toastr/toastr.css}"/>
+
     <!-- Theme css -->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
 </head>
@@ -135,6 +138,9 @@
 <!-- sweetalert2-->
 <script th:src="@{/backend/assets/js/sweetalert2/sweetalert2.all.min.js}"></script>
 
+<!--script toastr-->
+<script th:src="@{/assets/toastr/toastr.min.js}"></script>
+
 <script>
     function openSearch() {
         document.getElementById("search-overlay").style.display = "block";
@@ -160,20 +166,14 @@
     let error = [[${error}]];
 
     if (error && error !== "") {
-        Swal.fire({
-            icon: 'error',
-            title: 'Lỗi rồi!',
-            text: error
-        });
+        toastr.error('Lỗi rồi!', error, {timeOut: 5000});
     } else if (success && success !== "") {
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: success
-        });
+        toastr.success('Thành công!', success, {timeOut: 5000});
     }
 
 </script>
+
+<div layout:fragment="customScript"></div>
 
 </body>
 </html>

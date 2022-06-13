@@ -36,6 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
+/uploads
 /logs
 application-dev.yml
 application-local.yml

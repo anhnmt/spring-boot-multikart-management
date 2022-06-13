@@ -53,29 +53,20 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Tỉnh/Thành phố</div>
-                                        <select>
-                                            <option>India</option>
-                                            <option>South Africa</option>
-                                            <option>United State</option>
-                                            <option>Australia</option>
+                                        <select id="provinces">
+                                            <option value="0">--Tỉnh/Thành phố--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Quận/Huyện</div>
-                                        <select>
-                                            <option>India</option>
-                                            <option>South Africa</option>
-                                            <option>United State</option>
-                                            <option>Australia</option>
+                                        <select id="districts">
+                                            <option value="0">--Quận/Huyện--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Phường/Xã</div>
-                                        <select>
-                                            <option>India</option>
-                                            <option>South Africa</option>
-                                            <option>United State</option>
-                                            <option>Australia</option>
+                                        <select id="wards">
+                                            <option value="0">--Xã/Phường--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -154,6 +145,64 @@
 
 <div layout:fragment="footer">
     <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        $(function() {
+            $.ajax({
+                url: "[(@{/dvhc/provinces})]",
+                method: 'GET',
+                success: function(data) {
+                    $('#districts').find('option:not(:first)').remove();
+                    $('#wards').find('option:not(:first)').remove();
+                    $.each(data, function(key, value) {
+                        $("#provinces").append(
+                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        });
+
+        $("#provinces").on('change', function(e) {
+            e.preventDefault();
+            let code = $(this).data("code");
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $('#districts').find('option:not(:first)').remove();
+                    $('#wards').find('option:not(:first)').remove();
+                    $.each(data, function(key, value) {
+                        $("#districts").append(
+                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        });
+
+        $("#districts").on('change', function(e) {
+            e.preventDefault();
+            let code = $(this).data("code");
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $('#wards').find('option:not(:first)').remove();
+                    $.each(data, function(key, value) {
+                        $("#wards").append(
+                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        });
+        /*]]>*/
+    </script>
 </div>
 
 </body>

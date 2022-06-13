@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController()
-@RequestMapping("/dvhc")
+@RequestMapping("/")
 @Slf4j
-public class VietnamAddressController {
+public class ApiController {
     @Autowired
     ResourceLoader resourceLoader;
 
-    @GetMapping("/provinces")
+    @GetMapping("/dvhc/provinces")
     public List<ProvinceDTO> getProvinceList() throws IOException {
         List<ProvinceDTO> provinces = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class VietnamAddressController {
         return provinces;
     }
 
-    @GetMapping("/provinces/{code}")
+    @GetMapping("/dvhc/provinces/{code}")
     public List<DistrictDTO> getDistrictList(@PathVariable("code") String code) throws IOException {
         List<DistrictDTO> districts = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class VietnamAddressController {
         return districts;
     }
 
-    @GetMapping("/districts/{code}")
+    @GetMapping("/dvhc/districts/{code}")
     public List<WardDTO> getWardList(@PathVariable("code") String code) throws IOException {
         List<WardDTO> wards = new ArrayList<>();
 
