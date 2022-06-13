@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/dashboard")
 public class ProductImageController {
@@ -20,7 +22,7 @@ public class ProductImageController {
     }
 
     @PostMapping("/products/{id}/images")
-    public String upload(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file, RedirectAttributes redirect) {
+    public String upload(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file, RedirectAttributes redirect) throws IOException {
         return productImageService.upload(id, file, redirect);
     }
 }

@@ -69,19 +69,17 @@
                         </thead>
 
                         <tbody>
-                        <tr data-row-id="1">
+                        <tr th:each="image : ${images}">
+                            <td th:text="${image.productImageId}"/>
+
                             <td>
-                                1
+                                <img th:src="@{/{url}(url=${image.url})}">
                             </td>
 
-                            <td>
-                                <img th:href="@{/backend/assets/images/dashboard/product/1.jpg}" alt="user">
-                            </td>
-
-                            <td>http://www.assets/images/dashboard/product/1.jpg</td>
+                            <td th:text="${image.url}"/>
 
                             <td>
-
+                                xóa
                             </td>
                         </tr>
                         </tbody>
