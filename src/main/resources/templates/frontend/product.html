@@ -37,28 +37,20 @@
                         <div class="row">
                             <div class="col-12 p-0">
                                 <div class="slider-right-nav">
-                                    <div><img src="../assets/images/pro3/1.jpg" alt=""
-                                              class="img-fluid blur-up lazyload"></div>
-                                    <div><img src="../assets/images/pro3/2.jpg" alt=""
-                                              class="img-fluid blur-up lazyload"></div>
-                                    <div><img src="../assets/images/pro3/27.jpg" alt=""
-                                              class="img-fluid blur-up lazyload"></div>
-                                    <div><img src="../assets/images/pro3/27.jpg" alt=""
-                                              class="img-fluid blur-up lazyload"></div>
+                                    <div th:each="image : ${images}">
+                                        <img th:src="@{/{url}(url=${image.url})}" alt=""
+                                             class="img-fluid blur-up lazyload">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-5 col-sm-10 col-xs-12 order-up">
                         <div class="product-right-slick">
-                            <div><img src="../assets/images/pro3/1.jpg" alt=""
-                                      class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                            <div><img src="../assets/images/pro3/2.jpg" alt=""
-                                      class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
-                            <div><img src="../assets/images/pro3/27.jpg" alt=""
-                                      class="img-fluid blur-up lazyload image_zoom_cls-2"></div>
-                            <div><img src="../assets/images/pro3/27.jpg" alt=""
-                                      class="img-fluid blur-up lazyload image_zoom_cls-3"></div>
+                            <div th:each="image : ${images}">
+                                <img th:src="@{/{url}(url=${image.url})}" alt=""
+                                     class="img-fluid blur-up lazyload image_zoom_cls-0">
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 rtl-text">

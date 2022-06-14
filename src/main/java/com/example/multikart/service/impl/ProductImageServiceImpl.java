@@ -9,6 +9,7 @@ import com.example.multikart.service.ProductImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +46,12 @@ public class ProductImageServiceImpl implements ProductImageService {
         var images = productImageRepository.findAllByProductIdAndStatus(id, DefaultStatus.ACTIVE);
         model.addAttribute("images", images);
 
+        var min = productImageRepository.findMinPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        model.addAttribute("min", min);
+
+        var max = productImageRepository.findMaxPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        model.addAttribute("max", max);
+
         return "backend/product_image/index";
     }
 
@@ -75,10 +82,11 @@ public class ProductImageServiceImpl implements ProductImageService {
         try {
             saveFile(uploadDir, fileName, file);
 
+            var count = productImageRepository.countByProductIdAndStatus(id, DefaultStatus.ACTIVE);
             var productImage = ProductImage.builder()
                     .productId(id)
                     .url(uploadDir + "/" + fileName)
-                    .position(0)
+                    .position(count)
                     .status(DefaultStatus.ACTIVE)
                     .build();
             productImageRepository.save(productImage);
@@ -90,6 +98,84 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
 
         return "redirect:/dashboard/products/" + id + "/images";
+    }
+
+    @Override
+    @Transactional
+    public String delete(Long productId, Long productImageId, RedirectAttributes redirect) {
+        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(product)) {
+            redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
+
+            return "redirect:/dashboard/products";
+        }
+
+        var productImage = productImageRepository.findByProductImageIdAndStatus(productImageId, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(productImage)) {
+            redirect.addFlashAttribute("error", "Hình ảnh không tồn tại");
+
+            return "redirect:/dashboard/products/" + productId + "/images";
+        }
+
+        productImage.setStatus(DefaultStatus.DELETED);
+        productImageRepository.save(productImage);
+        productImageRepository.updatePositionDelete(productId, productImageId, productImage.getPosition(), DefaultStatus.ACTIVE);
+
+        redirect.addFlashAttribute("success", "Xóa thành công");
+
+        return "redirect:/dashboard/products/" + productId + "/images";
+    }
+
+    @Override
+    @Transactional
+    public String up(Long productId, Long productImageId, RedirectAttributes redirect) {
+        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(product)) {
+            redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
+
+            return "redirect:/dashboard/products";
+        }
+
+        var productImage = productImageRepository.findByProductImageIdAndStatus(productImageId, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(productImage)) {
+            redirect.addFlashAttribute("error", "Hình ảnh không tồn tại");
+
+            return "redirect:/dashboard/products/" + productId + "/images";
+        }
+
+        productImageRepository.updatePositionUp(productId, productImageId, productImage.getPosition(), DefaultStatus.ACTIVE);
+        productImage.setPosition(productImage.getPosition() - 1);
+        productImageRepository.save(productImage);
+
+        redirect.addFlashAttribute("success", "Cập nhật thành công");
+
+        return "redirect:/dashboard/products/" + productId + "/images";
+    }
+
+    @Override
+    @Transactional
+    public String down(Long productId, Long productImageId, RedirectAttributes redirect) {
+        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(product)) {
+            redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
+
+            return "redirect:/dashboard/products";
+        }
+
+        var productImage = productImageRepository.findByProductImageIdAndStatus(productImageId, DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(productImage)) {
+            redirect.addFlashAttribute("error", "Hình ảnh không tồn tại");
+
+            return "redirect:/dashboard/products/" + productId + "/images";
+        }
+
+        productImageRepository.updatePositionDown(productId, productImageId, productImage.getPosition(), DefaultStatus.ACTIVE);
+        productImage.setPosition(productImage.getPosition() + 1);
+        productImageRepository.save(productImage);
+
+        redirect.addFlashAttribute("success", "Cập nhật thành công");
+
+        return "redirect:/dashboard/products/" + productId + "/images";
     }
 
     private void saveFile(String uploadDir, String filename, MultipartFile multipartFile) throws IOException {
