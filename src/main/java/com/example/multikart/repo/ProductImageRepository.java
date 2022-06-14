@@ -12,4 +12,6 @@ import java.util.List;
 public interface ProductImageRepository extends CrudRepository<ProductImage, Long> {
 
     List<ProductImage> findAllByProductIdAndStatus(Long productId, Integer status);
+
+    int countByProductIdAndStatus(Long productId, Integer status);
 }

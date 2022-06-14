@@ -75,10 +75,11 @@ public class ProductImageServiceImpl implements ProductImageService {
         try {
             saveFile(uploadDir, fileName, file);
 
+            var count = productImageRepository.countByProductIdAndStatus(id, DefaultStatus.ACTIVE);
             var productImage = ProductImage.builder()
                     .productId(id)
                     .url(uploadDir + "/" + fileName)
-                    .position(0)
+                    .position(count)
                     .status(DefaultStatus.ACTIVE)
                     .build();
             productImageRepository.save(productImage);

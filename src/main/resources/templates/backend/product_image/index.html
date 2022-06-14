@@ -39,9 +39,11 @@
     <div class="container-fluid bulk-cate">
         <div class="card ">
             <div class="card-body">
-                <form method="post" id="singleFileUpload" th:object="${product}" th:action="@{/dashboard/products/{id}/images(id=${product.productId})}" enctype="multipart/form-data">
-                        <input type="file" name="file" accept="image/png, image/jpeg" />
-                        <button th:type="submit" class="btn btn-sm btn-primary">thêm</button>
+                <form method="post" id="singleFileUpload" th:object="${product}"
+                      th:action="@{/dashboard/products/{id}/images(id=${product.productId})}"
+                      enctype="multipart/form-data">
+                    <input type="file" name="file" accept="image/png, image/jpeg"/>
+                    <button th:type="submit" class="btn btn-sm btn-primary">thêm</button>
                 </form>
             </div>
         </div>
@@ -56,35 +58,40 @@
                 </form>
             </div>
 
-            <div class="card-body">
-                <div class="table-responsive table-desi">
-                    <table class="all-package coupon-table table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Ảnh</th>
-                            <th>Đường dẫn</th>
-                            <th></th>
-                        </tr>
-                        </thead>
+            <div class="card-body order-datatable">
+                <table class="display" id="basic-1">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ảnh</th>
+                        <th>Vị trí</th>
+                        <th></th>
+                    </tr>
+                    </thead>
 
-                        <tbody>
-                        <tr th:each="image : ${images}">
-                            <td th:text="${image.productImageId}"/>
+                    <tbody>
+                    <tr th:each="image : ${images}">
+                        <td th:text="${image.productImageId}"/>
 
-                            <td>
-                                <img th:src="@{/{url}(url=${image.url})}">
-                            </td>
+                        <td>
+                            <img width="100px" th:src="@{/{url}(url=${image.url})}">
+                        </td>
 
-                            <td th:text="${image.url}"/>
+                        <td>
+                            <span class="badge badge-success" th:text="${image.position}"></span>
+                        </td>
 
-                            <td>
-                                xóa
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/delete(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                      th:method="POST">
+                                    <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
