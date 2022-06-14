@@ -94,13 +94,9 @@
                                         <ul class="sub-total">
                                             <li>Vận chuyển
                                                 <div class="shipping">
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="free-shipping" id="free-shipping">
-                                                        <label for="free-shipping">Free Shipping</label>
-                                                    </div>
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="local-pickup" id="local-pickup">
-                                                        <label for="local-pickup">Local Pickup</label>
+                                                    <div class="shopping-option" th:each="transport : ${transports}">
+                                                        <input th:id="'transport-' + ${transport.transportId}" type="radio" name="free-shipping" th:value="${transport.transportId}">
+                                                        <label th:for="'transport-' + ${transport.transportId}" th:text="${transport.name}"></label>
                                                     </div>
                                                 </div>
                                             </li>
@@ -113,23 +109,17 @@
                                         <div class="upper-box">
                                             <div class="payment-options">
                                                 <ul>
-                                                    <li>
+                                                    <li th:each="payment : ${payments}">
                                                         <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-1" checked="checked">
-                                                            <label for="payment-1">Check Payments</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option paypal">
-                                                            <input type="radio" name="payment-group" id="payment-3">
-                                                            <label for="payment-3">PayPal<span class="image"><img src="../assets/images/paypal.png" alt=""></span></label>
+                                                            <input th:id="'payment-' + ${payment.paymentId}" type="radio" name="payment" th:value="${payment.paymentId}">
+                                                            <label th:for="'payment-' + ${payment.paymentId}" th:text="${payment.name}"></label>
                                                         </div>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <a href="#" class="btn-solid btn">Đặt hàng</a>
+                                            <button class="btn-solid btn">Đặt hàng</button>
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +159,7 @@
 
         $("#provinces").on('change', function(e) {
             e.preventDefault();
-            let code = $(this).data("code");
+            let code = $(this).find(':selected').data("code");
             $.ajax({
                 url: "[(@{/dvhc/provinces/})]" + code,
                 method: 'GET',
@@ -187,7 +177,7 @@
 
         $("#districts").on('change', function(e) {
             e.preventDefault();
-            let code = $(this).data("code");
+            let code = $(this).find(':selected').data("code");
             $.ajax({
                 url: "[(@{/dvhc/districts/})]" + code,
                 method: 'GET',
