@@ -49,7 +49,7 @@
                                 <div class="product-box product-style-5"
                                      th:each="product : ${categoryProduct.products}">
                                     <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
-                                        <h6 th:text="${product.name}">Slim Fit Cotton Shirt</h6>
+                                        <h6 th:text="${product.name}"></h6>
                                     </a>
                                     <h5>1 Kg</h5>
                                     <h4>$500.00</h4>
@@ -62,7 +62,7 @@
                                         <div class="front">
                                             <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                                 <img alt="" class="img-fluid blur-up lazyload bg-img"
-                                                     th:src="@{/assets/images/vegetables/pro/png/1.png}"/>
+                                                     th:src="@{/{url}(url=${product.image})}"/>
                                             </a>
                                         </div>
                                     </div>

@@ -38,7 +38,7 @@
                             <div class="col-12 p-0">
                                 <div class="slider-right-nav">
                                     <div th:each="image : ${images}">
-                                        <img width="100%" th:src="@{/{url}(url=${image.url})}" alt=""
+                                        <img th:src="@{/{url}(url=${image.url})}" alt=""
                                              class="img-fluid blur-up lazyload">
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                     <div class="col-lg-5 col-sm-10 col-xs-12 order-up">
                         <div class="product-right-slick">
                             <div th:each="image : ${images}">
-                                <img width="100%" th:src="@{/{url}(url=${image.url})}" alt=""
+                                <img th:src="@{/{url}(url=${image.url})}" alt=""
                                      class="img-fluid blur-up lazyload image_zoom_cls-0">
                             </div>
                         </div>
