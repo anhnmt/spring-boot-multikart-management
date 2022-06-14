@@ -13,7 +13,15 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAllByStatus(Integer status);
 
-    List<Product> findAllByCategoryIdAndStatus(Long categoryId, Integer status);
+    @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +
+            "FROM Product p\n" +
+            "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
+            "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
+            "WHERE p.status = :status\n" +
+            "  and c.categoryId = :categoryId" +
+            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+    List<ItemProductDTO> findAllByCategoryIdAndStatus(Long categoryId, Integer status);
 
     Product findByProductIdAndStatus(Long productId, Integer status);
 

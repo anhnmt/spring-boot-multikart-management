@@ -51,8 +51,8 @@
                                     <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                         <h6 th:text="${product.name}"></h6>
                                     </a>
-                                    <h5>1 Kg</h5>
-                                    <h4>$500.00</h4>
+                                    <h5 th:text="${product.unitName}"></h5>
+                                    <h4 th:text="${product.exportPrice}"></h4>
                                     <div class="addtocart_btn">
                                         <a th:href="@{/san-pham/{slug}(slug=${product.slug})}" class="add-button add_cart" title="Add to cart">
                                             <i class="fa fa-plus"></i>

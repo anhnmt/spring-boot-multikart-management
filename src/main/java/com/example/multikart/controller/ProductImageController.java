@@ -25,4 +25,19 @@ public class ProductImageController {
     public String upload(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file, RedirectAttributes redirect) throws IOException {
         return productImageService.upload(id, file, redirect);
     }
+
+    @PostMapping("/products/{productId}/images/{productImageId}/delete")
+    public String delete(@PathVariable("productId") Long productId, @PathVariable("productImageId") Long productImageId, RedirectAttributes redirect) throws IOException {
+        return productImageService.delete(productId, productImageId, redirect);
+    }
+
+    @PostMapping("/products/{productId}/images/{productImageId}/up")
+    public String up(@PathVariable("productId") Long productId, @PathVariable("productImageId") Long productImageId, RedirectAttributes redirect) throws IOException {
+        return productImageService.up(productId, productImageId, redirect);
+    }
+
+    @PostMapping("/products/{productId}/images/{productImageId}/down")
+    public String down(@PathVariable("productId") Long productId, @PathVariable("productImageId") Long productImageId, RedirectAttributes redirect) throws IOException {
+        return productImageService.down(productId, productImageId, redirect);
+    }
 }
