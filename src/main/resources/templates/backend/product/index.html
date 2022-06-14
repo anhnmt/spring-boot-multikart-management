@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Orders
+                        <h3>Sản phẩm
                             <small>Multikart Admin panel</small>
                         </h3>
                     </div>
@@ -47,7 +47,7 @@
                                 <th>ID</th>
                                 <th>Tên</th>
                                 <th>Đường dẫn</th>
-                                <th>Status</th>
+                                <th>Trạng thái</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -61,9 +61,13 @@
                                     <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}" action="#"
                                           th:method="POST">
                                         <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/dashboard/products/{id}/images(id=${product.productId})}"
+                                               class="btn btn-sm btn-info">hình ảnh</a>
+
                                             <a th:href="@{/dashboard/products/{id}(id=${product.productId})}"
-                                               class="btn btn-sm btn-warning">sửa</a>
-                                            <button th:type="submit" class="btn btn-sm btn-primary">xóa</button>
+                                               class="btn btn-xs btn-warning">sửa</a>
+
+                                            <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>
                                         </div>
                                     </form>
                                 </td>

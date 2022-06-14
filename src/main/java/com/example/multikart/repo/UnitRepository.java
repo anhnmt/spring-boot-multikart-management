@@ -2,9 +2,11 @@ package com.example.multikart.repo;
 
 import com.example.multikart.domain.model.Unit;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UnitRepository extends CrudRepository<Unit, Long> {
     List<Unit> findAllByStatus(Integer status);
 

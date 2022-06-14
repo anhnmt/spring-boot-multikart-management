@@ -2,9 +2,11 @@ package com.example.multikart.repo;
 
 import com.example.multikart.domain.model.Supplier;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface SupplierRepository extends CrudRepository<Supplier, Long> {
     List<Supplier> findAllByStatus(Integer status);
 

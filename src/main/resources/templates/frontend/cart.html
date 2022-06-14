@@ -35,145 +35,68 @@
                     <table class="table cart-table">
                         <thead>
                         <tr class="table-head">
-                            <th scope="col">image</th>
-                            <th scope="col">product name</th>
-                            <th scope="col">price</th>
-                            <th scope="col">quantity</th>
-                            <th scope="col">action</th>
-                            <th scope="col">total</th>
+                            <th scope="col">Hình ảnh</th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Số tiền</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Hành động</th>
+                            <th scope="col">Tổng</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <a href="#"><img src="../assets/images/pro3/2.jpg" alt=""></a>
-                            </td>
-                            <td><a href="#">cotton shirt</a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <div class="qty-box">
-                                            <div class="input-group">
-                                                <input type="text" name="quantity" class="form-control input-number"
-                                                       value="1">
+                        <tbody th:each="cart : ${carts}">
+                        <form id="removeFromCart" th:action="@{/cart/{id}/delete(id=${cart.productId})}" th:method="POST">
+                            <tr>
+                                <td>
+                                    <a th:href="@{/san-pham/{slug}(slug=${cart.slug})}"><img src="../assets/images/pro3/2.jpg" alt=""></a>
+                                </td>
+                                <td><a th:href="@{/san-pham/{slug}(slug=${cart.slug})}" th:text="${cart.name}"></a>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input type="text" name="quantity" class="form-control input-number"
+                                                           value="1" th:value="${cart.quantity}">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color">$63.00</h2>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2>$63.00</h2>
-                            </td>
-                            <td>
-                                <div class="qty-box">
-                                    <div class="input-group">
-                                        <input type="number" name="quantity" class="form-control input-number"
-                                               value="1">
-                                    </div>
-                                </div>
-                            </td>
-                            <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                            <td>
-                                <h2 class="td-color">$4539.00</h2>
-                            </td>
-                        </tr>
-                        </tbody>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <a href="#"><img src="../assets/images/pro3/35.jpg" alt=""></a>
-                            </td>
-                            <td><a href="#">cotton shirt</a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <div class="qty-box">
-                                            <div class="input-group">
-                                                <input type="number" name="quantity" class="form-control input-number"
-                                                       value="1">
-                                            </div>
+                                        <div class="col">
+                                            <h2 class="td-color" th:text="${cart.price}">$63.00</h2>
+                                        </div>
+                                        <div class="col">
+                                            <h2 class="td-color">
+                                                <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
+                                            </h2>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <h2 class="td-color">$63.00</h2>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2>$63.00</h2>
-                            </td>
-                            <td>
-                                <div class="qty-box">
-                                    <div class="input-group">
-                                        <input type="number" name="quantity" class="form-control input-number"
-                                               value="1">
-                                    </div>
-                                </div>
-                            </td>
-                            <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                            <td>
-                                <h2 class="td-color">$4539.00</h2>
-                            </td>
-                        </tr>
-                        </tbody>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <a href="#"><img src="../assets/images/pro3/33.jpg" alt=""></a>
-                            </td>
-                            <td><a href="#">cotton shirt</a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col">
-                                        <div class="qty-box">
-                                            <div class="input-group">
-                                                <input type="number" name="quantity" class="form-control input-number"
-                                                       value="1">
-                                            </div>
+                                </td>
+                                <td>
+                                    <h2 th:text="${cart.price}">$63.00</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="number" name="quantity" class="form-control input-number"
+                                                   value="1" th:value="${cart.quantity}">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <h2 class="td-color">$63.00</h2>
-                                    </div>
-                                    <div class="col">
-                                        <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h2>$63.00</h2>
-                            </td>
-                            <td>
-                                <div class="qty-box">
-                                    <div class="input-group">
-                                        <input type="number" name="quantity" class="form-control input-number"
-                                               value="1">
-                                    </div>
-                                </div>
-                            </td>
-                            <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
-                            <td>
-                                <h2 class="td-color">$4539.00</h2>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
+                                </td>
+                                <td>
+                                    <h2 class="td-color" th:text="${cart.price * cart.quantity}">$4539.00</h2>
+                                </td>
+                            </tr>
+                        </form>
                         </tbody>
                     </table>
                     <div class="table-responsive-md">
                         <table class="table cart-table ">
                             <tfoot>
                             <tr>
-                                <td>total price :</td>
+                                <td>Thành tiền :</td>
                                 <td>
-                                    <h2>$6935.00</h2>
+                                    <h2 th:text="${total}">$6935.00</h2>
                                 </td>
                             </tr>
                             </tfoot>

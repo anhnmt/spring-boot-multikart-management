@@ -30,6 +30,9 @@ public class Customer extends BaseModel implements Serializable {
     private String email;
 
     @NotBlank
+    private String phone;
+
+    @NotBlank
     private String password;
 
     // Trạng thái
@@ -39,6 +42,7 @@ public class Customer extends BaseModel implements Serializable {
     public Customer(CustomerRequestDTO input) {
         name = input.getName();
         email = input.getEmail();
+        phone = input.getPhone();
         password = input.getPassword();
         status = input.getStatus();
     }

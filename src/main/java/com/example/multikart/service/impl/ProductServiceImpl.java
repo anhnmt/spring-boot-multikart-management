@@ -2,12 +2,10 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.domain.dto.AddToCartRequestDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.domain.model.Product;
-import com.example.multikart.repo.CategoryRepository;
-import com.example.multikart.repo.ProductRepository;
-import com.example.multikart.repo.SupplierRepository;
-import com.example.multikart.repo.UnitRepository;
+import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
     private UnitRepository unitRepository;
     @Autowired
     private SupplierRepository supplierRepository;
+    @Autowired
+    private ProductImageRepository productImageRepository;
 
 
     @Override
@@ -200,11 +200,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String frontendProduct(String slug, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
+        var product = productRepository.findItemProductBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("product", product);
+
+        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(product.getProductId(), DefaultStatus.ACTIVE);
+        model.addAttribute("images", images);
 
         var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), product.getCategoryId(), DefaultStatus.ACTIVE);
         model.addAttribute("relatedProducts", relatedProducts);
+
+        var cart = AddToCartRequestDTO.builder().productId(product.getProductId()).quantity(1).build();
+        model.addAttribute("cart", cart);
 
         return "frontend/product";
     }

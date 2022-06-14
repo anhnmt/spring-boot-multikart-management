@@ -24,7 +24,14 @@ public class CustomerInterceptor implements HandlerInterceptor {
         log.info("User : {}", customer);
 
         if (DataUtils.isNullOrEmpty(customer)) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            var url = request.getContextPath() + "/signin";
+
+            String referer = request.getHeader("Referer");
+            if (!DataUtils.isNullOrEmpty(referer)) {
+                url += "?redirect=" + referer;
+            }
+
+            response.sendRedirect(url);
             return false;
         }
 

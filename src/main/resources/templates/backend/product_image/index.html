@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Danh sách Hình ảnh</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Hình ảnh
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Sales</li>
+                        <li class="breadcrumb-item active">Orders</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid bulk-cate">
+        <div class="card ">
+            <div class="card-body">
+                <form method="post" id="singleFileUpload" th:object="${product}"
+                      th:action="@{/dashboard/products/{id}/images(id=${product.productId})}"
+                      enctype="multipart/form-data">
+                    <input type="file" name="file" accept="image/png, image/jpeg"/>
+                    <button th:type="submit" class="btn btn-xs btn-primary">thêm</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <form class="form-inline search-form search-box">
+                    <div class="form-group">
+                        <input class="form-control-plaintext" type="search" placeholder="Search.."><span
+                            class="d-sm-none mobile-search"><i data-feather="search"></i></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body order-datatable">
+                <table class="display" id="basic-1">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ảnh</th>
+                        <th>Vị trí</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="image : ${images}">
+                        <td th:text="${image.productImageId}"/>
+
+                        <td>
+                            <img width="100px" th:src="@{/{url}(url=${image.url})}">
+                        </td>
+
+                        <td>
+                            <span class="badge badge-success" th:text="${image.position}"></span>
+                        </td>
+
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/up(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                      th:method="POST" th:if="${image.position != min}">
+                                    <button th:type="submit" class="btn btn-xs btn-secondary">lên</button>
+                                </form>
+
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/down(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                      th:method="POST" th:if="${image.position != max}">
+                                    <button th:type="submit" class="btn btn-xs btn-danger">xuống</button>
+                                </form>
+
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/delete(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                      th:method="POST">
+                                    <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        /*]]>*/
+    </script>
+</div>
+
+</body>
+</html>

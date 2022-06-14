@@ -36,17 +36,6 @@
                         <div class="d-flex align-items-center">
                             <div class="icon-nav">
                                 <ul class="d-flex align-items-center">
-                                    <li class="delivery-area d-xl-none d-inline-flex" data-bs-target="#deliveryarea"
-                                        data-bs-toggle="modal">
-                                        <img alt="" class="img-fluid" th:src="@{/assets/images/icon/location-pin.png}"/>
-                                    </li>
-                                    <li class="delivery-area d-xl-inline-flex d-none" data-bs-target="#deliveryarea"
-                                        data-bs-toggle="modal">
-                                        <div>
-                                            <i aria-hidden="true" class="fa fa-map-marker"></i>
-                                            <h6>Hà Nội</h6>
-                                        </div>
-                                    </li>
                                     <li class="onhover-div mobile-search d-xl-none">
                                         <div><img alt="" class="img-fluid blur-up lazyload"
                                                   onclick="openSearch()"
@@ -88,7 +77,7 @@
                                                 <ul>
                                                     <li><a th:href="@{/profile}">tài khoản</a></li>
                                                     <li>
-                                                        <form id="logout" th:action="@{/logout}" th:method="POST">
+                                                        <form id="logout" th:action="@{/signout}" th:method="POST">
                                                             <a th:onclick="document.getElementById('logout').submit()">
                                                                 Đăng xuẩt
                                                             </a>
@@ -99,7 +88,7 @@
                                         </div>
                                         <div th:if="${session.customer == null}">
                                             <div class="setting">
-                                                <a th:href="@{/login}">
+                                                <a th:href="@{/signin}">
                                                     <img src="../assets/images/icon/user-1.png"
                                                          class="img-fluid blur-up lazyload" alt=""> Đăng nhập
                                                 </a>
@@ -107,50 +96,14 @@
                                         </div>
                                     </li>
                                     <li class="onhover-div mobile-cart">
-                                        <div><img alt=""
-                                                  class="img-fluid blur-up lazyload"
-                                                  th:src="@{/assets/images/icon/trolley.png}"/></div>
-                                        <span class="cart_qty_cls">2</span>
-                                        <ul class="show-div shopping-cart">
-                                            <li>
-                                                <div class="media">
-                                                    <a th:href="@{/}"><img alt="" class="me-3"
-                                                                           th:src="@{/assets/images/fashion/product/1.jpg}"/></a>
-                                                    <div class="media-body">
-                                                        <a th:href="@{/}">
-                                                            <h4>item name</h4>
-                                                        </a>
-                                                        <h4><span>1 x $ 299.00</span></h4>
-                                                    </div>
-                                                </div>
-                                                <div class="close-circle"><a th:href="@{/}"><i aria-hidden="true"
-                                                                                               class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <a th:href="@{/}"><img alt="" class="me-3"
-                                                                           th:src="@{/assets/images/fashion/product/2.jpg}"/></a>
-                                                    <div class="media-body">
-                                                        <a th:href="@{/}">
-                                                            <h4>item name</h4>
-                                                        </a>
-                                                        <h4><span>1 x $ 299.00</span></h4>
-                                                    </div>
-                                                </div>
-                                                <div class="close-circle"><a th:href="@{/}"><i aria-hidden="true"
-                                                                                               class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="total">
-                                                    <h5>subtotal : <span>$299.00</span></h5>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="buttons"><a class="view-cart" th:href="@{/cart}">giỏ hàng</a> <a class="checkout" th:href="@{/checkout}">thanh toán</a></div>
-                                            </li>
-                                        </ul>
+                                        <a class="view-cart" th:href="@{/cart}">
+                                            <div>
+                                                <img alt=""
+                                                      class="img-fluid blur-up lazyload"
+                                                      th:src="@{/assets/images/icon/trolley.png}"/>
+                                            </div>
+                                            <span class="cart_qty_cls" th:text="${#lists.isEmpty(session.carts) ? 0 : #lists.size(session.carts)}"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

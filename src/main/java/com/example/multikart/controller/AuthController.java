@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -52,17 +49,17 @@ public class AuthController {
      * FRONTEND SPACE
      */
 
-    @GetMapping("/login")
+    @GetMapping("/signin")
     public String frontendLogin(Model model) {
         return authService.frontendLogin(model);
     }
 
-    @PostMapping("/login")
-    public String frontendPostLogin(@Valid @ModelAttribute("customer") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
-        return authService.frontendPostLogin(input, session, result, model);
+    @PostMapping("/signin")
+    public String frontendPostLogin(@RequestParam(value = "redirect", required = false) String referer, @Valid @ModelAttribute("customer") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
+        return authService.frontendPostLogin(referer, input, session, result, model);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/signout")
     public String frontendLogout(HttpSession session, Model model) {
         return authService.frontendLogout(session, model);
     }
