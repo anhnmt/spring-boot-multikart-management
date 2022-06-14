@@ -43,7 +43,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
         model.addAttribute("product", product);
 
-        var images = productImageRepository.findAllByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(id, DefaultStatus.ACTIVE);
         model.addAttribute("images", images);
 
         var min = productImageRepository.findMinPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);

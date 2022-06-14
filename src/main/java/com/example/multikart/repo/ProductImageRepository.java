@@ -16,7 +16,7 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
 
     ProductImage findByProductImageIdAndStatus(Long productImageId, Integer status);
 
-    List<ProductImage> findAllByProductIdAndStatus(Long productId, Integer status);
+    List<ProductImage> findAllByProductIdAndStatusOrderByPositionAsc(Long productId, Integer status);
 
     int countByProductIdAndStatus(Long productId, Integer status);
 

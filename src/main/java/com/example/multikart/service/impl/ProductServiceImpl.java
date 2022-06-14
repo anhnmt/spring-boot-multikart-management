@@ -203,7 +203,7 @@ public class ProductServiceImpl implements ProductService {
         var product = productRepository.findItemProductBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("product", product);
 
-        var images = productImageRepository.findAllByProductIdAndStatus(product.getProductId(), DefaultStatus.ACTIVE);
+        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(product.getProductId(), DefaultStatus.ACTIVE);
         model.addAttribute("images", images);
 
         var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), product.getCategoryId(), DefaultStatus.ACTIVE);
