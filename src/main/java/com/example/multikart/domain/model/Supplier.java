@@ -30,6 +30,7 @@ public class Supplier extends BaseModel {
     @NotBlank
     private String address;
 
+    @Column(columnDefinition = "text")
     private String description;
     private String taxCode;
 

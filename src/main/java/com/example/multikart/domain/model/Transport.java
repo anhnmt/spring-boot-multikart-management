@@ -23,6 +23,7 @@ public class Transport extends BaseModel {
     private String name;
 
     // Mô tả, ghi chú
+    @Column(columnDefinition = "text")
     private String description;
 
     // Trạng thái

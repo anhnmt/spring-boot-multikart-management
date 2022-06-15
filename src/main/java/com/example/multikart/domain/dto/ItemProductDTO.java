@@ -39,6 +39,22 @@ public class ItemProductDTO {
     // Trạng thái
     private Integer status;
 
+    public ItemProductDTO(Product product, Category category, ProductImage productImage) {
+        productId = product.getProductId();
+        name = product.getName();
+        slug = product.getSlug();
+        amount = product.getAmount();
+        importPrice = product.getImportPrice();
+        exportPrice = product.getExportPrice();
+        description = product.getDescription();
+        status = product.getStatus();
+
+        categoryId = category.getCategoryId();
+        categoryName = category.getName();
+
+        image = productImage.getUrl();
+    }
+
     public ItemProductDTO(Product product, Category category, Unit unit, ProductImage productImage) {
         productId = product.getProductId();
         name = product.getName();
@@ -51,6 +67,22 @@ public class ItemProductDTO {
 
         categoryId = category.getCategoryId();
         categoryName = category.getName();
+
+        unitId = unit.getUnitId();
+        unitName = unit.getName();
+
+        image = productImage.getUrl();
+    }
+
+    public ItemProductDTO(Product product, Unit unit, ProductImage productImage) {
+        productId = product.getProductId();
+        name = product.getName();
+        slug = product.getSlug();
+        amount = product.getAmount();
+        importPrice = product.getImportPrice();
+        exportPrice = product.getExportPrice();
+        description = product.getDescription();
+        status = product.getStatus();
 
         unitId = unit.getUnitId();
         unitName = unit.getName();

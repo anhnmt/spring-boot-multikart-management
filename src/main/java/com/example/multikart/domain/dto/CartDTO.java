@@ -28,4 +28,13 @@ public class CartDTO implements Serializable {
         quantity = number;
         price = product.getExportPrice();
     }
+
+    public CartDTO(ItemProductDTO product, Integer number) {
+        productId = product.getProductId();
+        name = product.getName();
+        slug = product.getSlug();
+        image = product.getImage();
+        quantity = number;
+        price = product.getExportPrice();
+    }
 }

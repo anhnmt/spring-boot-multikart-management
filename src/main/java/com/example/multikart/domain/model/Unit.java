@@ -22,6 +22,7 @@ public class Unit extends BaseModel {
     @NotBlank
     private String name;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     // Trạng thái

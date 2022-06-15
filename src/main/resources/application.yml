@@ -10,7 +10,7 @@ spring:
 
   # DATASOURCE
   datasource:
-    url: jdbc:postgresql://128.199.140.126:5432/multikart
+    url: jdbc:postgresql://localhost:5431/multikart
     username: root
     password: 123456aA@
     driverClassName: org.postgresql.Driver

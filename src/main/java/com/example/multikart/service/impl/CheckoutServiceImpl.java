@@ -3,6 +3,7 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.Utils;
+import com.example.multikart.domain.dto.CheckoutRequestDTO;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.repo.PaymentRepository;
 import com.example.multikart.repo.TransportRepository;
@@ -11,6 +12,8 @@ import com.example.multikart.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,5 +42,16 @@ public class CheckoutServiceImpl implements CheckoutService {
         model.addAttribute("payments", payments);
 
         return "frontend/checkout";
+    }
+
+    @Override
+    public String checkout(CheckoutRequestDTO input, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
+        if (result.hasErrors()) {
+            model.addAttribute("checkout", input);
+
+            return "redirect:/checkout";
+        }
+
+        return null;
     }
 }

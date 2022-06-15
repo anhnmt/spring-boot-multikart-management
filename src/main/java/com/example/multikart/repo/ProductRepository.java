@@ -11,7 +11,14 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
-    List<Product> findAllByStatus(Integer status);
+
+    @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, pi)\n" +
+            "FROM Product p\n" +
+            "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
+            "WHERE p.status = :status\n" +
+            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+    List<ItemProductDTO> findAllByStatus(Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +
             "FROM Product p\n" +
@@ -24,6 +31,15 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<ItemProductDTO> findAllByCategoryIdAndStatus(Long categoryId, Integer status);
 
     Product findByProductIdAndStatus(Long productId, Integer status);
+
+    @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, u, pi)\n" +
+            "FROM Product p\n" +
+            "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
+            "WHERE p.status = :status\n" +
+            "  and p.productId = :productId" +
+            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+    ItemProductDTO findWithImageByProductIdAndStatus(Long productId, Integer status);
 
     Product findBySlugAndStatus(String slug, Integer status);
 
