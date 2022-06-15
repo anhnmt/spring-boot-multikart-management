@@ -14,6 +14,8 @@ public class CheckoutRequestDTO {
     @NotBlank
     private String name;
 
+    private Long customerId;
+
     private String phone;
 
     @Email
@@ -24,4 +26,12 @@ public class CheckoutRequestDTO {
     private String district;
 
     private String ward;
+
+    private String address;
+
+    private String description;
+
+    private Long paymentId;
+
+    private Long transportId;
 }
