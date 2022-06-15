@@ -35,6 +35,8 @@ public class Order extends BaseModel {
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
 
+    private Float totalPrice;
+
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
