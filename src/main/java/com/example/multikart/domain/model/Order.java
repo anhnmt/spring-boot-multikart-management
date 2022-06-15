@@ -31,6 +31,14 @@ public class Order extends BaseModel {
     @NotBlank
     private String name;
 
+    private String address;
+
+    private String province;
+
+    private String district;
+
+    private String ward;
+
     // Ngày giao hàng
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
