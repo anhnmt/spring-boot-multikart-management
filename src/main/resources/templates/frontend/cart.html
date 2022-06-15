@@ -60,7 +60,7 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <h2 class="td-color" th:text="${cart.price}">$63.00</h2>
+                                            <h2 class="td-color" th:text="${#numbers.formatDecimal(cart.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
                                         </div>
                                         <div class="col">
                                             <h2 class="td-color">
@@ -70,7 +70,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h2 th:text="${cart.price}">$63.00</h2>
+                                    <h2 th:text="${#numbers.formatDecimal(cart.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
                                 </td>
                                 <td>
                                     <div class="qty-box">
@@ -84,7 +84,7 @@
                                     <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
                                 </td>
                                 <td>
-                                    <h2 class="td-color" th:text="${cart.price * cart.quantity}">$4539.00</h2>
+                                    <h2 class="td-color" th:text="${#numbers.formatDecimal(cart.price * cart.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
                                 </td>
                             </tr>
                         </form>
@@ -96,7 +96,7 @@
                             <tr>
                                 <td>Thành tiền :</td>
                                 <td>
-                                    <h2 th:text="${total}">$6935.00</h2>
+                                    <h2 th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
                                 </td>
                             </tr>
                             </tfoot>
@@ -105,8 +105,12 @@
                 </div>
             </div>
             <div class="row cart-buttons">
-                <div class="col-6"><a th:href="@{/}" class="btn btn-solid">mua thêm</a></div>
-                <div class="col-6"><a th:href="@{/checkout}" class="btn btn-solid">thanh toán</a></div>
+                <div th:class="${#lists.isEmpty(session.carts) ? 'col-12' : 'col-6'}">
+                    <a th:href="@{/}" class="btn btn-solid">mua thêm</a>
+                </div>
+                <div class="col-6" th:unless="${#lists.isEmpty(session.carts)}">
+                    <a th:href="@{/checkout}" class="btn btn-solid">thanh toán</a>
+                </div>
             </div>
         </div>
     </section>

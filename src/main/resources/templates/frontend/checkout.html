@@ -88,21 +88,21 @@
                                         <ul class="qty">
                                             <li th:each="cart : ${carts}">
                                                 <em style="font-style:normal;" th:text="${cart.name}"/> × <em style="font-style:normal;" th:text="${cart.quantity}"/>
-                                                <span th:text="${cart.price * cart.quantity}"/>
+                                                <span th:text="${#numbers.formatDecimal(cart.price * cart.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"/>
                                             </li>
                                         </ul>
                                         <ul class="sub-total">
                                             <li>Vận chuyển
                                                 <div class="shipping">
                                                     <div class="shopping-option" th:each="transport : ${transports}">
-                                                        <input th:id="'transport-' + ${transport.transportId}" type="radio" name="free-shipping" th:value="${transport.transportId}">
+                                                        <input th:id="'transport-' + ${transport.transportId}" type="radio" name="free-shipping" th:value="${transport.transportId}" th:checked="${transportStat.index == 0}">
                                                         <label th:for="'transport-' + ${transport.transportId}" th:text="${transport.name}"></label>
                                                     </div>
                                                 </div>
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Thành tiền <span class="count" th:text="${total}"></span></li>
+                                            <li>Thành tiền <span class="count" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
@@ -111,7 +111,7 @@
                                                 <ul>
                                                     <li th:each="payment : ${payments}">
                                                         <div class="radio-option">
-                                                            <input th:id="'payment-' + ${payment.paymentId}" type="radio" name="payment" th:value="${payment.paymentId}">
+                                                            <input th:id="'payment-' + ${payment.paymentId}" type="radio" name="payment" th:value="${payment.paymentId}" th:checked="${paymentStat.index == 0}">
                                                             <label th:for="'payment-' + ${payment.paymentId}" th:text="${payment.name}"></label>
                                                         </div>
                                                     </li>
