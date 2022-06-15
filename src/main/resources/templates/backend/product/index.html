@@ -45,8 +45,8 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Ảnh</th>
                                 <th>Tên</th>
-                                <th>Đường dẫn</th>
                                 <th>Trạng thái</th>
                                 <th></th>
                             </tr>
@@ -54,8 +54,10 @@
                             <tbody>
                             <tr th:each="product : ${products}">
                                 <td th:text="${product.productId}"></td>
+                                <td>
+                                    <img width="100px" th:src="@{/{url}(url=${product.image})}">
+                                </td>
                                 <td th:text="${product.name}"></td>
-                                <td th:text="${product.slug}"></td>
                                 <td><span class="badge badge-success" th:text="${product.status}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}" action="#"
