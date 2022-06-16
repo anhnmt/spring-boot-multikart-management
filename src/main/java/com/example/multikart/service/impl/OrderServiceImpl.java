@@ -39,7 +39,10 @@ public class OrderServiceImpl implements OrderService {
 
         model.addAttribute("order", order);
 
-        return "backend/order/edit";
+        var orderDetails = orderDetailRepository.findAllByOrderIdStatus(id, DefaultStatus.ACTIVE);
+        model.addAttribute("orderDetails", orderDetails);
+
+        return "backend/order/detail";
     }
 
     @Override

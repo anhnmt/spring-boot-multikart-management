@@ -21,6 +21,7 @@ public class OrderDetailDTO implements Serializable {
     private Long productId;
 
     private String name;
+    private String slug;
     private String image;
     private Integer quantity;
     private Float price;
@@ -32,6 +33,7 @@ public class OrderDetailDTO implements Serializable {
         price = orderDetail.getPrice();
 
         name = product.getName();
+        slug = product.getSlug();
         image = productImage.getUrl();
     }
 }

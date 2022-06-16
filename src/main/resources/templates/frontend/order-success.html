@@ -86,7 +86,7 @@
                         </div>
                         <h2>cảm ơn</h2>
                         <p>Thanh toán được thực hiện thành công và đơn đặt hàng của bạn đang được chuyển đến</p>
-                        <p class="font-weight-bold">Mã đơn hàng: <b th:text="${order.orderId}"></b></p>
+                        <p class="font-weight-bold">Mã đơn hàng: <b th:text="${'#' + order.orderId}"></b></p>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,8 @@
                                     <li th:text="${order.customerName}"></li>
                                     <li th:text="${order.phone}"></li>
                                     <li th:text="${order.email}"></li>
-                                    <li th:text="${order.address + ', ' + order.ward + ', ' + order.district + ', ' + order.province}"></li>
+                                    <li th:text="${
+                                                    (order.address != null ? order.address + ', ' : '') + (order.ward != null ? order.ward + ', ' : '') + (order.district != null ? order.district + ', ' : '') + (order.province != null ? order.province : '')}"></li>
                                 </ul>
                             </div>
                         </div>
@@ -158,11 +159,11 @@
                             <h4>Phương thức thanh toán</h4>
                             <p th:text="${order.paymentName}"></p>
                         </div>
-                        <div class="col-md-12">
-                            <div class="delivery-sec">
-                                <h3>expected date of delivery: <span>october 22, 2018</span></h3>
-                            </div>
-                        </div>
+<!--                        <div class="col-md-12">-->
+<!--                            <div class="delivery-sec">-->
+<!--                                <h3>expected date of delivery: <span>october 22, 2018</span></h3>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>

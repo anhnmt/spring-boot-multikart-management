@@ -13,7 +13,7 @@ public interface AuthService {
 
     String backendLogin(Model model);
 
-    String backendPostLogin(UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model);
+    String backendPostLogin(String referer, UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model);
 
     String backendLogout(HttpSession session, Model model);
 

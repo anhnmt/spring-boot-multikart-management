@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String backendPostLogin(@Valid UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
+    public String backendPostLogin(String referer, UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
         log.info("userDTO: {}", input);
 
         if (result.hasErrors()) {
@@ -62,6 +62,11 @@ public class AuthServiceImpl implements AuthService {
         }
 
         session.setAttribute("user", user);
+
+        if (!DataUtils.isNullOrEmpty(referer)) {
+            return "redirect:" + referer;
+        }
+
         return "redirect:/dashboard";
     }
 

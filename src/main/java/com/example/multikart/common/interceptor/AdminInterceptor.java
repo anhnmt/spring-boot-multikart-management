@@ -24,7 +24,14 @@ public class AdminInterceptor implements HandlerInterceptor {
         log.info("User : {}", user);
 
         if (DataUtils.isNullOrEmpty(user)) {
-            response.sendRedirect(request.getContextPath() + "/dashboard/login");
+            var url = request.getContextPath() + "/dashboard/login";
+
+            String referer = request.getHeader("Referer");
+            if (!DataUtils.isNullOrEmpty(referer)) {
+                url += "?redirect=" + referer;
+            }
+
+            response.sendRedirect(url);
             return false;
         }
 
