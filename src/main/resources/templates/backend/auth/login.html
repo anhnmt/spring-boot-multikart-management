@@ -223,8 +223,7 @@
                                 <div aria-labelledby="top-profile-tab" class="tab-pane fade show active"
                                      id="top-profile"
                                      role="tabpanel">
-                                    <form class="form-horizontal auth-form"
-                                          th:action="@{/dashboard/login}" th:object="${user}" method="POST">
+                                    <form class="form-horizontal auth-form" th:object="${user}" method="POST">
                                         <div class="form-group">
                                             <input class="form-control" id="exampleInputEmail1" th:field="*{email}"
                                                    placeholder="Email"

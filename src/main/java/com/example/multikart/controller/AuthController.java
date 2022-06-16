@@ -26,8 +26,8 @@ public class AuthController {
     }
 
     @PostMapping("/dashboard/login")
-    public String postLogin(@Valid @ModelAttribute("user") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
-        return authService.backendPostLogin(input, session, result, model);
+    public String postLogin(@RequestParam(value = "redirect", required = false) String referer, @Valid @ModelAttribute("user") UserLoginRequestDTO input, HttpSession session, BindingResult result, Model model) {
+        return authService.backendPostLogin(referer, input, session, result, model);
     }
 
     @PostMapping("/dashboard/logout")

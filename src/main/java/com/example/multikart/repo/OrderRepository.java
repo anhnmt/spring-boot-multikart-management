@@ -13,7 +13,16 @@ import java.util.List;
 public interface OrderRepository extends CrudRepository<Order, Long> {
     List<Order> findAllByStatus(Integer status);
 
-    Order findByOrderIdAndStatus(Long orderId, Integer status);
+    @Query("SELECT new com.example.multikart.domain.dto.OrderDTO(o, c, p, t)\n" +
+            "FROM Order o\n" +
+            "LEFT JOIN Customer c on o.customerId = c.customerId\n" +
+            "LEFT JOIN Payment p on o.paymentId = p.paymentId\n" +
+            "LEFT JOIN Transport t on o.transportId = t.transportId\n" +
+            "WHERE o.status = :status\n" +
+            " AND p.status = :status\n" +
+            " AND t.status = :status\n" +
+            " AND o.orderId = :orderId")
+    OrderDTO findByOrderIdAndStatus(Long orderId, Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.OrderDTO(o, c, p, t)\n" +
             "FROM Order o\n" +
