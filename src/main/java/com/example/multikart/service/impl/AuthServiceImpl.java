@@ -2,6 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
 import com.example.multikart.domain.dto.UserProfileRequestDTO;
 import com.example.multikart.domain.dto.UserRegisterRequestDTO;
@@ -212,7 +213,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String frontendProfile(HttpSession session, Model model) {
-        var customer = (Customer) session.getAttribute("customer");
+        var customer = Utils.getCustomerSession(session);
         model.addAttribute("customer", customer);
 
         return "frontend/profile";

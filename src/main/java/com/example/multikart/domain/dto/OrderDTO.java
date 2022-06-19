@@ -7,6 +7,7 @@ import com.example.multikart.domain.model.Transport;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -41,6 +42,34 @@ public class OrderDTO implements Serializable {
 
     private Float totalPrice;
 
+    private Integer status;
+
+    private LocalDateTime createdAt;
+
+    public OrderDTO(Order order, Customer customer) {
+        this.orderId = order.getOrderId();
+        this.name = order.getName();
+
+        this.customerId = customer.getCustomerId();
+        this.customerName = customer.getName();
+        this.phone = customer.getPhone();
+        this.email = customer.getEmail();
+
+        this.address = order.getAddress();
+
+        this.province = order.getProvince();
+
+        this.district = order.getDistrict();
+
+        this.ward = order.getWard();
+
+        this.totalPrice = order.getTotalPrice();
+
+        this.status = order.getStatus();
+
+        this.createdAt = order.getCreatedAt();
+    }
+
     public OrderDTO(Order order, Customer customer, Payment payment, Transport transport) {
         this.orderId = order.getOrderId();
         this.name = order.getName();
@@ -65,5 +94,9 @@ public class OrderDTO implements Serializable {
         this.ward = order.getWard();
 
         this.totalPrice = order.getTotalPrice();
+
+        this.status = order.getStatus();
+
+        this.createdAt = order.getCreatedAt();
     }
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/frontend/layout}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>tài khoản</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/}">trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">tài khoản</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="dashboard-section section-b-space user-dashboard-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div th:replace="layouts/frontend/profile-sidebar :: profile-sidebar"></div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="faq-content tab-content" id="top-tabContent">
+                        <div class="tab-pane fade show active" id="info">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card dashboard-table mt-0">
+                                        <div class="card-body table-responsive-sm">
+                                            <div class="top-sec">
+                                                <h3>Hóa đơn</h3>
+                                            </div>
+                                            <div class="table-responsive-xl">
+                                                <table class="table cart-table order-table">
+                                                    <thead>
+                                                    <tr class="table-head">
+                                                        <th scope="col">Mã hóa đơn</th>
+                                                        <th scope="col">Ngày tạo</th>
+                                                        <th scope="col">Trạng thái</th>
+                                                        <th scope="col">Tổng tiền</th>
+                                                        <th scope="col">Chi tiết</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="order : ${orders}">
+                                                        <td>
+                                                            <span class="mt-0" th:text="${'#' + order.orderId}"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6" th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                                                        </td>
+                                                        <td>
+                                                                <span class="badge rounded-pill bg-success custom-badge">Shipped</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="theme-color fs-6" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span>
+                                                        </td>
+                                                        <td>
+                                                            <a th:href="@{/orders/{id}(id=${order.orderId})}">
+                                                                <i class="fa fa-eye text-theme"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div layout:fragment="footer">
+    <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+</body>
+</html>

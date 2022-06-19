@@ -2,6 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.repo.OrderDetailRepository;
 import com.example.multikart.repo.OrderRepository;
@@ -47,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String frontendViewOrder(Long id, HttpSession session, Model model, RedirectAttributes redirect) {
-        var customer = (Customer) session.getAttribute("customer");
+        var customer = Utils.getCustomerSession(session);
 
         var order = orderRepository.findByOrderIdAndCustomerIdAndStatus(id, customer.getCustomerId(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(order)) {
@@ -61,5 +62,15 @@ public class OrderServiceImpl implements OrderService {
         model.addAttribute("orderDetails", orderDetails);
 
         return "frontend/order-success";
+    }
+
+    @Override
+    public String frontendListOrder(HttpSession session, Model model, RedirectAttributes redirect) {
+        var customer = Utils.getCustomerSession(session);
+
+        var orders = orderRepository.findAllByCustomerIdAndStatus(customer.getCustomerId(), DefaultStatus.ACTIVE);
+        model.addAttribute("orders", orders);
+
+        return "frontend/order";
     }
 }

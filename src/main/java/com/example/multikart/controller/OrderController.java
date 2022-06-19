@@ -27,6 +27,11 @@ public class OrderController {
         return orderService.viewOrder(id, model, redirect);
     }
 
+    @GetMapping("/orders")
+    public String frontendListOrder(HttpSession session, Model model, RedirectAttributes redirect) {
+        return orderService.frontendListOrder(session, model, redirect);
+    }
+
     @GetMapping("/orders/{id}")
     public String frontendViewOrder(@PathVariable("id") Long id, HttpSession session, Model model, RedirectAttributes redirect) {
         return orderService.frontendViewOrder(id, session, model, redirect);

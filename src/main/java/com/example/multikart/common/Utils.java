@@ -1,6 +1,8 @@
 package com.example.multikart.common;
 
 import com.example.multikart.domain.dto.CartDTO;
+import com.example.multikart.domain.model.Customer;
+import com.example.multikart.domain.model.User;
 
 import javax.servlet.http.HttpSession;
 import java.text.Normalizer;
@@ -37,5 +39,23 @@ public class Utils {
     public static float getTotalPriceCart(List<CartDTO> carts) {
         var total = 0.0f;
         return carts.stream().map(cart -> cart.getPrice() * cart.getQuantity()).reduce(total, Float::sum);
+    }
+
+    public static Customer getCustomerSession(HttpSession session) {
+        var customer = (Customer) session.getAttribute("customer");
+        if (DataUtils.isNullOrEmpty(customer)) {
+            return new Customer();
+        }
+
+        return customer;
+    }
+
+    public static User getUserSession(HttpSession session) {
+        var user = (User) session.getAttribute("user");
+        if (DataUtils.isNullOrEmpty(user)) {
+            return new User();
+        }
+
+        return user;
     }
 }
