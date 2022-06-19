@@ -37,5 +37,13 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
             " AND o.orderId = :orderId")
     OrderDTO findByOrderIdAndCustomerIdAndStatus(Long orderId, Long customerId, Integer status);
 
+    @Query("SELECT new com.example.multikart.domain.dto.OrderDTO(o, c)\n" +
+            "FROM Order o\n" +
+            "LEFT JOIN Customer c on o.customerId = c.customerId\n" +
+            "WHERE o.status = :status\n" +
+            " AND o.customerId = :customerId\n" +
+            " AND c.status = :status")
+    List<OrderDTO> findAllByCustomerIdAndStatus(Long customerId, Integer status);
+
     int countByNameAndStatus(String name, Integer status);
 }

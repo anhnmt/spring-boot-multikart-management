@@ -11,4 +11,6 @@ public interface OrderService {
     String viewOrder(Long id, Model model, RedirectAttributes redirect);
 
     String frontendViewOrder(Long id, HttpSession session, Model model, RedirectAttributes redirect);
+
+    String frontendListOrder(HttpSession session, Model model, RedirectAttributes redirect);
 }
