@@ -58,9 +58,9 @@
                             <tr th:each="order : ${orders}">
                                 <td th:text="${order.orderId}"></td>
                                 <td th:text="${order.name}"></td>
-                                <td th:text="${order.transportId}"></td>
-                                <td th:text="${order.paymentId}"></td>
-                                <td th:text="${order.customerId}"></td>
+                                <td th:text="${order.transportName}"></td>
+                                <td th:text="${order.paymentName}"></td>
+                                <td th:text="${order.customerName}"></td>
                                 <td><span class="badge badge-success" th:text="${order.status}"></span></td>
                                 <td th:text="${order.createdAt}"></td>
                                 <td>
