@@ -59,7 +59,7 @@
                                 <td th:text="${user.userId}"></td>
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.email}"></td>
-                                <td th:text="${user.roleId}"></td>
+                                <td th:text="${user.roleName}"></td>
                                 <td><span class="badge badge-success" th:text="${user.status}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/users/{id}/delete(id=${user.userId})}" action="#"

@@ -1,6 +1,8 @@
 package com.example.multikart.repo;
 
+import com.example.multikart.domain.dto.UserDTO;
 import com.example.multikart.domain.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +10,12 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    List<User> findAllByStatus(Integer status);
+    @Query("SELECT new com.example.multikart.domain.dto.UserDTO(u, r)\n" +
+            "FROM User u\n" +
+            "LEFT JOIN Role r on u.roleId = r.roleId\n" +
+            "WHERE u.status = :status\n" +
+            " AND r.status = :status")
+    List<UserDTO> findAllByStatus(Integer status);
 
     User findByUserIdAndStatus(Long userId, Integer status);
 
