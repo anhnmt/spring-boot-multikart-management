@@ -1,5 +1,6 @@
 package com.example.multikart.domain.dto;
 
+import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.model.*;
 import lombok.*;
 
@@ -52,7 +53,9 @@ public class ItemProductDTO {
         categoryId = category.getCategoryId();
         categoryName = category.getName();
 
-        image = productImage.getUrl();
+        if (!DataUtils.isNullOrEmpty(productImage)) {
+            image = productImage.getUrl();
+        }
     }
 
     public ItemProductDTO(Product product, Category category, Unit unit, ProductImage productImage) {
@@ -71,7 +74,9 @@ public class ItemProductDTO {
         unitId = unit.getUnitId();
         unitName = unit.getName();
 
-        image = productImage.getUrl();
+        if (!DataUtils.isNullOrEmpty(productImage)) {
+            image = productImage.getUrl();
+        }
     }
 
     public ItemProductDTO(Product product, Unit unit, ProductImage productImage) {
@@ -87,7 +92,9 @@ public class ItemProductDTO {
         unitId = unit.getUnitId();
         unitName = unit.getName();
 
-        image = productImage.getUrl();
+        if (!DataUtils.isNullOrEmpty(productImage)) {
+            image = productImage.getUrl();
+        }
     }
 
     public ItemProductDTO(Product product, Category category, Unit unit, Supplier supplier, ProductImage productImage) {
@@ -109,6 +116,8 @@ public class ItemProductDTO {
         supplierId = supplier.getSupplierId();
         supplierName = supplier.getName();
 
-        image = productImage.getUrl();
+        if (!DataUtils.isNullOrEmpty(productImage)) {
+            image = productImage.getUrl();
+        }
     }
 }
