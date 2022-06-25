@@ -12,22 +12,20 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, pi)\n" +
+    @Query(value = "SELECT DISTINCT new com.example.multikart.domain.dto.ItemProductDTO(p, c, pi)\n" +
             "FROM Product p\n" +
             "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
-            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
-            "WHERE p.status = :status\n" +
-            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
+            "WHERE p.status = :status")
     List<ItemProductDTO> findAllByStatus(Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +
             "FROM Product p\n" +
             "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
             "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
-            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
-            "  and c.categoryId = :categoryId" +
-            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+            "  and c.categoryId = :categoryId")
     List<ItemProductDTO> findAllByCategoryIdAndStatus(Long categoryId, Integer status);
 
     Product findByProductIdAndStatus(Long productId, Integer status);
@@ -35,10 +33,9 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, u, pi)\n" +
             "FROM Product p\n" +
             "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
-            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
-            "  and p.productId = :productId" +
-            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+            "  and p.productId = :productId")
     ItemProductDTO findWithImageByProductIdAndStatus(Long productId, Integer status);
 
     Product findBySlugAndStatus(String slug, Integer status);
@@ -52,10 +49,9 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
             "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
             "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
             "LEFT JOIN Supplier s on p.supplierId = s.supplierId\n" +
-            "LEFT JOIN ProductImage pi on p.productId = pi.productId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
-            "  and p.slug = :slug" +
-            "  and pi.position = (Select min(position) from ProductImage where productId = p.productId)")
+            "  and p.slug = :slug")
     ItemProductDTO findItemProductBySlugAndStatus(@Param("slug") String slug, @Param("status") Integer status);
 
     @Query("SELECT p\n" +
