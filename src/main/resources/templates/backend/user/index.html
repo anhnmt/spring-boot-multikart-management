@@ -14,8 +14,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Orders
-                            <small>Multikart Admin panel</small>
+                        <h3>Người dùng
+                            <small>Trang quản trị</small>
                         </h3>
                     </div>
                 </div>
@@ -26,8 +26,7 @@
                                 <i data-feather="home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item">Sales</li>
-                        <li class="breadcrumb-item active">Orders</li>
+                        <li class="breadcrumb-item active">Người dùng</li>
                     </ol>
                 </div>
             </div>
@@ -47,11 +46,11 @@
                         <table class="display" id="basic-1">
                             <thead>
                             <tr>
-                                <th>User Id</th>
-                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Tên</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
+                                <th>Quyền</th>
+                                <th>Trạng thái</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -60,7 +59,7 @@
                                 <td th:text="${user.userId}"></td>
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.email}"></td>
-                                <td th:text="${user.roleId}"></td>
+                                <td th:text="${user.roleName}"></td>
                                 <td><span class="badge badge-success" th:text="${user.status}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/users/{id}/delete(id=${user.userId})}" action="#"

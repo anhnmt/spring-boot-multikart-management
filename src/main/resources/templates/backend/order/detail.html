@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/backend/layout}">
+<head>
+    <title>Danh sách Hóa đơn</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Orders
+                            <small>Multikart Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Sales</li>
+                        <li class="breadcrumb-item active">Orders</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="bg-inner cart-section order-details-table">
+                            <div class="row g-4">
+                                <div class="col-xl-8">
+                                    <div class="card-details-title">
+                                        <h3>Mã đơn hàng <b th:text="${'#' + order.orderId}"></b></h3>
+                                    </div>
+                                    <div class="table-responsive table-details">
+                                        <table class="table cart-table table-borderless">
+                                            <tbody>
+                                            <tr class="table-order" th:each="orderDetail : ${orderDetails}">
+                                                <td>
+                                                    <a target="_blank" th:href="@{/san-pham/{slug}(slug=${orderDetail.slug})}">
+                                                        <img width="100px" th:src="@{/{url}(url=${orderDetail.image})}"
+                                                             class="img-fluid blur-up lazyload" alt="">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <p>Sản phẩm</p>
+                                                    <h5 th:text="${orderDetail.name}"></h5>
+                                                </td>
+                                                <td>
+                                                    <p>Số lượng</p>
+                                                    <h5 th:text="${orderDetail.quantity}"></h5>
+                                                </td>
+                                                <td>
+                                                    <p>Tổng</p>
+                                                    <h5 th:text="${#numbers.formatDecimal(orderDetail.price * orderDetail.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h5>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                            <tfoot>
+                                            <tr class="table-order">
+                                                <td colspan="3">
+                                                    <h5>Vận chuyển :</h5>
+                                                </td>
+                                                <td>
+                                                    <h4>0 ₫</h4>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="table-order">
+                                                <td colspan="3">
+                                                    <h5>Thuế :</h5>
+                                                </td>
+                                                <td>
+                                                    <h4>0 ₫</h4>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="table-order">
+                                                <td colspan="3">
+                                                    <h4 class="theme-color fw-bold">Tổng tiền :</h4>
+                                                </td>
+                                                <td>
+                                                    <h4 class="theme-color fw-bold" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4">
+                                    <div class="row g-4">
+                                        <div class="col-12">
+                                            <div class="order-success">
+                                                <h4>Thông tin người nhận</h4>
+                                                <ul class="order-details">
+                                                    <li th:text="${order.customerName}"></li>
+                                                    <li th:text="${order.phone}"></li>
+                                                    <li th:text="${order.email}"></li>
+                                                    <li th:text="${
+                                                    (order.address != null ? order.address + ', ' : '') + (order.ward != null ? order.ward + ', ' : '') + (order.district != null ? order.district + ', ' : '') + (order.province != null ? order.province : '')}"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="order-success">
+                                                <div class="payment-mode">
+                                                    <h4>Đơn vị vận chuyển</h4>
+                                                    <p th:text="${order.transportName}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="order-success">
+                                                <div class="payment-mode">
+                                                    <h4>Phương thức thanh toán</h4>
+                                                    <p th:text="${order.paymentName}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+<!--                                        <div class="col-12">-->
+<!--                                            <div class="order-success">-->
+<!--                                                <div class="delivery-sec">-->
+<!--                                                    <h3>expected date of delivery: <span>october 22,-->
+<!--                                                                        2021</span></h3>-->
+<!--                                                    <a href="order-tracking.html">track order</a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- section end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+</body>
+</html>

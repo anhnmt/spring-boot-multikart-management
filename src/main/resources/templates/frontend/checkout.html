@@ -32,7 +32,7 @@
         <div class="container">
             <div class="checkout-page">
                 <div class="checkout-form">
-                    <form>
+                    <form method="post" th:object="${checkout}" th:action="@{/checkout}" class="needs-validation">
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
@@ -40,42 +40,42 @@
                                 </div>
                                 <div class="row check-out">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Họ tên</div>
-                                        <input type="text" name="field-name" th:value="${customer.name}" placeholder="Họ và tên">
+                                        <div class="field-label">Họ tên <span>*</span></div>
+                                        <input type="text" name="name" th:field="*{name}" th:value="${checkout.name}" placeholder="Họ và tên" required>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Số điện thoại</div>
-                                        <input type="text" name="field-name" th:value="${customer.phone}" placeholder="Số điện thoại">
+                                        <div class="field-label">Số điện thoại <span>*</span></div>
+                                        <input type="text" name="phone" th:field="*{phone}" th:value="${checkout.phone}" placeholder="Số điện thoại" required>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Email</div>
-                                        <input type="text" name="field-name" th:value="${customer.email}" placeholder="Địa chỉ email">
+                                        <div class="field-label">Email <span>*</span></div>
+                                        <input type="text" name="email" th:field="*{email}" th:value="${checkout.email}" placeholder="Địa chỉ email" required>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Tỉnh/Thành phố</div>
-                                        <select id="provinces">
-                                            <option value="0">--Tỉnh/Thành phố--</option>
+                                        <div class="field-label">Tỉnh/Thành phố <span>*</span></div>
+                                        <select name="provinceId" th:field="*{provinceId}" id="provinces" required>
+                                            <option value="">--Tỉnh/Thành phố--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Quận/Huyện</div>
-                                        <select id="districts">
-                                            <option value="0">--Quận/Huyện--</option>
+                                        <div class="field-label">Quận/Huyện <span>*</span></div>
+                                        <select name="districtId" th:field="*{districtId}" id="districts" required>
+                                            <option value="">--Quận/Huyện--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Phường/Xã</div>
-                                        <select id="wards">
-                                            <option value="0">--Xã/Phường--</option>
+                                        <div class="field-label">Phường/Xã <span>*</span></div>
+                                        <select name="wardId" th:field="*{wardId}" id="wards" required>
+                                            <option value="">--Xã/Phường--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Địa chỉ</div>
-                                        <input type="text" name="address" value="" placeholder="Số nhà, tên đường">
+                                        <div class="field-label">Địa chỉ <span>*</span></div>
+                                        <input type="text" name="address" th:field="*{address}" value="" placeholder="Số nhà, tên đường" required>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Ghi chú</div>
-                                        <input type="text" name="description" value="" placeholder="Nhập yêu cầu khác của bạn nếu có">
+                                        <input type="text" name="description" th:field="*{description}" value="" placeholder="Nhập yêu cầu khác của bạn nếu có">
                                     </div>
                                 </div>
                             </div>
@@ -88,48 +88,38 @@
                                         <ul class="qty">
                                             <li th:each="cart : ${carts}">
                                                 <em style="font-style:normal;" th:text="${cart.name}"/> × <em style="font-style:normal;" th:text="${cart.quantity}"/>
-                                                <span th:text="${cart.price * cart.quantity}"/>
+                                                <span th:text="${#numbers.formatDecimal(cart.price * cart.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"/>
                                             </li>
                                         </ul>
                                         <ul class="sub-total">
                                             <li>Vận chuyển
                                                 <div class="shipping">
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="free-shipping" id="free-shipping">
-                                                        <label for="free-shipping">Free Shipping</label>
-                                                    </div>
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="local-pickup" id="local-pickup">
-                                                        <label for="local-pickup">Local Pickup</label>
+                                                    <div class="shopping-option" th:each="transport : ${transports}">
+                                                        <input name="transportId" th:id="'transport-' + ${transport.transportId}" type="radio" th:value="${transport.transportId}" th:checked="${transportStat.index == 0}">
+                                                        <label th:for="'transport-' + ${transport.transportId}" th:text="${transport.name}"></label>
                                                     </div>
                                                 </div>
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Thành tiền <span class="count" th:text="${total}"></span></li>
+                                            <li>Thành tiền <span class="count" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
                                         <div class="upper-box">
                                             <div class="payment-options">
                                                 <ul>
-                                                    <li>
+                                                    <li th:each="payment : ${payments}">
                                                         <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-1" checked="checked">
-                                                            <label for="payment-1">Check Payments</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option paypal">
-                                                            <input type="radio" name="payment-group" id="payment-3">
-                                                            <label for="payment-3">PayPal<span class="image"><img src="../assets/images/paypal.png" alt=""></span></label>
+                                                            <input name="paymentId" th:id="'payment-' + ${payment.paymentId}" type="radio" th:value="${payment.paymentId}" th:checked="${paymentStat.index == 0}">
+                                                            <label th:for="'payment-' + ${payment.paymentId}" th:text="${payment.name}"></label>
                                                         </div>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <a href="#" class="btn-solid btn">Đặt hàng</a>
+                                            <button type="submit" class="btn-solid btn">Đặt hàng</button>
                                         </div>
                                     </div>
                                 </div>
@@ -151,56 +141,75 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
+        let provinceId = [[${checkout.provinceId}]];
+        let districtId = [[${checkout.districtId}]];
+        let wardId = [[${checkout.wardId}]];
+
+        // preload
         $(function() {
-            $.ajax({
-                url: "[(@{/dvhc/provinces})]",
-                method: 'GET',
-                success: function(data) {
-                    $('#districts').find('option:not(:first)').remove();
-                    $('#wards').find('option:not(:first)').remove();
-                    $.each(data, function(key, value) {
-                        $("#provinces").append(
-                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
-                        );
-                    });
-                }
-            });
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadProvince();
+            loadDistrict(provinceId);
+            loadWard(districtId);
         });
 
         $("#provinces").on('change', function(e) {
             e.preventDefault();
-            let code = $(this).data("code");
-            $.ajax({
-                url: "[(@{/dvhc/provinces/})]" + code,
-                method: 'GET',
-                success: function(data) {
-                    $('#districts').find('option:not(:first)').remove();
-                    $('#wards').find('option:not(:first)').remove();
-                    $.each(data, function(key, value) {
-                        $("#districts").append(
-                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
-                        );
-                    });
-                }
-            });
+            let code = $(this).find(':selected').data("code");
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadDistrict(code);
         });
 
         $("#districts").on('change', function(e) {
             e.preventDefault();
-            let code = $(this).data("code");
+            let code = $(this).find(':selected').data("code");
+            $('#wards').find('option:not(:first)').remove();
+            loadWard(code);
+        });
+
+        function loadProvince() {
             $.ajax({
-                url: "[(@{/dvhc/districts/})]" + code,
+                url: "[(@{/dvhc/provinces})]",
                 method: 'GET',
                 success: function(data) {
-                    $('#wards').find('option:not(:first)').remove();
                     $.each(data, function(key, value) {
-                        $("#wards").append(
-                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
+                        $("#provinces").append(
+                            "<option "+ (provinceId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
                         );
                     });
                 }
             });
-        });
+        }
+
+        function loadDistrict(code) {
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#districts").append(
+                            "<option "+ (districtId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
+        function loadWard(code) {
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#wards").append(
+                            "<option "+ (wardId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
         /*]]>*/
     </script>
 </div>

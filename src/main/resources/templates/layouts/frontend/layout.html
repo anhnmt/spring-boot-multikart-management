@@ -152,12 +152,31 @@
 
     feather.replace();
 
-    $(window).scroll(function () {
-        var sticky = $('.header-style-7'),
-            scroll = $(window).scrollTop();
+    $(document).ready(function() {
+        //Enter Your Class or ID
+        let $stickyMenu = $('.header-style-7');
 
-        if (scroll >= 100) sticky.addClass('fixed');
-        else sticky.removeClass('fixed');
+        let stickyNavTop = $($stickyMenu).offset().top;
+
+        //Get Height of Navbar Div
+        let navHeight = $($stickyMenu).height();
+
+        let stickyNav = function(){
+            let scrollTop = $(window).scrollTop();
+            if (scrollTop > stickyNavTop) {
+                $($stickyMenu).addClass('fixed');
+                $('html').css('padding-top', navHeight + 'px')
+            } else {
+                $($stickyMenu).removeClass('fixed');
+                $('html').css('padding-top', '0')
+            }
+        };
+
+        stickyNav();
+
+        $(window).scroll(function() {
+            stickyNav();
+        });
     });
 </script>
 

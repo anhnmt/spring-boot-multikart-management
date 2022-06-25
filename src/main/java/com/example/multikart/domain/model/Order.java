@@ -31,9 +31,19 @@ public class Order extends BaseModel {
     @NotBlank
     private String name;
 
+    private String address;
+
+    private String provinceId;
+
+    private String districtId;
+
+    private String wardId;
+
     // Ngày giao hàng
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
+
+    private Float totalPrice;
 
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)

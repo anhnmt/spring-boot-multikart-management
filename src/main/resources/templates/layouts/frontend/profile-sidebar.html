@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body class="theme-color-31 mulish-font">
+
+<div th:fragment="profile-sidebar">
+    <div class="dashboard-sidebar">
+        <div class="profile-top">
+            <div class="profile-image">
+                <img src="../assets/images/avtar.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="profile-detail">
+                <h5 th:text="${session.customer.name}"></h5>
+                <h6 th:text="${session.customer.email}"></h6>
+            </div>
+        </div>
+        <div class="faq-tab">
+            <ul class="nav nav-tabs" id="top-tab" role="tablist">
+                <li class="nav-item"><a th:href="@{/profile}" class="nav-link active">Tài khoản</a></li>
+                <li class="nav-item"><a th:href="@{/orders}" class="nav-link">Hóa đơn</a></li>
+                <li class="nav-item"><a th:href="@{/cart}" class="nav-link">Giỏ hàng</a></li>
+                <li class="nav-item">
+                    <form id="logout" th:action="@{/logout}" th:method="POST">
+                        <a th:onclick="document.getElementById('logout').submit()" class="nav-link">
+                            Đăng xuẩt
+                        </a>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

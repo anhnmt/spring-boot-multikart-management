@@ -28,6 +28,7 @@ public class ProductImage extends BaseModel {
     private Integer position;
 
     // Mô tả, ghi chú
+    @Column(columnDefinition = "text")
     private String description;
 
     // Trạng thái

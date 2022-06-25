@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public String addToCart(AddToCartRequestDTO input, HttpSession session, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(input.getProductId(), DefaultStatus.ACTIVE);
+        var product = productRepository.findWithImageByProductIdAndStatus(input.getProductId(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
             return "redirect:/";

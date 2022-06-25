@@ -15,5 +15,12 @@ public class UserProfileRequestDTO {
     private String name;
     @Email
     private String email;
+    private String phone;
+
     private String password;
+
+    private String provinceId;
+    private String districtId;
+    private String wardId;
+    private String address;
 }

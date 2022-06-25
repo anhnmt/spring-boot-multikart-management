@@ -2,6 +2,7 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.model.ProductImage;
 import com.example.multikart.repo.ProductImageRepository;
 import com.example.multikart.repo.ProductRepository;
@@ -76,7 +77,7 @@ public class ProductImageServiceImpl implements ProductImageService {
             Files.createDirectories(uploadPath);
         }
 
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
         String uploadDir = productDirectory + "/" + id;
 
         try {

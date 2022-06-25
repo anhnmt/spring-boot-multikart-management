@@ -1,6 +1,7 @@
 package com.example.multikart.domain.model;
 
 import com.example.multikart.domain.dto.CustomerRequestDTO;
+import com.example.multikart.domain.dto.UserProfileRequestDTO;
 import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import lombok.*;
 
@@ -35,6 +36,11 @@ public class Customer extends BaseModel implements Serializable {
     @NotBlank
     private String password;
 
+    private String provinceId;
+    private String districtId;
+    private String wardId;
+    private String address;
+
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
@@ -45,6 +51,13 @@ public class Customer extends BaseModel implements Serializable {
         phone = input.getPhone();
         password = input.getPassword();
         status = input.getStatus();
+    }
+
+    public Customer(UserProfileRequestDTO input) {
+        name = input.getName();
+        email = input.getEmail();
+        phone = input.getPhone();
+        password = input.getPassword();
     }
 
     public Customer(UserRegisterRequestDTO input) {

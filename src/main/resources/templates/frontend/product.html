@@ -74,8 +74,8 @@
                                 <span class="badge badge-grey-color" th:text="${product.categoryName}"></span>
                             </div>
                             <h3 class="price-detail">
-                                <span th:text="${product.exportPrice}"></span>
-                                <del>$459.00</del>
+                                <span th:text="${#numbers.formatDecimal(product.exportPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span>
+<!--                                <del>$459.00</del>-->
                             </h3>
 
                             <form th:object="${cart}" id="addToCart" th:action="@{/cart}"

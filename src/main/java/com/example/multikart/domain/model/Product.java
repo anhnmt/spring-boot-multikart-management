@@ -44,6 +44,7 @@ public class Product extends BaseModel {
     private Float exportPrice;
 
     // Mô tả, ghi chú
+    @Column(columnDefinition = "text")
     private String description;
 
     // Trạng thái

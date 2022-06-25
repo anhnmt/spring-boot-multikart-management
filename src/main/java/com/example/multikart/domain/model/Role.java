@@ -22,6 +22,7 @@ public class Role extends BaseModel {
     @NotBlank
     private String name;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     // Trạng thái
