@@ -61,21 +61,88 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box-account box-info">
+                                <div class="checkout-page box-account box-info">
                                     <div class="box-head">
-                                        <h4>Thông tin cá nhân</h4>
+                                        <h4>Thông tin</h4>
                                     </div>
                                     <div class="box mt-3">
                                         <div class="box-title">
-                                            <h3>Thay đổi thông tin cá nhân</h3>
+                                            <h3>Thông tin cá nhân</h3>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <h6>Thông tin</h6>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <h6>Địa chỉ</h6>
-                                            </div>
+                                        <div class="checkout-form">
+                                            <form method="post" th:object="${customer}" th:action="@{/profile}"
+                                                  class="needs-validation">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-row row check-out">
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Họ tên <span>*</span></div>
+                                                                <input type="text" name="name" th:field="*{name}"
+                                                                       th:value="${customer.name}"
+                                                                       placeholder="Họ và tên" required>
+                                                            </div>
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Số điện thoại <span>*</span>
+                                                                </div>
+                                                                <input type="text" name="phone" th:field="*{phone}"
+                                                                       th:value="${customer.phone}"
+                                                                       placeholder="Số điện thoại" required>
+                                                            </div>
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Email <span>*</span></div>
+                                                                <input type="text" name="email" th:field="*{email}"
+                                                                       th:value="${customer.email}"
+                                                                       placeholder="Địa chỉ email" required>
+                                                            </div>
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Mật khẩu</div>
+                                                                <input type="password" name="password"
+                                                                       th:field="*{password}" placeholder="Mật khẩu">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-row row check-out">
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Tỉnh/Thành phố
+                                                                    <span>*</span></div>
+                                                                <select name="province" th:field="*{provinceId}"
+                                                                        id="provinces" required>
+                                                                    <option value="">--Tỉnh/Thành phố--</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Quận/Huyện <span>*</span>
+                                                                </div>
+                                                                <select name="district" th:field="*{districtId}"
+                                                                        id="districts" required>
+                                                                    <option value="">--Quận/Huyện--</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Phường/Xã <span>*</span>
+                                                                </div>
+                                                                <select name="ward" th:field="*{wardId}" id="wards"
+                                                                        required>
+                                                                    <option value="">--Xã/Phường--</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="field-label">Địa chỉ <span>*</span>
+                                                                </div>
+                                                                <input type="text" name="address" th:field="*{address}"
+                                                                       value="" placeholder="Số nhà, tên đường"
+                                                                       required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12 mt-5">
+                                                        <button class="btn btn-solid" type="submit">Cập nhật</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -90,6 +157,83 @@
 
 <div layout:fragment="footer">
     <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let provinceId = [[${customer.provinceId}]];
+        let districtId = [[${customer.districtId}]];
+        let wardId = [[${customer.wardId}]];
+
+        // preload
+        $(function() {
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadProvince();
+            loadDistrict(provinceId);
+            loadWard(districtId);
+        });
+
+        $("#provinces").on('change', function(e) {
+            e.preventDefault();
+            let code = $(this).find(':selected').data("code");
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadDistrict(code);
+        });
+
+        $("#districts").on('change', function(e) {
+            e.preventDefault();
+            let code = $(this).find(':selected').data("code");
+            $('#wards').find('option:not(:first)').remove();
+            loadWard(code);
+        });
+
+        function loadProvince() {
+            $.ajax({
+                url: "[(@{/dvhc/provinces})]",
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#provinces").append(
+                            "<option "+ (provinceId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
+        function loadDistrict(code) {
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#districts").append(
+                            "<option "+ (districtId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
+        function loadWard(code) {
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#wards").append(
+                            "<option "+ (wardId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
+        /*]]>*/
+    </script>
 </div>
 
 </body>

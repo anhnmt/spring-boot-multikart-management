@@ -75,8 +75,13 @@ public class AuthController {
     }
 
     @GetMapping("/profile")
-    public String frontendProfile(HttpSession session, Model model) {
-        return authService.frontendProfile(session, model);
+    public String frontendProfile(HttpSession session, Model model, RedirectAttributes redirect) {
+        return authService.frontendProfile(session, model, redirect);
+    }
+
+    @PostMapping("/profile")
+    public String frontendPostProfile(@Valid @ModelAttribute("customer") UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
+        return authService.frontendPostProfile(input, session, result, model, redirect);
     }
 
 }

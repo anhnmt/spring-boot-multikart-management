@@ -86,7 +86,7 @@ public class CheckoutServiceImpl implements CheckoutService {
                     .paymentId(input.getPaymentId())
                     .transportId(input.getTransportId())
                     .totalPrice(total)
-                    .status(OrderStatus.ACTIVE)
+                    .status(OrderStatus.PENDING)
                     .build());
 
             carts.forEach(cart -> orderDetailRepository.save(OrderDetail.builder()

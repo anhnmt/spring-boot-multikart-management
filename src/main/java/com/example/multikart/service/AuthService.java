@@ -31,7 +31,7 @@ public interface AuthService {
 
     String frontendPostRegister(UserRegisterRequestDTO input, HttpSession session, BindingResult result, Model model);
 
-    String frontendProfile(HttpSession session, Model model);
+    String frontendProfile(HttpSession session, Model model, RedirectAttributes redirect);
 
     String frontendPostProfile(UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect);
 }
