@@ -212,8 +212,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String frontendProfile(HttpSession session, Model model) {
-        var customer = Utils.getCustomerSession(session);
+    public String frontendProfile(HttpSession session, Model model, RedirectAttributes redirect) {
+        var customerSession = Utils.getCustomerSession(session);
+
+        var customer = customerRepository.findByCustomerIdAndStatus(customerSession.getCustomerId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(customer)) {
+            redirect.addFlashAttribute("error", "Tài khoản không tồn tại");
+
+            return "redirect:/";
+        }
+
         model.addAttribute("customer", customer);
 
         return "frontend/profile";
@@ -221,6 +229,50 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String frontendPostProfile(UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
-        return null;
+        var customerSession = Utils.getCustomerSession(session);
+
+        var customer = customerRepository.findByCustomerIdAndStatus(customerSession.getCustomerId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(customer)) {
+            redirect.addFlashAttribute("error", "Tài khoản không tồn tại");
+
+            return "redirect:/";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("customer", input);
+            return "frontend/profile";
+        }
+
+        if (!input.getPassword().isEmpty()) {
+            customer.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
+        }
+
+        if (!customer.getEmail().equals(input.getEmail())) {
+            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            if (count > 0) {
+                result.rejectValue("email", "", "Email đã được sử dụng");
+            }
+
+            customer.setEmail(input.getEmail());
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("user", input);
+
+            return "frontend/profile";
+        }
+
+        customer.setName(input.getName());
+        customer.setPhone(input.getPhone());
+        customer.setAddress(input.getAddress());
+        customer.setProvinceId(input.getProvinceId());
+        customer.setDistrictId(input.getDistrictId());
+        customer.setWardId(input.getWardId());
+
+        var newCus = customerRepository.save(customer);
+        session.setAttribute("customer", newCus);
+
+        redirect.addFlashAttribute("success", "Cập nhật thành công");
+        return "redirect:/profile";
     }
 }
