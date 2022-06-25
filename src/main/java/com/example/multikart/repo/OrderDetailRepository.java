@@ -16,11 +16,11 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Long>
             "LEFT JOIN Order o on od.orderId = o.orderId\n" +
             "LEFT JOIN Product p on od.productId = p.productId\n" +
             "LEFT JOIN ProductImage pi on od.productId = pi.productId\n" +
-            "WHERE o.status = :status\n" +
-            " AND p.status = :status\n" +
-            " AND pi.status = :status\n" +
+            "WHERE o.status <> :status\n" +
+            " AND p.status <> :status\n" +
+            " AND pi.status <> :status\n" +
             " AND o.orderId = :orderId\n" +
             " AND od.orderId = :orderId\n" +
             "  AND pi.position = (Select min(position) from ProductImage where productId = od.productId)")
-    List<OrderDetailDTO> findAllByOrderIdStatus(Long orderId, Integer status);
+    List<OrderDetailDTO> findAllByOrderIdStatusNot(Long orderId, Integer status);
 }

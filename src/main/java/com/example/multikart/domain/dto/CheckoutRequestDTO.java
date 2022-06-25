@@ -21,11 +21,11 @@ public class CheckoutRequestDTO {
     @Email
     private String email;
 
-    private String province;
+    private String provinceId;
 
-    private String district;
+    private String districtId;
 
-    private String ward;
+    private String wardId;
 
     private String address;
 

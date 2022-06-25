@@ -34,11 +34,11 @@ public class OrderDTO implements Serializable {
 
     private String address;
 
-    private String province;
+    private String provinceId;
 
-    private String district;
+    private String districtId;
 
-    private String ward;
+    private String wardId;
 
     private Float totalPrice;
 
@@ -57,11 +57,11 @@ public class OrderDTO implements Serializable {
 
         this.address = order.getAddress();
 
-        this.province = order.getProvince();
+        this.provinceId = order.getProvinceId();
 
-        this.district = order.getDistrict();
+        this.districtId = order.getDistrictId();
 
-        this.ward = order.getWard();
+        this.wardId = order.getWardId();
 
         this.totalPrice = order.getTotalPrice();
 
@@ -87,11 +87,11 @@ public class OrderDTO implements Serializable {
 
         this.address = order.getAddress();
 
-        this.province = order.getProvince();
+        this.provinceId = order.getProvinceId();
 
-        this.district = order.getDistrict();
+        this.districtId = order.getDistrictId();
 
-        this.ward = order.getWard();
+        this.wardId = order.getWardId();
 
         this.totalPrice = order.getTotalPrice();
 

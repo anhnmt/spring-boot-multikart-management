@@ -40,7 +40,12 @@ public class CheckoutServiceImpl implements CheckoutService {
                 .name(customer.getName())
                 .email(customer.getEmail())
                 .phone(customer.getPhone())
-//                .address(customer.getAddress())
+                .address(customer.getAddress())
+                .districtId(customer.getDistrictId())
+                .provinceId(customer.getProvinceId())
+                .wardId(customer.getWardId())
+                .transportId(0L)
+                .paymentId(0L)
                 .build();
 
         model.addAttribute("checkout", checkout);

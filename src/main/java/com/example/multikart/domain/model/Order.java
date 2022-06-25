@@ -33,11 +33,11 @@ public class Order extends BaseModel {
 
     private String address;
 
-    private String province;
+    private String provinceId;
 
-    private String district;
+    private String districtId;
 
-    private String ward;
+    private String wardId;
 
     // Ngày giao hàng
     @Column(name = "delivery_date")
