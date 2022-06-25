@@ -1,6 +1,8 @@
 package com.example.multikart.service.impl;
 
+import com.example.multikart.common.Const;
 import com.example.multikart.common.Const.DefaultStatus;
+import com.example.multikart.common.Const.OrderStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.common.Utils;
 import com.example.multikart.domain.model.Customer;
@@ -31,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String viewOrder(Long id, Model model, RedirectAttributes redirect) {
-        var order = orderRepository.findByOrderIdAndStatus(id, DefaultStatus.ACTIVE);
+        var order = orderRepository.findByOrderIdAndStatusNot(id, OrderStatus.DELETED);
         if (DataUtils.isNullOrEmpty(order)) {
             redirect.addFlashAttribute("error", "Hóa đơn không tồn tại");
 
@@ -40,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
         model.addAttribute("order", order);
 
-        var orderDetails = orderDetailRepository.findAllByOrderIdStatus(id, DefaultStatus.ACTIVE);
+        var orderDetails = orderDetailRepository.findAllByOrderIdStatusNot(id, OrderStatus.DELETED);
         model.addAttribute("orderDetails", orderDetails);
 
         return "backend/order/detail";
@@ -50,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
     public String frontendViewOrder(Long id, HttpSession session, Model model, RedirectAttributes redirect) {
         var customer = Utils.getCustomerSession(session);
 
-        var order = orderRepository.findByOrderIdAndCustomerIdAndStatus(id, customer.getCustomerId(), DefaultStatus.ACTIVE);
+        var order = orderRepository.findByOrderIdAndCustomerIdAndStatusNot(id, customer.getCustomerId(), OrderStatus.DELETED);
         if (DataUtils.isNullOrEmpty(order)) {
             redirect.addFlashAttribute("error", "Hóa đơn không tồn tại");
 
@@ -58,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
         }
         model.addAttribute("order", order);
 
-        var orderDetails = orderDetailRepository.findAllByOrderIdStatus(id, DefaultStatus.ACTIVE);
+        var orderDetails = orderDetailRepository.findAllByOrderIdStatusNot(id, OrderStatus.DELETED);
         model.addAttribute("orderDetails", orderDetails);
 
         return "frontend/order-success";
@@ -68,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
     public String frontendListOrder(HttpSession session, Model model, RedirectAttributes redirect) {
         var customer = Utils.getCustomerSession(session);
 
-        var orders = orderRepository.findAllByCustomerIdAndStatus(customer.getCustomerId(), DefaultStatus.ACTIVE);
+        var orders = orderRepository.findAllByCustomerIdAndStatusNot(customer.getCustomerId(), OrderStatus.DELETED);
         model.addAttribute("orders", orders);
 
         return "frontend/order";

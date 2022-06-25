@@ -53,19 +53,19 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Tỉnh/Thành phố <span>*</span></div>
-                                        <select name="province" th:field="*{province}" id="provinces" required>
+                                        <select name="provinceId" th:field="*{provinceId}" id="provinces" required>
                                             <option value="">--Tỉnh/Thành phố--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Quận/Huyện <span>*</span></div>
-                                        <select name="district" th:field="*{district}" id="districts" required>
+                                        <select name="districtId" th:field="*{districtId}" id="districts" required>
                                             <option value="">--Quận/Huyện--</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Phường/Xã <span>*</span></div>
-                                        <select name="ward" th:field="*{ward}" id="wards" required>
+                                        <select name="wardId" th:field="*{wardId}" id="wards" required>
                                             <option value="">--Xã/Phường--</option>
                                         </select>
                                     </div>
@@ -95,7 +95,7 @@
                                             <li>Vận chuyển
                                                 <div class="shipping">
                                                     <div class="shopping-option" th:each="transport : ${transports}">
-                                                        <input name="transportId" th:field="*{transportId}" th:id="'transport-' + ${transport.transportId}" type="radio" th:value="${transport.transportId}" th:checked="${transportStat.index == 0}">
+                                                        <input name="transportId" th:id="'transport-' + ${transport.transportId}" type="radio" th:value="${transport.transportId}" th:checked="${transportStat.index == 0}">
                                                         <label th:for="'transport-' + ${transport.transportId}" th:text="${transport.name}"></label>
                                                     </div>
                                                 </div>
@@ -111,7 +111,7 @@
                                                 <ul>
                                                     <li th:each="payment : ${payments}">
                                                         <div class="radio-option">
-                                                            <input name="paymentId" th:field="*{paymentId}" th:id="'payment-' + ${payment.paymentId}" type="radio" th:value="${payment.paymentId}" th:checked="${paymentStat.index == 0}">
+                                                            <input name="paymentId" th:id="'payment-' + ${payment.paymentId}" type="radio" th:value="${payment.paymentId}" th:checked="${paymentStat.index == 0}">
                                                             <label th:for="'payment-' + ${payment.paymentId}" th:text="${payment.name}"></label>
                                                         </div>
                                                     </li>
@@ -141,56 +141,75 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
+        let provinceId = [[${checkout.provinceId}]];
+        let districtId = [[${checkout.districtId}]];
+        let wardId = [[${checkout.wardId}]];
+
+        // preload
         $(function() {
-            $.ajax({
-                url: "[(@{/dvhc/provinces})]",
-                method: 'GET',
-                success: function(data) {
-                    $('#districts').find('option:not(:first)').remove();
-                    $('#wards').find('option:not(:first)').remove();
-                    $.each(data, function(key, value) {
-                        $("#provinces").append(
-                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
-                        );
-                    });
-                }
-            });
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadProvince();
+            loadDistrict(provinceId);
+            loadWard(districtId);
         });
 
         $("#provinces").on('change', function(e) {
             e.preventDefault();
             let code = $(this).find(':selected').data("code");
-            $.ajax({
-                url: "[(@{/dvhc/provinces/})]" + code,
-                method: 'GET',
-                success: function(data) {
-                    $('#districts').find('option:not(:first)').remove();
-                    $('#wards').find('option:not(:first)').remove();
-                    $.each(data, function(key, value) {
-                        $("#districts").append(
-                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
-                        );
-                    });
-                }
-            });
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadDistrict(code);
         });
 
         $("#districts").on('change', function(e) {
             e.preventDefault();
             let code = $(this).find(':selected').data("code");
+            $('#wards').find('option:not(:first)').remove();
+            loadWard(code);
+        });
+
+        function loadProvince() {
             $.ajax({
-                url: "[(@{/dvhc/districts/})]" + code,
+                url: "[(@{/dvhc/provinces})]",
                 method: 'GET',
                 success: function(data) {
-                    $('#wards').find('option:not(:first)').remove();
                     $.each(data, function(key, value) {
-                        $("#wards").append(
-                            "<option data-code=" + value.code + " value=" + value.name + ">" + value.name + "</option>"
+                        $("#provinces").append(
+                            "<option "+ (provinceId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
                         );
                     });
                 }
             });
-        });
+        }
+
+        function loadDistrict(code) {
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#districts").append(
+                            "<option "+ (districtId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
+        function loadWard(code) {
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#wards").append(
+                            "<option "+ (wardId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
         /*]]>*/
     </script>
 </div>
