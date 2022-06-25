@@ -162,57 +162,76 @@
 <div layout:fragment="customScript">
     <script th:inline="javascript">
         /*<![CDATA[*/
+        let provinceId = [[${customer.provinceId}]];
+        let districtId = [[${customer.districtId}]];
+        let wardId = [[${customer.wardId}]];
 
+        // preload
         $(function() {
-            $.ajax({
-                url: "[(@{/dvhc/provinces})]",
-                method: 'GET',
-                success: function(data) {
-                    $('#districts').find('option:not(:first)').remove();
-                    $('#wards').find('option:not(:first)').remove();
-                    $.each(data, function(key, value) {
-                        $("#provinces").append(
-                            "<option data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
-                        );
-                    });
-                }
-            });
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadProvince();
+            loadDistrict(provinceId);
+            loadWard(districtId);
         });
 
         $("#provinces").on('change', function(e) {
             e.preventDefault();
             let code = $(this).find(':selected').data("code");
-            $.ajax({
-                url: "[(@{/dvhc/provinces/})]" + code,
-                method: 'GET',
-                success: function(data) {
-                    $('#districts').find('option:not(:first)').remove();
-                    $('#wards').find('option:not(:first)').remove();
-                    $.each(data, function(key, value) {
-                        $("#districts").append(
-                            "<option data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
-                        );
-                    });
-                }
-            });
+            $('#districts').find('option:not(:first)').remove();
+            $('#wards').find('option:not(:first)').remove();
+            loadDistrict(code);
         });
 
         $("#districts").on('change', function(e) {
             e.preventDefault();
             let code = $(this).find(':selected').data("code");
+            $('#wards').find('option:not(:first)').remove();
+            loadWard(code);
+        });
+
+        function loadProvince() {
             $.ajax({
-                url: "[(@{/dvhc/districts/})]" + code,
+                url: "[(@{/dvhc/provinces})]",
                 method: 'GET',
                 success: function(data) {
-                    $('#wards').find('option:not(:first)').remove();
                     $.each(data, function(key, value) {
-                        $("#wards").append(
-                            "<option data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        $("#provinces").append(
+                            "<option "+ (provinceId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
                         );
                     });
                 }
             });
-        });
+        }
+
+        function loadDistrict(code) {
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#districts").append(
+                            "<option "+ (districtId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
+        function loadWard(code) {
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $("#wards").append(
+                            "<option "+ (wardId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                        );
+                    });
+                }
+            });
+        }
+
         /*]]>*/
     </script>
 </div>
