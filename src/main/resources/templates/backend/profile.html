@@ -42,10 +42,17 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="profile-details text-center">
-                            <img src="/backend/assets/images/dashboard/designer.jpg" alt=""
+                            <img th:src="@{/{url}(url=${user.avatar})}" alt=""
                                  class="img-fluid img-90 rounded-circle blur-up lazyloaded">
                             <h5 class="f-w-600 mb-0" th:text="${user.name}"></h5>
                             <span th:text="${user.email}"></span>
+
+                            <form method="post" id="singleFileUpload"
+                                  th:action="@{/dashboard/profile/avatar}"
+                                  enctype="multipart/form-data">
+                                <input type="file" name="file" accept="image/png, image/jpeg"/>
+                                <button th:type="submit" class="btn btn-xs btn-primary">cập nhật</button>
+                            </form>
                         </div>
                     </div>
                 </div>

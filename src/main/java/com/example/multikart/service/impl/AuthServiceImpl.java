@@ -7,6 +7,7 @@ import com.example.multikart.domain.dto.UserLoginRequestDTO;
 import com.example.multikart.domain.dto.UserProfileRequestDTO;
 import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import com.example.multikart.domain.model.Customer;
+import com.example.multikart.domain.model.ProductImage;
 import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.CustomerRepository;
 import com.example.multikart.repo.UserRepository;
@@ -16,11 +17,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -31,6 +39,9 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     @Autowired
     private CustomerRepository customerRepository;
+
+    private String customerDirectory = "uploads/images/customers";
+    private String userDirectory = "uploads/images/users";
 
     @Override
     public String backendLogin(Model model) {
@@ -127,6 +138,50 @@ public class AuthServiceImpl implements AuthService {
         redirect.addFlashAttribute("success", "Sửa thành công");
 
         session.setAttribute("user", user);
+        return "redirect:/dashboard/profile";
+    }
+
+    @Override
+    public String backendPostAvatar(MultipartFile file, HttpSession session, RedirectAttributes redirect) throws IOException {
+        var userSession = Utils.getUserSession(session);
+
+        var user = userRepository.findByUserIdAndStatus(userSession.getUserId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(user)) {
+            redirect.addFlashAttribute("error", "Tài khoản không tồn tại");
+
+            return "redirect:/";
+        }
+
+        var newCus = userRepository.save(user);
+        session.setAttribute("user", newCus);
+
+        if (DataUtils.isNullOrEmpty(file)) {
+            redirect.addFlashAttribute("error", "Vui lòng chọn file");
+
+            return "redirect:/dashboard/profile";
+        }
+
+        Path uploadPath = Paths.get(userDirectory);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        String uploadDir = userDirectory + "/" + user.getUserId();
+
+        try {
+            Utils.saveFile(uploadDir, fileName, file);
+
+            user.setAvatar(uploadDir + "/" + fileName);
+            userRepository.save(user);
+
+            redirect.addFlashAttribute("success", "Cập nhật thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+            redirect.addFlashAttribute("error", "Cập nhật thành công");
+        }
+
         return "redirect:/dashboard/profile";
     }
 
@@ -273,6 +328,50 @@ public class AuthServiceImpl implements AuthService {
         session.setAttribute("customer", newCus);
 
         redirect.addFlashAttribute("success", "Cập nhật thành công");
+        return "redirect:/profile";
+    }
+
+    @Override
+    public String frontendPostAvatar(MultipartFile file, HttpSession session, RedirectAttributes redirect) throws IOException {
+        var customerSession = Utils.getCustomerSession(session);
+
+        var customer = customerRepository.findByCustomerIdAndStatus(customerSession.getCustomerId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(customer)) {
+            redirect.addFlashAttribute("error", "Tài khoản không tồn tại");
+
+            return "redirect:/";
+        }
+
+        var newCus = customerRepository.save(customer);
+        session.setAttribute("customer", newCus);
+
+        if (DataUtils.isNullOrEmpty(file)) {
+            redirect.addFlashAttribute("error", "Vui lòng chọn file");
+
+            return "redirect:/profile";
+        }
+
+        Path uploadPath = Paths.get(customerDirectory);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        String uploadDir = customerDirectory + "/" + customer.getCustomerId();
+
+        try {
+            Utils.saveFile(uploadDir, fileName, file);
+
+            customer.setAvatar(uploadDir + "/" + fileName);
+            customerRepository.save(customer);
+
+            redirect.addFlashAttribute("success", "Cập nhật thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+            redirect.addFlashAttribute("error", "Cập nhật thành công");
+        }
+
         return "redirect:/profile";
     }
 }

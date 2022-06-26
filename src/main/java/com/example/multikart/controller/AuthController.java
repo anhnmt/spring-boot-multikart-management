@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -43,6 +45,11 @@ public class AuthController {
     @PostMapping("/dashboard/profile")
     public String postProfile(@Valid @ModelAttribute("user") UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
         return authService.backendPostProfile(input, session, result, model, redirect);
+    }
+
+    @PostMapping("/dashboard/profile/avatar")
+    public String postProfile(@RequestParam("file") MultipartFile file, HttpSession session, RedirectAttributes redirect) throws IOException {
+        return authService.backendPostAvatar(file, session, redirect);
     }
 
     /**
@@ -82,6 +89,11 @@ public class AuthController {
     @PostMapping("/profile")
     public String frontendPostProfile(@Valid @ModelAttribute("customer") UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
         return authService.frontendPostProfile(input, session, result, model, redirect);
+    }
+
+    @PostMapping("/profile/avatar")
+    public String frontendPostAvatar(@RequestParam("file") MultipartFile file, HttpSession session, RedirectAttributes redirect) throws IOException {
+        return authService.frontendPostAvatar(file, session, redirect);
     }
 
 }

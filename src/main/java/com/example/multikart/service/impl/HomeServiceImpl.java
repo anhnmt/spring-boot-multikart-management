@@ -22,10 +22,6 @@ public class HomeServiceImpl implements HomeService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private ProductImageRepository productImageRepository;
-    @Autowired
-    private UnitRepository unitRepository;
 
     @Override
     public String home(Model model) {
