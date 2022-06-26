@@ -110,11 +110,13 @@
                                             <div class="order-success">
                                                 <h4>Thông tin người nhận</h4>
                                                 <ul class="order-details">
-                                                    <li th:text="${order.customerName}"></li>
-                                                    <li th:text="${order.phone}"></li>
-                                                    <li th:text="${order.email}"></li>
-                                                    <li th:text="${
-                                                    (order.address != null ? order.address + ', ' : '') + (order.ward != null ? order.ward + ', ' : '') + (order.district != null ? order.district + ', ' : '') + (order.province != null ? order.province : '')}"></li>
+                                                    <li th:text="${order.customerName != null ? 'Họ tên: ' + order.customerName: ''}"></li>
+                                                    <li th:text="${order.phone != null ? 'Số điện thoại: ' + order.phone: ''}"></li>
+                                                    <li th:text="${order.email != null ? 'Email: ' + order.email: ''}"></li>
+                                                    <li id="orderAddress" th:text="${(order.address != null ? 'Địa chỉ' + order.address : '')}"></li>
+                                                    <li id="provinceId"></li>
+                                                    <li id="districtId"></li>
+                                                    <li id="wardId"></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -157,6 +159,66 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        let provinceId = [[${order.provinceId}]];
+        let districtId = [[${order.districtId}]];
+        let wardId = [[${order.wardId}]];
+
+        // preload
+        $(function() {
+            loadProvince();
+            loadDistrict(provinceId);
+            loadWard(districtId);
+        });
+
+        function loadProvince() {
+            $.ajax({
+                url: "[(@{/dvhc/provinces})]",
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        if (provinceId === value.code) {
+                            $("#provinceId").html("Tỉnh/TP: " + value.name);
+                        }
+                    });
+                }
+            });
+        }
+
+        function loadDistrict(code) {
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        if (districtId === value.code) {
+                            $("#districtId").html("Quận/Huyện: " + value.name);
+                        }
+                    });
+                }
+            });
+        }
+
+        function loadWard(code) {
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        if (wardId === value.code) {
+                            $("#wardId").html("Xã/Phường: " + value.name);
+                        }
+                    });
+                }
+            });
+        }
+        /*]]>*/
+    </script>
 </div>
 
 </body>
