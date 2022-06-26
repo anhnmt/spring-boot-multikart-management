@@ -50,8 +50,10 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        categoryId = category.getCategoryId();
-        categoryName = category.getName();
+        if (!DataUtils.isNullOrEmpty(category)) {
+            categoryId = category.getCategoryId();
+            categoryName = category.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
             image = productImage.getUrl();
@@ -68,11 +70,15 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        categoryId = category.getCategoryId();
-        categoryName = category.getName();
+        if (!DataUtils.isNullOrEmpty(category)) {
+            categoryId = category.getCategoryId();
+            categoryName = category.getName();
+        }
 
-        unitId = unit.getUnitId();
-        unitName = unit.getName();
+        if (!DataUtils.isNullOrEmpty(unit)) {
+            unitId = unit.getUnitId();
+            unitName = unit.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
             image = productImage.getUrl();
@@ -89,8 +95,10 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        unitId = unit.getUnitId();
-        unitName = unit.getName();
+        if (!DataUtils.isNullOrEmpty(unit)) {
+            unitId = unit.getUnitId();
+            unitName = unit.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
             image = productImage.getUrl();
@@ -107,14 +115,20 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        categoryId = category.getCategoryId();
-        categoryName = category.getName();
+        if (!DataUtils.isNullOrEmpty(category)) {
+            categoryId = category.getCategoryId();
+            categoryName = category.getName();
+        }
 
-        unitId = unit.getUnitId();
-        unitName = unit.getName();
+        if (!DataUtils.isNullOrEmpty(unit)) {
+            unitId = unit.getUnitId();
+            unitName = unit.getName();
+        }
 
-        supplierId = supplier.getSupplierId();
-        supplierName = supplier.getName();
+        if (!DataUtils.isNullOrEmpty(supplier)) {
+            supplierId = supplier.getSupplierId();
+            supplierName = supplier.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
             image = productImage.getUrl();
