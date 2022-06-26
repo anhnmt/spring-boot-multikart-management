@@ -46,7 +46,7 @@
                                         <div class="counter-box">
                                             <img src="../assets/images/icon/dashboard/sale.png" class="img-fluid">
                                             <div>
-                                                <h3>25</h3>
+                                                <h3 th:text="${totalOrders}"></h3>
                                                 <h5>Tổng số đơn hàng</h5>
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
                                         <div class="counter-box">
                                             <img src="../assets/images/icon/dashboard/homework.png" class="img-fluid">
                                             <div>
-                                                <h3>50</h3>
+                                                <h3 th:text="${ordersPending}"></h3>
                                                 <h5>Đơn hàng đang chờ</h5>
                                             </div>
                                         </div>

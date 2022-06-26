@@ -1,6 +1,8 @@
 package com.example.multikart.service.impl;
 
+import com.example.multikart.common.Const;
 import com.example.multikart.common.Const.DefaultStatus;
+import com.example.multikart.common.Const.OrderStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.common.Utils;
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
@@ -10,6 +12,7 @@ import com.example.multikart.domain.model.Customer;
 import com.example.multikart.domain.model.ProductImage;
 import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.CustomerRepository;
+import com.example.multikart.repo.OrderRepository;
 import com.example.multikart.repo.UserRepository;
 import com.example.multikart.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +42,8 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     private String customerDirectory = "uploads/images/customers";
     private String userDirectory = "uploads/images/users";
@@ -278,6 +283,12 @@ public class AuthServiceImpl implements AuthService {
         }
 
         model.addAttribute("customer", customer);
+
+        var totalOrders = orderRepository.countByCustomerIdAndStatusNot(customer.getCustomerId(), OrderStatus.DELETED);
+        model.addAttribute("totalOrders", totalOrders);
+
+        var ordersPending = orderRepository.countByCustomerIdAndStatus(customer.getCustomerId(), OrderStatus.PENDING);
+        model.addAttribute("ordersPending", ordersPending);
 
         return "frontend/profile";
     }

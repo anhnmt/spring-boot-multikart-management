@@ -54,4 +54,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     List<OrderDTO> findAllByCustomerIdAndStatusNot(Long customerId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+
+    int countByCustomerIdAndStatus(Long customerId, Integer status);
+    int countByCustomerIdAndStatusNot(Long customerId, Integer status);
 }
