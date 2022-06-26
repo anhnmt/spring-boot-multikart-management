@@ -81,7 +81,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         String uploadDir = productDirectory + "/" + id;
 
         try {
-            saveFile(uploadDir, fileName, file);
+            Utils.saveFile(uploadDir, fileName, file);
 
             var count = productImageRepository.countByProductIdAndStatus(id, DefaultStatus.ACTIVE);
             var productImage = ProductImage.builder()
@@ -177,20 +177,5 @@ public class ProductImageServiceImpl implements ProductImageService {
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
-    }
-
-    private void saveFile(String uploadDir, String filename, MultipartFile multipartFile) throws IOException {
-        Path uploadPath = Paths.get(uploadDir);
-
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
-            throw new IOException("Could not save image file: " + filename, ioe);
-        }
     }
 }

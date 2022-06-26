@@ -33,6 +33,8 @@ public class User extends BaseModel implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    private String avatar;
+
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;

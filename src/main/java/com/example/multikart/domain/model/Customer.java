@@ -41,6 +41,8 @@ public class Customer extends BaseModel implements Serializable {
     private String wardId;
     private String address;
 
+    private String avatar;
+
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)
     private Integer status;
