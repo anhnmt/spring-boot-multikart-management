@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String findAllOrders(Model model) {
-        var orders = orderRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var orders = orderRepository.findAllByStatusNot(OrderStatus.DELETED, DefaultStatus.ACTIVE);
         model.addAttribute("orders", orders);
 
         return "backend/order/index";
