@@ -45,9 +45,9 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
             "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
-            " or p.name like %:name%\n " +
-            " or p.slug like %:name%\n " +
-            " or p.description like %:name%")
+            " and (lower(p.name) like lower(concat('%', :name,'%'))\n " +
+            " or lower(p.slug) like lower(concat('%', :name,'%'))\n " +
+            " or lower(p.description) like lower(concat('%', :name,'%')))")
     Page<ItemProductDTO> findPageAllByNameAndStatus(String name, Integer status, Pageable pageable);
 
     Product findByProductIdAndStatus(Long productId, Integer status);
@@ -61,6 +61,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     ItemProductDTO findWithImageByProductIdAndStatus(Long productId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+
     int countByStatusIn(List<Integer> status);
 
     int countBySlugAndStatus(String slug, Integer status);

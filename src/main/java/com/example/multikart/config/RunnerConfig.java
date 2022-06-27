@@ -46,6 +46,7 @@ public class RunnerConfig implements CommandLineRunner {
         paymentSeeder();
         supplierSeeder();
         customerSeeder();
+//        productSeeder();
     }
 
     private void roleSeeder() {
@@ -159,8 +160,8 @@ public class RunnerConfig implements CommandLineRunner {
 
     private void productSeeder() {
 
-        var count = productRepository.count();
-        if (count <= 0) {
+//        var count = productRepository.count();
+//        if (count <= 0) {
             List<Product> products = new ArrayList<>();
             //category 1
             products.add(Product.builder().name("Táo Queen New Zealand PG size 90-120").categoryId(1L).unitId(1L).supplierId(1L).slug("tao-queen-new-zealand-pg-size-90-120").importPrice(99.900F).exportPrice(209.900F).amount(999).status(1).build());
@@ -261,6 +262,6 @@ public class RunnerConfig implements CommandLineRunner {
             products.add(Product.builder().name("Sữa bột hương vani PediaSure lon 850g").categoryId(11L).unitId(1L).supplierId(1L).slug("sua-bot-huong-vani-pediasure-lon-850g").importPrice(99.900F).exportPrice(209.900F).amount(999).status(1).build());
 
             productRepository.saveAll(products);
-        }
+//        }
     }
 }
