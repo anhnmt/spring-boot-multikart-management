@@ -51,6 +51,11 @@ spring:
       max-file-size: 5MB
       max-request-size: 5MB
 
+  cache:
+    type: redis
+    redis:
+      timeToLive: 60000
+
   redis:
     host: 128.199.140.126 # Redis server host.
     password: # Login password of the redis server.
