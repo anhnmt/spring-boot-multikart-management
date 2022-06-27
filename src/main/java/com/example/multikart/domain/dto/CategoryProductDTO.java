@@ -1,6 +1,7 @@
 package com.example.multikart.domain.dto;
 
 import lombok.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class CategoryProductDTO {
     // Trạng thái
     private Integer status;
 
-    private List<ItemProductDTO> products;
+    private Page<ItemProductDTO> products;
 
 
 }

@@ -4,6 +4,7 @@ import com.example.multikart.domain.dto.ItemProductDTO;
 import com.example.multikart.domain.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -28,7 +29,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
             "  and c.categoryId = :categoryId")
-    List<ItemProductDTO> findAllByCategoryIdAndStatus(Long categoryId, Integer status);
+    Page<ItemProductDTO> findAllByCategoryIdAndStatus(Long categoryId, Integer status, Pageable pageable);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +
             "FROM Product p\n" +
@@ -73,10 +74,19 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "  and p.slug = :slug")
     ItemProductDTO findItemProductBySlugAndStatus(@Param("slug") String slug, @Param("status") Integer status);
 
-    @Query("SELECT p\n" +
+    @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +
             "FROM Product p\n" +
+            "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
+            "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
-            "  and p.categoryId = :categoryId\n" +
             "  and p.productId <> :productId")
-    List<Product> findRelatedByProductIdAndStatus(@Param("productId") Long productId, @Param("categoryId") Long categoryId, @Param("status") Integer status);
+    Page<ItemProductDTO> findRelatedByProductIdAndStatus(@Param("productId") Long productId, @Param("status") Integer status, Pageable pageable);
+
+    @Modifying
+    @Query("UPDATE Product p\n" +
+            "SET p.status = :status\n" +
+            "WHERE p.status <> :status\n" +
+            "  and p.productId in :productIds")
+    void deleteAllByProductIdInAndStatus(List<Long> productIds, Integer status);
 }

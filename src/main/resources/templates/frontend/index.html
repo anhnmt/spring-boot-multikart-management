@@ -22,11 +22,10 @@
                             <div class="col">
                                 <div class="slider-contain product-detail">
                                     <div>
-                                        <h4>50% off on your first order</h4>
+                                        <h4>Đồng hành cùng nông sản việt</h4>
                                         <h2 class="my-3">
-                                            Welcome to Multikart</h2>
-                                        <a class="btn btn-solid rounded-3" href="index.html">shop
-                                            now</a>
+                                            Chào mừng bạn tới Multikart</h2>
+                                        <a class="btn btn-solid rounded-3" href="#">mua ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -40,14 +39,14 @@
                         <div class="col-12">
                             <div class="title8">
                                 <a th:href="@{/danh-muc/{slug}(slug=${categoryProduct.slug})}">
-                                    <h2 th:text="${categoryProduct.name}">category</h2>
+                                    <h2 th:text="${categoryProduct.name}"></h2>
                                 </a>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="slide-6-veg slick-sm-margin no-arrow">
                                 <div class="product-box product-style-5"
-                                     th:each="product : ${categoryProduct.products}">
+                                     th:each="product : ${categoryProduct.products.content}">
                                     <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                         <h6 th:text="${product.name}"></h6>
                                     </a>

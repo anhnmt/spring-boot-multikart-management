@@ -1,6 +1,5 @@
 package com.example.multikart.repo;
 
-import com.example.multikart.domain.model.Product;
 import com.example.multikart.domain.model.ProductImage;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -52,4 +51,11 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
             " AND productImageId <> :productImageId\n" +
             " AND status = :status")
     void updatePositionDelete(@Param("productId") Long productId, @Param("productImageId") Long productImageId, @Param("position") Integer position, @Param("status") Integer status);
+
+    @Modifying
+    @Query("UPDATE ProductImage pi\n" +
+            "SET pi.status = :status\n" +
+            "WHERE pi.status <> :status\n" +
+            "  and pi.productId in :productIds")
+    void deleteAllByProductIdInAndStatus(List<Long> productIds, Integer status);
 }
