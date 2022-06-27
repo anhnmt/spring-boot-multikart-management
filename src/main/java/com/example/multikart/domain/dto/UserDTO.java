@@ -1,5 +1,6 @@
 package com.example.multikart.domain.dto;
 
+import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.model.Role;
 import com.example.multikart.domain.model.User;
 import lombok.*;
@@ -29,8 +30,10 @@ public class UserDTO implements Serializable {
     public UserDTO(User user, Role role) {
         this.userId = user.getUserId();
 
-        this.roleId = user.getRoleId();
-        this.roleName = role.getName();
+        if (!DataUtils.isNullOrEmpty(role)) {
+            this.roleId = role.getRoleId();
+            this.roleName = role.getName();
+        }
 
         this.name = user.getName();
         this.email = user.getEmail();

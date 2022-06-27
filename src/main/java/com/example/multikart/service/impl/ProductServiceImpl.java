@@ -7,14 +7,19 @@ import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
@@ -215,5 +220,22 @@ public class ProductServiceImpl implements ProductService {
         model.addAttribute("cart", cart);
 
         return "frontend/product";
+    }
+
+    @Override
+    @Transactional
+    public String multiDeleteProduct(List<Long> delete, Model model, RedirectAttributes redirect) {
+        log.info("multiDeleteProduct: {}", delete);
+
+        try {
+            productRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
+            productImageRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
+
+            redirect.addFlashAttribute("success", "Xóa thành công");
+        } catch (Exception e) {
+            redirect.addFlashAttribute("error", "Xóa không thành công");
+        }
+
+        return "redirect:/dashboard/products";
     }
 }

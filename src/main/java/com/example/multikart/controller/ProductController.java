@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -46,6 +48,11 @@ public class ProductController {
     @PostMapping("/dashboard/products/{id}/delete")
     public String delete(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
         return productService.deleteProduct(id, model, redirect);
+    }
+
+    @PostMapping("/dashboard/products/multiDelete")
+    public String multiDelete(@Valid @RequestParam("delete") List<Long> delete, Model model, RedirectAttributes redirect) {
+        return productService.multiDeleteProduct(delete, model, redirect);
     }
 
     /**

@@ -4,6 +4,7 @@ import com.example.multikart.domain.dto.ItemProductDTO;
 import com.example.multikart.domain.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -81,4 +82,11 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "WHERE p.status = :status\n" +
             "  and p.productId <> :productId")
     Page<ItemProductDTO> findRelatedByProductIdAndStatus(@Param("productId") Long productId, @Param("status") Integer status, Pageable pageable);
+
+    @Modifying
+    @Query("UPDATE Product p\n" +
+            "SET p.status = :status\n" +
+            "WHERE p.status <> :status\n" +
+            "  and p.productId in :productIds")
+    void deleteAllByProductIdInAndStatus(List<Long> productIds, Integer status);
 }
