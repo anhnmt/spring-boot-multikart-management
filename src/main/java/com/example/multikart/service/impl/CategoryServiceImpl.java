@@ -9,6 +9,7 @@ import com.example.multikart.repo.CategoryRepository;
 import com.example.multikart.repo.ProductRepository;
 import com.example.multikart.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -134,12 +138,28 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public String frontendCategory(String slug, Model model, RedirectAttributes redirect) {
+    public String frontendCategory(String slug, Optional<Integer> page, Optional<Integer> size, Model model, RedirectAttributes redirect) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        model.addAttribute("slug", slug);
+        model.addAttribute("currentPage", currentPage);
+
         var category = categoryRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("category", category);
 
-        var products = productRepository.findAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE);
+//        var products = productRepository.findAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE);
+
+        var pageRequest = PageRequest.of(currentPage - 1, pageSize);
+        var products = productRepository.findPageAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE, pageRequest);
         model.addAttribute("products", products);
+
+        int totalPages = products.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
         return "frontend/category";
     }

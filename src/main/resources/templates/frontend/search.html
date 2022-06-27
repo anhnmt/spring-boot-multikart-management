@@ -13,15 +13,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2 th:text="${category.name}">danh mục</h2>
+                        <h2 th:text="${search}"></h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a th:href="@{/}">trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page" th:text="${category.name}">danh mục
-                            </li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="${search}"></li>
                         </ol>
                     </nav>
                 </div>
