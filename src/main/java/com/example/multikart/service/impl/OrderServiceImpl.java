@@ -6,6 +6,7 @@ import com.example.multikart.common.DataUtils;
 import com.example.multikart.common.Utils;
 import com.example.multikart.repo.OrderDetailRepository;
 import com.example.multikart.repo.OrderRepository;
+import com.example.multikart.repo.ProductImageRepository;
 import com.example.multikart.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
         model.addAttribute("order", order);
 
-        var orderDetails = orderDetailRepository.findAllByOrderIdAndStatusNot(id, OrderStatus.DELETED, DefaultStatus.ACTIVE);
+        var orderDetails = orderDetailRepository.findAllByOrderIdAndStatusNot(id, OrderStatus.DELETED);
         model.addAttribute("orderDetails", orderDetails);
 
         return "backend/order/detail";
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
         }
         model.addAttribute("order", order);
 
-        var orderDetails = orderDetailRepository.findAllByOrderIdAndStatusNot(id, OrderStatus.DELETED, DefaultStatus.ACTIVE);
+        var orderDetails = orderDetailRepository.findAllByOrderIdAndStatusNot(id, OrderStatus.DELETED);
         model.addAttribute("orderDetails", orderDetails);
 
         return "frontend/order-success";

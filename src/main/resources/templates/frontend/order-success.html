@@ -146,7 +146,7 @@
                                     <li th:text="${order.customerName != null ? 'Họ tên: ' + order.customerName: ''}"></li>
                                     <li th:text="${order.phone != null ? 'Số điện thoại: ' + order.phone: ''}"></li>
                                     <li th:text="${order.email != null ? 'Email: ' + order.email: ''}"></li>
-                                    <li id="orderAddress" th:text="${(order.address != null ? 'Địa chỉ' + order.address : '')}"></li>
+                                    <li id="orderAddress" th:text="${(order.address != null ? 'Địa chỉ: ' + order.address : '')}"></li>
                                     <li id="provinceId"></li>
                                     <li id="districtId"></li>
                                     <li id="wardId"></li>

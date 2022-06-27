@@ -19,6 +19,9 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
 
     int countByProductIdAndStatus(Long productId, Integer status);
 
+    @Query(value = "Select position from product_images where product_id = :productId ORDER BY position desc, updated_at desc ASC LIMIT 1", nativeQuery = true)
+    int findMinPositionByProductId(@Param("productId") Long productId);
+
     @Query("Select min(position) from ProductImage where productId = :productId and status = :status")
     Integer findMinPositionByProductIdAndStatus(@Param("productId") Long productId, @Param("status") Integer status);
 
