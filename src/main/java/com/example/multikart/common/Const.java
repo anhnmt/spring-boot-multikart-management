@@ -16,4 +16,9 @@ public class Const {
         public static final Integer CANCELED = 5;
         public static final Integer SHIPPED = 6;
     }
+    public static final class UserStatus {
+        public static final Integer DELETED = 0;
+        public static final Integer ACTIVE = 1;
+        public static final Integer DISABLED = 2;
+    }
 }

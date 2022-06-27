@@ -58,7 +58,7 @@
                                 <td th:text="${customer.customerId}"></td>
                                 <td th:text="${customer.name}"></td>
                                 <td th:text="${customer.email}"></td>
-                                <td><span class="badge badge-success" th:text="${customer.status}"></span></td>
+                                <td><span class="badge badge-success" th:text="${customer.status == 1 ? 'Active' : 'NonActive'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/customers/{id}/delete(id=${customer.customerId})}"
                                           action="#"

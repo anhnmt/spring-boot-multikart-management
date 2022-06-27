@@ -61,6 +61,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     ItemProductDTO findWithImageByProductIdAndStatus(Long productId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+    int countByStatusIn(List<Integer> status);
 
     int countBySlugAndStatus(String slug, Integer status);
 

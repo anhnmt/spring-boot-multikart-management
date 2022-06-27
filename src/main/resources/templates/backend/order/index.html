@@ -61,7 +61,7 @@
                                 <td th:text="${order.transportName}"></td>
                                 <td th:text="${order.paymentName}"></td>
                                 <td th:text="${order.customerName}"></td>
-                                <td><span class="badge badge-success" th:text="${order.status}"></span></td>
+                                <td><span class="badge badge-success" th:text="${order.status == 1 ? 'Active' : 'NonActive'}"></span></td>
                                 <td th:text="${order.createdAt}"></td>
                                 <td>
                                     <a th:href="@{/dashboard/orders/{id}(id=${order.orderId})}"

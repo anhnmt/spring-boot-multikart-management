@@ -59,7 +59,7 @@
                                 <td th:text="${cate.categoryId}"></td>
                                 <td th:text="${cate.name}"></td>
                                 <td th:text="${cate.slug}"></td>
-                                <td><span class="badge badge-success" th:text="${cate.status}"></span></td>
+                                <td><span class="badge badge-success" th:text="${cate.status == 1 ? 'Active' : 'NonActive'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/categories/{id}/delete(id=${cate.categoryId})}"
                                           action="#"

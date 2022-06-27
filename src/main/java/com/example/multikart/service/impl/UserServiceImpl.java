@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String findAllUsers(Model model) {
-        var users = userRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var users = userRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("users", users);
 
         return "backend/user/index";

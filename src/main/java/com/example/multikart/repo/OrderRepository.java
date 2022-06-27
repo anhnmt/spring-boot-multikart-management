@@ -57,4 +57,8 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     int countByCustomerIdAndStatus(Long customerId, Integer status);
     int countByCustomerIdAndStatusNot(Long customerId, Integer status);
+    @Query("SELECT SUM(o.totalPrice)\n" +
+            "FROM Order o\n" +
+            "WHERE o.status = :status")
+    int sumTotalRevenue(Integer status);
 }

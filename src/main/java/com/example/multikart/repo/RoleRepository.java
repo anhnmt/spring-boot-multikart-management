@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Long> {
     List<Role> findAllByStatus(Integer status);
+    List<Role> findAllByStatusNot(Integer status);
 
     Role findByRoleIdAndStatus(Long roleId, Integer status);
 
