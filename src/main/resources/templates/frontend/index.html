@@ -47,7 +47,7 @@
                         <div class="col-12">
                             <div class="slide-6-veg slick-sm-margin no-arrow">
                                 <div class="product-box product-style-5"
-                                     th:each="product : ${categoryProduct.products}">
+                                     th:each="product : ${categoryProduct.products.content}">
                                     <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                         <h6 th:text="${product.name}"></h6>
                                     </a>

@@ -8,6 +8,7 @@ import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -206,7 +207,8 @@ public class ProductServiceImpl implements ProductService {
         var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(product.getProductId(), DefaultStatus.ACTIVE);
         model.addAttribute("images", images);
 
-        var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), product.getCategoryId(), DefaultStatus.ACTIVE);
+        var pageRequest = PageRequest.of(0, 12);
+        var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), DefaultStatus.ACTIVE, pageRequest);
         model.addAttribute("relatedProducts", relatedProducts);
 
         var cart = AddToCartRequestDTO.builder().productId(product.getProductId()).quantity(1).build();

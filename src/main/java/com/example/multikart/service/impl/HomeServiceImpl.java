@@ -30,8 +30,9 @@ public class HomeServiceImpl implements HomeService {
 
         List<CategoryProductDTO> categoryProducts = new ArrayList<>();
         categories.forEach(c -> {
+            var pageRequest = PageRequest.of(0, 12);
             var products = productRepository.
-                    findAllByCategoryIdAndStatus(c.getCategoryId(), DefaultStatus.ACTIVE);
+                    findAllByCategoryIdAndStatus(c.getCategoryId(), DefaultStatus.ACTIVE, pageRequest);
 
             var categoryProduct = CategoryProductDTO.builder()
                     .categoryId(c.getCategoryId())
