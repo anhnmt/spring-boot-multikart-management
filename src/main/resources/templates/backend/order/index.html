@@ -61,7 +61,22 @@
                                 <td th:text="${order.transportName}"></td>
                                 <td th:text="${order.paymentName}"></td>
                                 <td th:text="${order.customerName}"></td>
-                                <td><span class="badge badge-success" th:text="${order.status == 1 ? 'Active' : 'NonActive'}"></span></td>
+                                <td>
+                                    <div th:switch="${order.status}">
+                                        <div th:case="1">
+                                            <span class="badge badge-success" th:text="'Active'"></span>
+                                        </div>
+                                        <div th:case="6">
+                                            <span class="badge badge-secondary" th:text="'SHIPPED'"></span>
+                                        </div>
+                                        <div th:case="3">
+                                            <span class="badge badge-info" th:text="'PENDING'"></span>
+                                        </div>
+                                        <div th:case="0">
+                                            <span class="badge badge-danger" th:text="'DELETED'"></span>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td th:text="${order.createdAt}"></td>
                                 <td>
                                     <a th:href="@{/dashboard/orders/{id}(id=${order.orderId})}"
