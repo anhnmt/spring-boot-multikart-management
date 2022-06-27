@@ -142,6 +142,7 @@ public class CategoryServiceImpl implements CategoryService {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
         model.addAttribute("slug", slug);
+        model.addAttribute("currentPage", currentPage);
 
         var category = categoryRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("category", category);
