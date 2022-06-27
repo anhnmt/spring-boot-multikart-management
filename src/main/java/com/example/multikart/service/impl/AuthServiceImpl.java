@@ -78,6 +78,7 @@ public class AuthServiceImpl implements AuthService {
             return "backend/auth/login";
         }
 
+        user.setAvatar(DataUtils.getValueOrDefault(user.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("user", user);
 
         if (!DataUtils.isNullOrEmpty(referer)) {
@@ -142,6 +143,7 @@ public class AuthServiceImpl implements AuthService {
 
         redirect.addFlashAttribute("success", "Sửa thành công");
 
+        user.setAvatar(DataUtils.getValueOrDefault(user.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("user", user);
         return "redirect:/dashboard/profile";
     }
@@ -220,6 +222,7 @@ public class AuthServiceImpl implements AuthService {
             return "frontend/auth/login";
         }
 
+        cus.setAvatar(DataUtils.getValueOrDefault(cus.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("customer", cus);
 
         if (!DataUtils.isNullOrEmpty(referer)) {
@@ -266,6 +269,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         var newCus = customerRepository.save(new Customer(input));
+        newCus.setAvatar(DataUtils.getValueOrDefault(newCus.getAvatar(), "assets/images/user_image.png"));
 
         session.setAttribute("customer", newCus);
         return "redirect:/";
@@ -282,6 +286,7 @@ public class AuthServiceImpl implements AuthService {
             return "redirect:/";
         }
 
+        customer.setAvatar(DataUtils.getValueOrDefault(customer.getAvatar(), "assets/images/user_image.png"));
         model.addAttribute("customer", customer);
 
         var totalOrders = orderRepository.countByCustomerIdAndStatusNot(customer.getCustomerId(), OrderStatus.DELETED);
@@ -336,6 +341,7 @@ public class AuthServiceImpl implements AuthService {
         customer.setWardId(input.getWardId());
 
         var newCus = customerRepository.save(customer);
+        newCus.setAvatar(DataUtils.getValueOrDefault(newCus.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("customer", newCus);
 
         redirect.addFlashAttribute("success", "Cập nhật thành công");
