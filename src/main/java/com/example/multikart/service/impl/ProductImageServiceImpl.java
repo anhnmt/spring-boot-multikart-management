@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -44,7 +45,8 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
         model.addAttribute("product", product);
 
-        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(id, DefaultStatus.ACTIVE);
+        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(id, DefaultStatus.ACTIVE).stream().filter(Objects::nonNull).peek(x -> x.setUrl(DataUtils.getValueOrDefault(x.getUrl(), "assets/images/no_image.jpg"))).collect(Collectors.toList());
+
         model.addAttribute("images", images);
 
         var min = productImageRepository.findMinPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);

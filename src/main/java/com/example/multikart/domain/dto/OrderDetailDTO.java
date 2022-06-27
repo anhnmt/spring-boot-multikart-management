@@ -7,7 +7,6 @@ import com.example.multikart.domain.model.ProductImage;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
@@ -39,7 +38,9 @@ public class OrderDetailDTO implements Serializable {
         }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
-            image = productImage.getUrl();
+            image = DataUtils.getValueOrDefault(productImage.getUrl(), "assets/images/no_image.jpg");
+        } else {
+            image = "assets/images/no_image.jpg";
         }
     }
 }
