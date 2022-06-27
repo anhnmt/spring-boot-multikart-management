@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -52,7 +53,7 @@ public class CategoryController {
      */
 
     @GetMapping("/danh-muc/{slug}")
-    public String view(@PathVariable("slug") String slug, Model model, RedirectAttributes redirect) {
-        return categoryService.frontendCategory(slug, model, redirect);
+    public String view(@PathVariable("slug") String slug, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model, RedirectAttributes redirect) {
+        return categoryService.frontendCategory(slug, page, size, model, redirect);
     }
 }
