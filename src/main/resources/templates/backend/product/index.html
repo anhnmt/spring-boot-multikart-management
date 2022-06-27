@@ -69,7 +69,7 @@
                                         <img width="100px" th:src="@{/{url}(url=${product.image})}">
                                     </td>
                                     <td th:text="${product.name}"></td>
-                                    <td><span class="badge badge-success" th:text="${product.status}"></span></td>
+                                    <td><span class="badge badge-success" th:text="${product.status == 1 ? 'Active' : 'NonActive'}"></span></td>
                                     <td>
                                         <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}"
                                               th:method="POST">

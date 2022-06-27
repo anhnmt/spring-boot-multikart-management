@@ -19,7 +19,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String findAllRoles(Model model) {
-        var roles = roleRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var roles = roleRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("roles", roles);
 
         return "backend/role/index";

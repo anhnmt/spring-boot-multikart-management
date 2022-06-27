@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String findAllCategories(Model model) {
-        var categories = categoryRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var categories = categoryRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("categories", categories);
 
         return "backend/category/index";
@@ -51,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-        var count = categoryRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+        var count = categoryRepository.findBySlugAndStatusNot(input.getSlug(), DefaultStatus.ACTIVE);
         if (count > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String editCategory(Long id, Model model, RedirectAttributes redirect) {
-        var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
+        var category = categoryRepository.findByCategoryIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");
 
@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String updateCategory(Long id, CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
+        var category = categoryRepository.findByCategoryIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");
 

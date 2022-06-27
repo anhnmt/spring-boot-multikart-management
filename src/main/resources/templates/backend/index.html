@@ -61,12 +61,12 @@
                         <div class="media static-top-widget align-items-center">
                             <div class="icons-widgets">
                                 <div class="align-self-center text-center">
-                                    <i data-feather="box" class="font-secondary"></i>
+                                    <i data-feather="truck" class="font-secondary"></i>
                                 </div>
                             </div>
                             <div class="media-body media-doller">
-                                <span class="m-0">Products</span>
-                                <h3 class="mb-0">$ <span class="counter">9856</span><small> This
+                                <span class="m-0">Tổng đơn hàng</span>
+                                <h3 class="mb-0"><span class="counter" th:text="${countOder}">9856</span><small> This
                                     Month</small>
                                 </h3>
                             </div>
@@ -79,11 +79,11 @@
                     <div class="primary-box card-body">
                         <div class="media static-top-widget align-items-center">
                             <div class="icons-widgets">
-                                <div class="align-self-center text-center"><i data-feather="message-square"
+                                <div class="align-self-center text-center"><i data-feather="dollar-sign"
                                                                               class="font-primary"></i></div>
                             </div>
-                            <div class="media-body media-doller"><span class="m-0">Messages</span>
-                                <h3 class="mb-0">$ <span class="counter">893</span><small> This
+                            <div class="media-body media-doller"><span class="m-0">Tổng thu nhập</span>
+                                <h3 class="mb-0"><span class="counter" th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA', 0, 'POINT')}">893</span> VNĐ <small> This
                                     Month</small></h3>
                             </div>
                         </div>
@@ -98,9 +98,8 @@
                                 <div class="align-self-center text-center"><i data-feather="users"
                                                                               class="font-danger"></i></div>
                             </div>
-                            <div class="media-body media-doller"><span class="m-0">New Vendors</span>
-                                <h3 class="mb-0">$ <span class="counter">5631</span><small> This
-                                    Month</small></h3>
+                            <div class="media-body media-doller"><span class="m-0">Tổng số người dùng</span>
+                                <h3 class="mb-0"><span class="counter" th:text="${totalUser}">5631</span><small> Người dùng</small></h3>
                             </div>
                         </div>
                     </div>

@@ -54,7 +54,7 @@
                             <tr th:each="unit : ${units}">
                                 <td th:text="${unit.unitId}"></td>
                                 <td th:text="${unit.name}"></td>
-                                <td><span class="badge badge-success" th:text="${unit.status}"></span></td>
+                                <td><span class="badge badge-success" th:text="${unit.status == 1 ? 'Active' : 'NonActive'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/units/{id}/delete(id=${unit.unitId})}" action="#"
                                           th:method="POST">
