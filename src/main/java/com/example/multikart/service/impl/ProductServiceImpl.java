@@ -3,12 +3,14 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.AddToCartRequestDTO;
+import com.example.multikart.domain.dto.ItemProductDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
 import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
 import com.example.multikart.service.RedisCache;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -39,8 +41,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String findAllProducts(Model model) {
-        var products = productRepository.findAllByStatus(DefaultStatus.ACTIVE);
-        model.addAttribute("products", products);
+        List<ItemProductDTO> productsCache = redisCache.getObject(ScreenRedis.PRODUCT.name(), "FIND_ALL", new TypeReference<>() {
+        });
+        if (productsCache == null) {
+            var products = productRepository.findAllByStatus(DefaultStatus.ACTIVE);
+            model.addAttribute("products", products);
+            redisCache.putObject(ScreenRedis.PRODUCT.name(), "FIND_ALL", products);
+        } else {
+            model.addAttribute("products", productsCache);
+        }
 
         return "backend/product/index";
     }
@@ -101,6 +110,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(newProduct);
 
         redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/products";
     }
@@ -190,6 +200,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
         //delete cache redis
         redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Sửa thành công");
         return "redirect:/dashboard/products";
     }
@@ -207,6 +218,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
 
         redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/products";
     }
@@ -237,6 +249,8 @@ public class ProductServiceImpl implements ProductService {
         try {
             productRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
             productImageRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
+            redisCache.delete(ScreenRedis.PRODUCT.name());
+            redisCache.delete(ScreenRedis.HOME.name());
 
             redirect.addFlashAttribute("success", "Xóa thành công");
         } catch (Exception e) {

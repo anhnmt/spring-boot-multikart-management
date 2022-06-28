@@ -104,6 +104,7 @@ public class ProductImageServiceImpl implements ProductImageService {
             productImageRepository.save(productImage);
 
             redisCache.delete(ScreenRedis.HOME.name());
+            redisCache.delete(ScreenRedis.PRODUCT.name());
             redirect.addFlashAttribute("success", "Thêm thành công");
         } catch (IOException e) {
             e.printStackTrace();
@@ -135,7 +136,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImageRepository.updatePositionDelete(productId, productImageId, productImage.getPosition(), DefaultStatus.ACTIVE);
 
         redisCache.delete(ScreenRedis.HOME.name());
-
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
@@ -163,6 +164,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImageRepository.save(productImage);
 
         redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
@@ -190,6 +192,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImageRepository.save(productImage);
 
         redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
