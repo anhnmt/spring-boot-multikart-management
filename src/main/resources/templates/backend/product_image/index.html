@@ -83,17 +83,17 @@
 
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/up(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/up(productId=${image.productId}, productImageId=${image.productImageId})}"
                                       th:method="POST" th:if="${image.position != min}">
                                     <button th:type="submit" class="btn btn-xs btn-secondary">lên</button>
                                 </form>
 
-                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/down(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/down(productId=${image.productId}, productImageId=${image.productImageId})}"
                                       th:method="POST" th:if="${image.position != max}">
                                     <button th:type="submit" class="btn btn-xs btn-danger">xuống</button>
                                 </form>
 
-                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/delete(productId=${image.productId}, productImageId=${image.productImageId})}" action="#"
+                                <form th:action="@{/dashboard/products/{productId}/images/{productImageId}/delete(productId=${image.productId}, productImageId=${image.productImageId})}"
                                       th:method="POST">
                                     <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>
                                 </form>
