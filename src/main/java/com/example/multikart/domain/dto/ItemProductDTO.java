@@ -4,13 +4,15 @@ import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.model.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ItemProductDTO {
+public class ItemProductDTO implements Serializable {
     private Long productId;
 
     private Long categoryId;

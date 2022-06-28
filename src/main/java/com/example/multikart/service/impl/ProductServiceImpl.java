@@ -4,9 +4,11 @@ import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.AddToCartRequestDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
+import com.example.multikart.service.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +33,8 @@ public class ProductServiceImpl implements ProductService {
     private SupplierRepository supplierRepository;
     @Autowired
     private ProductImageRepository productImageRepository;
+    @Autowired
+    private RedisCache redisCache;
 
 
     @Override
@@ -96,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
         var newProduct = new Product(input);
         productRepository.save(newProduct);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/products";
     }
@@ -183,7 +188,8 @@ public class ProductServiceImpl implements ProductService {
         product.setSupplierId(input.getSupplierId());
         product.setStatus(input.getStatus());
         productRepository.save(product);
-
+        //delete cache redis
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Sửa thành công");
         return "redirect:/dashboard/products";
     }
@@ -200,6 +206,7 @@ public class ProductServiceImpl implements ProductService {
         product.setStatus(DefaultStatus.DELETED);
         productRepository.save(product);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/products";
     }
