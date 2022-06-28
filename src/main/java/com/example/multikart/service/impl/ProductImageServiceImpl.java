@@ -3,10 +3,12 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.common.Utils;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.ProductImage;
 import com.example.multikart.repo.ProductImageRepository;
 import com.example.multikart.repo.ProductRepository;
 import com.example.multikart.service.ProductImageService;
+import com.example.multikart.service.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,8 @@ public class ProductImageServiceImpl implements ProductImageService {
     private ProductImageRepository productImageRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private RedisCache redisCache;
 
     private String productDirectory = "uploads/images/products";
 
@@ -94,6 +98,7 @@ public class ProductImageServiceImpl implements ProductImageService {
                     .build();
             productImageRepository.save(productImage);
 
+            redisCache.delete(ScreenRedis.HOME.name());
             redirect.addFlashAttribute("success", "Thêm thành công");
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,6 +129,8 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImageRepository.save(productImage);
         productImageRepository.updatePositionDelete(productId, productImageId, productImage.getPosition(), DefaultStatus.ACTIVE);
 
+        redisCache.delete(ScreenRedis.HOME.name());
+
         redirect.addFlashAttribute("success", "Xóa thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
@@ -150,6 +157,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImage.setPosition(productImage.getPosition() - 1);
         productImageRepository.save(productImage);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
@@ -176,6 +184,7 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImage.setPosition(productImage.getPosition() + 1);
         productImageRepository.save(productImage);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";

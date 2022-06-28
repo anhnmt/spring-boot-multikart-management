@@ -4,10 +4,12 @@ import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.CategoryProductDTO;
 import com.example.multikart.domain.dto.CategoryRequestDTO;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Category;
 import com.example.multikart.repo.CategoryRepository;
 import com.example.multikart.repo.ProductRepository;
 import com.example.multikart.service.CategoryService;
+import com.example.multikart.service.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public String findAllCategories(Model model) {
         var categories = categoryRepository.findAllByStatusNot(DefaultStatus.DELETED);
@@ -65,6 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
         var newCategory = new Category(input);
         categoryRepository.save(newCategory);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/categories";
     }
@@ -117,6 +121,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setStatus(input.getStatus());
         categoryRepository.save(category);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Sửa thành công");
         return "redirect:/dashboard/categories";
     }
@@ -133,6 +138,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setStatus(DefaultStatus.DELETED);
         categoryRepository.save(category);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/categories";
     }

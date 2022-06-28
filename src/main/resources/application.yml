@@ -57,6 +57,7 @@ spring:
     port: 16379 # Redis server port.
     ssl: false #enable SSL
     database: 0 # Redis database index.
+    timeout: 5000
 
 # LOGGING
 logging:
