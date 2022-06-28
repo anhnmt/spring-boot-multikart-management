@@ -32,6 +32,7 @@ spring:
     redis:
       flush-mode: on_save # Sessions flush mode.
       namespace: spring:session # Namespace for keys used to store sessions.
+      timeout: 480 # minutes
 
   # THYMELEAF
   thymeleaf:
@@ -50,6 +51,11 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+
+  cache:
+    type: redis
+    redis:
+      timeToLive: 6000000
 
   redis:
     host: 128.199.140.126 # Redis server host.

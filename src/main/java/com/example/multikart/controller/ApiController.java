@@ -6,6 +6,7 @@ import com.example.multikart.domain.dto.WardDTO;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class ApiController {
     ResourceLoader resourceLoader;
 
     @GetMapping("/dvhc/provinces")
+    @Cacheable("provinces")
     public List<ProvinceDTO> getProvinceList() throws IOException {
         List<ProvinceDTO> provinces = new ArrayList<>();
 
@@ -44,6 +46,7 @@ public class ApiController {
     }
 
     @GetMapping("/dvhc/provinces/{code}")
+    @Cacheable(cacheNames = "districts", key = "#code")
     public List<DistrictDTO> getDistrictList(@PathVariable("code") String code) throws IOException {
         List<DistrictDTO> districts = new ArrayList<>();
 
@@ -62,6 +65,7 @@ public class ApiController {
     }
 
     @GetMapping("/dvhc/districts/{code}")
+    @Cacheable(cacheNames = "wards", key = "#code")
     public List<WardDTO> getWardList(@PathVariable("code") String code) throws IOException {
         List<WardDTO> wards = new ArrayList<>();
 

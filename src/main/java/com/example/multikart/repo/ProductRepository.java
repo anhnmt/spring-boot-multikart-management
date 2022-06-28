@@ -28,7 +28,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "LEFT JOIN Unit u on p.unitId = u.unitId\n" +
             "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
             "WHERE p.status = :status\n" +
-            "  and c.categoryId = :categoryId")
+            "  and p.categoryId = :categoryId")
     Page<ItemProductDTO> findAllByCategoryIdAndStatus(Long categoryId, Integer status, Pageable pageable);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "users", indexes = @Index(columnList = "role_id, email, status"))
 public class User extends BaseModel implements Serializable {
     private static final long serialVersionUID = -18131459558712226L;
 
