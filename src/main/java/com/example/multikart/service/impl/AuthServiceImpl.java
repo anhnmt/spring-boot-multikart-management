@@ -174,7 +174,11 @@ public class AuthServiceImpl implements AuthService {
             Files.createDirectories(uploadPath);
         }
 
+        String extension = Utils.getExtensionByStringHandling(file.getOriginalFilename());
+        log.info("File extension: " + extension);
+
         String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        fileName = fileName + "." + extension;
         String uploadDir = userDirectory + "/" + user.getUserId();
 
         try {
@@ -373,8 +377,11 @@ public class AuthServiceImpl implements AuthService {
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
+        String extension = Utils.getExtensionByStringHandling(file.getOriginalFilename());
+        log.info("File extension: " + extension);
 
         String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        fileName = fileName + "." + extension;
         String uploadDir = customerDirectory + "/" + customer.getCustomerId();
 
         try {

@@ -83,7 +83,12 @@ public class ProductImageServiceImpl implements ProductImageService {
             Files.createDirectories(uploadPath);
         }
 
+        String extension = Utils.getExtensionByStringHandling(file.getOriginalFilename());
+        log.info("File extension: " + extension);
+
         String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        fileName = fileName + "." + extension;
+
         String uploadDir = productDirectory + "/" + id;
 
         try {
