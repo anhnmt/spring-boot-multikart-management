@@ -26,12 +26,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.session:spring-session-data-redis'
     implementation 'org.springframework.data:spring-data-commons'
 
     implementation 'org.hibernate.validator:hibernate-validator:7.0.4.Final'
 
     implementation 'org.springframework.session:spring-session-core:2.7.0'
-    implementation group: 'org.springframework.data', name: 'spring-data-redis', version: '2.7.0'
+    implementation 'org.springframework.data:spring-data-redis:2.7.0'
 
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'

@@ -41,7 +41,7 @@
                 <li class="onhover-dropdown">
                     <div class="media align-items-center">
                         <img class="align-self-center pull-right img-50 blur-up lazyloaded"
-                             th:src="@{/backend/assets/images/dashboard/user3.jpg}" alt="header-user"/>
+                             th:src="@{/{url}(url=${session.user.avatar})}" alt="header-user"/>
                         <div class="dotted-animation">
                             <span class="animate-circle"></span>
                             <span class="main-circle"></span>
