@@ -53,7 +53,8 @@
                                     <h5 th:text="${product.unitName}"></h5>
                                     <h4 th:text="${#numbers.formatDecimal(product.exportPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
                                     <div class="addtocart_btn">
-                                        <a th:href="@{/san-pham/{slug}(slug=${product.slug})}" class="add-button add_cart" title="Add to cart">
+                                        <a th:href="@{/san-pham/{slug}(slug=${product.slug})}"
+                                           class="add-button add_cart" title="Add to cart">
                                             <i class="fa fa-plus"></i>
                                         </a>
                                     </div>
@@ -62,6 +63,7 @@
                                             <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
                                                 <img alt="" class="img-fluid blur-up lazyload bg-img"
                                                      th:src="@{/{url}(url=${product.image})}"/>
+<!--                                                <img alt="" class="img-fluid blur-up lazyload bg-img"   th:attr="data-src=@{/{url}(url=${product.image})}"/>-->
                                             </a>
                                         </div>
                                     </div>
