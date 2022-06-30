@@ -14,10 +14,4 @@ public class Const {
         public static final Integer CANCELED = 3;
         public static final Integer SHIPPED = 4;
     }
-
-    public static final class UserStatus {
-        public static final Integer DELETED = 0;
-        public static final Integer ACTIVE = 1;
-        public static final Integer DISABLED = 2;
-    }
 }

@@ -48,8 +48,7 @@ public class UserServiceImpl implements UserService {
             return "backend/user/create";
         }
 
-        input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
-        var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+        var count = userRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
@@ -61,6 +60,7 @@ public class UserServiceImpl implements UserService {
             return "backend/user/create";
         }
 
+        input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
         var newUser = new User(input);
         userRepository.save(newUser);
 
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String editUser(Long id, Model model, RedirectAttributes redirect) {
-        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
+        var user = userRepository.findByUserIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
 
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String updateUser(Long id, UserRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
+        var user = userRepository.findByUserIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
 
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!user.getEmail().equals(input.getEmail())) {
-            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            var count = userRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("email", "email.required", "Email đã được sử dụng");
             }
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUser(Long id, Model model, RedirectAttributes redirect) {
-        var user = userRepository.findByUserIdAndStatus(id, DefaultStatus.ACTIVE);
+        var user = userRepository.findByUserIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(user)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
 

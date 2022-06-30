@@ -8,11 +8,14 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    List<Customer> findAllByStatus(Integer status);
+    List<Customer> findAllByStatusNot(Integer status);
 
     Customer findByCustomerIdAndStatus(Long customerId, Integer status);
 
-    Customer findByEmailAndStatus(String email, Integer status);
+    Customer findByCustomerIdAndStatusNot(Long customerId, Integer status);
 
-    int countByEmailAndStatus(String email, Integer status);
+    Customer findByEmailAndStatus(String email, Integer status);
+    Customer findByEmailAndStatusNot(String email, Integer status);
+
+    int countByEmailAndStatusNot(String email, Integer status);
 }

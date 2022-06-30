@@ -1,6 +1,7 @@
 package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const;
+import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.TransportRequestDTO;
 import com.example.multikart.domain.model.Transport;
@@ -19,7 +20,7 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public String findAllTransports(Model model) {
-        var transports = transportRepository.findAllByStatus(Const.DefaultStatus.ACTIVE);
+        var transports = transportRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("transports", transports);
 
         return "backend/transport/index";
@@ -27,7 +28,7 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public String createTransport(Model model) {
-        model.addAttribute("transport", Transport.builder().status(Const.DefaultStatus.ACTIVE).build());
+        model.addAttribute("transport", Transport.builder().status(DefaultStatus.ACTIVE).build());
 
         return "backend/transport/create";
     }
@@ -40,7 +41,7 @@ public class TransportServiceImpl implements TransportService {
             return "backend/transport/create";
         }
 
-        var count = transportRepository.countByNameAndStatus(input.getName(), Const.DefaultStatus.ACTIVE);
+        var count = transportRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -60,7 +61,7 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public String editTransport(Long id, Model model, RedirectAttributes redirect) {
-        var transport = transportRepository.findByTransportIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var transport = transportRepository.findByTransportIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(transport)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -74,7 +75,7 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public String updateTransport(Long id, TransportRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var transport = transportRepository.findByTransportIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var transport = transportRepository.findByTransportIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(transport)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -88,7 +89,7 @@ public class TransportServiceImpl implements TransportService {
         }
 
         if (!transport.getName().equals(input.getName())) {
-            var count = transportRepository.countByNameAndStatus(input.getName(), Const.DefaultStatus.ACTIVE);
+            var count = transportRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -111,14 +112,14 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public String deleteTransport(Long id, Model model, RedirectAttributes redirect) {
-        var transport = transportRepository.findByTransportIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var transport = transportRepository.findByTransportIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(transport)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
             return "redirect:/dashboard/transports";
         }
 
-        transport.setStatus(Const.DefaultStatus.DELETED);
+        transport.setStatus(DefaultStatus.DELETED);
         transportRepository.save(transport);
 
         redirect.addFlashAttribute("success", "Xóa thành công");

@@ -24,20 +24,20 @@ public class DashboardServiceImpl implements DashboardService {
     private UserRepository userRepository;
     @Autowired
     private UnitRepository unitRepository;
+
     @Override
     public String dashboard(Model model) {
-        var countProduct = productRepository.countByStatusIn(Arrays.asList(Const.DefaultStatus.ACTIVE,Const.DefaultStatus.DISABLED));
-        model.addAttribute("countProduct",countProduct);
+        var countProduct = productRepository.countByStatusIn(Arrays.asList(Const.DefaultStatus.ACTIVE, Const.DefaultStatus.DISABLED));
+        model.addAttribute("countProduct", countProduct);
         var countOder = oderRepository.count();
-        model.addAttribute("countOder",countOder);
+        model.addAttribute("countOder", countOder);
         var totalRevenue = oderRepository.sumTotalRevenue(Const.OrderStatus.SHIPPED);
-        model.addAttribute("totalRevenue",totalRevenue);
+        model.addAttribute("totalRevenue", totalRevenue);
         var totalUser = userRepository.count();
-        model.addAttribute("totalUser",totalUser);
+        model.addAttribute("totalUser", totalUser);
 
         return "backend/index";
     }
-
 
 
 }

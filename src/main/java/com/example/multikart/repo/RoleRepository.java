@@ -12,8 +12,9 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
     List<Role> findAllByStatusNot(Integer status);
 
     Role findByRoleIdAndStatus(Long roleId, Integer status);
+    Role findByRoleIdAndStatusNot(Long roleId, Integer status);
     Role findByRoleId(Long roleId);
-    int countByNameAndStatus(Long roleId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+    int countByNameAndStatusNot(String name, Integer status);
 }

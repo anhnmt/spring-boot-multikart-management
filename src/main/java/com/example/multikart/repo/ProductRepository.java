@@ -22,6 +22,13 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "WHERE p.status = :status")
     List<ItemProductDTO> findAllByStatus(Integer status);
 
+    @Query(value = "SELECT DISTINCT new com.example.multikart.domain.dto.ItemProductDTO(p, c, pi)\n" +
+            "FROM Product p\n" +
+            "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
+            "LEFT JOIN ProductImage pi on p.productId = pi.productId and pi.position = (Select min(position) from ProductImage where productId = p.productId)\n" +
+            "WHERE p.status <> :status")
+    List<ItemProductDTO> findAllByStatusNot(Integer status);
+
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u, pi)\n" +
             "FROM Product p\n" +
             "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +
@@ -51,6 +58,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     Page<ItemProductDTO> findPageAllByNameAndStatus(String name, Integer status, Pageable pageable);
 
     Product findByProductIdAndStatus(Long productId, Integer status);
+    Product findByProductIdAndStatusNot(Long productId, Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, u, pi)\n" +
             "FROM Product p\n" +
@@ -61,10 +69,12 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     ItemProductDTO findWithImageByProductIdAndStatus(Long productId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+    int countByNameAndStatusNot(String name, Integer status);
 
     int countByStatusIn(List<Integer> status);
 
     int countBySlugAndStatus(String slug, Integer status);
+    int countBySlugAndStatusNot(String slug, Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u ,s, pi)\n" +
             "FROM Product p\n" +

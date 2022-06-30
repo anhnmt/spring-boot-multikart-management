@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
     public String frontendViewOrder(Long id, HttpSession session, Model model, RedirectAttributes redirect) {
         var customer = Utils.getCustomerSession(session);
 
-        var order = orderRepository.findByOrderIdAndCustomerIdAndStatusNot(id, customer.getCustomerId(), OrderStatus.DELETED);
+        var order = orderRepository.findByOrderIdAndCustomerIdAndStatusNot(id, customer.getCustomerId(), OrderStatus.DELETED, DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(order)) {
             redirect.addFlashAttribute("error", "Hóa đơn không tồn tại");
 
@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
     public String frontendListOrder(HttpSession session, Model model, RedirectAttributes redirect) {
         var customer = Utils.getCustomerSession(session);
 
-        var orders = orderRepository.findAllByCustomerIdAndStatusNot(customer.getCustomerId(), OrderStatus.DELETED);
+        var orders = orderRepository.findAllByCustomerIdAndStatusNot(customer.getCustomerId(), OrderStatus.DELETED, DefaultStatus.ACTIVE);
         model.addAttribute("orders", orders);
 
         return "frontend/order";

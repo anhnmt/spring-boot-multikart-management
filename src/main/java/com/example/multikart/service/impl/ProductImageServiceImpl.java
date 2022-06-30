@@ -41,7 +41,7 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public String findAllProductImages(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -49,14 +49,14 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
         model.addAttribute("product", product);
 
-        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(id, DefaultStatus.ACTIVE).stream().filter(Objects::nonNull).peek(x -> x.setUrl(DataUtils.getValueOrDefault(x.getUrl(), "assets/images/no_image.jpg"))).collect(Collectors.toList());
+        var images = productImageRepository.findAllByProductIdAndStatusNotOrderByPositionAsc(id, DefaultStatus.DELETED).stream().filter(Objects::nonNull).peek(x -> x.setUrl(DataUtils.getValueOrDefault(x.getUrl(), "assets/images/no_image.jpg"))).collect(Collectors.toList());
 
         model.addAttribute("images", images);
 
-        var min = productImageRepository.findMinPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var min = productImageRepository.findMinPositionByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         model.addAttribute("min", min);
 
-        var max = productImageRepository.findMaxPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var max = productImageRepository.findMaxPositionByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         model.addAttribute("max", max);
 
         return "backend/product_image/index";
@@ -64,7 +64,7 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public String upload(Long id, MultipartFile file, RedirectAttributes redirect) throws IOException {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -117,7 +117,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     @Transactional
     public String delete(Long productId, Long productImageId, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(productId, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -145,7 +145,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     @Transactional
     public String up(Long productId, Long productImageId, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(productId, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -173,7 +173,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     @Transactional
     public String down(Long productId, Long productImageId, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(productId, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
