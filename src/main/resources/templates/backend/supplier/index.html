@@ -54,7 +54,7 @@
                             <tr th:each="supplier : ${suppliers}">
                                 <td th:text="${supplier.supplierId}"></td>
                                 <td th:text="${supplier.name}"></td>
-                                <td><span class="badge badge-success" th:text="${supplier.status == 1 ? 'Active' : 'NonActive'}"></span></td>
+                                <td><span th:class="${supplier.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${supplier.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/suppliers/{id}/delete(id=${supplier.supplierId})}" action="#"
                                           th:method="POST">
