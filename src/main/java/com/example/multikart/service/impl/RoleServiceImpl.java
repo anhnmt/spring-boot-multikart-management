@@ -19,7 +19,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String findAllRoles(Model model) {
-        var roles = roleRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var roles = roleRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("roles", roles);
 
         return "backend/role/index";
@@ -40,7 +40,7 @@ public class RoleServiceImpl implements RoleService {
             return "backend/role/create";
         }
 
-        var count = roleRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+        var count = roleRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên quyền đã được sử dụng");
         }
@@ -60,9 +60,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String editRole(Long id, Model model, RedirectAttributes redirect) {
-        var role = roleRepository.findByRoleIdAndStatus(id, DefaultStatus.ACTIVE);
+        var role = roleRepository.findByRoleIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(role)) {
-            redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
+            redirect.addFlashAttribute("error", "Quyền không tồn tại");
 
             return "redirect:/dashboard/roles";
         }
@@ -74,7 +74,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String updateRole(Long id, RoleRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var role = roleRepository.findByRoleIdAndStatus(id, DefaultStatus.ACTIVE);
+        var role = roleRepository.findByRoleIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(role)) {
             redirect.addFlashAttribute("error", "Quyền không tồn tại");
 
@@ -88,7 +88,7 @@ public class RoleServiceImpl implements RoleService {
         }
 
         if (!role.getName().equalsIgnoreCase(input.getName())) {
-            var count = roleRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+            var count = roleRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên quyền đã được sử dụng");
             }
@@ -110,9 +110,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String deleteRole(Long id, Model model, RedirectAttributes redirect) {
-        var role = roleRepository.findByRoleIdAndStatus(id, DefaultStatus.ACTIVE);
+        var role = roleRepository.findByRoleIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(role)) {
-            redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
+            redirect.addFlashAttribute("error", "Quyền không tồn tại");
 
             return "redirect:/dashboard/roles";
         }

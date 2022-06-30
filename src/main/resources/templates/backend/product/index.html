@@ -41,41 +41,53 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body order-datatable">
-                        <table class="display" id="basic-1">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Ảnh</th>
-                                <th>Tên</th>
-                                <th>Trạng thái</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="product : ${products}">
-                                <td th:text="${product.productId}"></td>
-                                <td>
-                                    <img width="100px" th:src="@{/{url}(url=${product.image})}">
-                                </td>
-                                <td th:text="${product.name}"></td>
-                                <td><span class="badge badge-success" th:text="${product.status}"></span></td>
-                                <td>
-                                    <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}" action="#"
-                                          th:method="POST">
-                                        <div class="btn-group btn-group-sm">
-                                            <a th:href="@{/dashboard/products/{id}/images(id=${product.productId})}"
-                                               class="btn btn-sm btn-info">hình ảnh</a>
+                        <form th:action="@{/dashboard/products/multiDelete}"
+                              th:method="POST" id="multiDelete">
+                            <table class="display" id="basic-1">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <button type="button"
+                                                class="btn btn-sm btn-primary add-row delete_all" th:onclick="document.getElementById('multiDelete').submit()">Xóa
+                                        </button>
+                                    </th>
+                                    <th>ID</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên</th>
+                                    <th>Trạng thái</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product : ${products}">
+                                    <td class="text-align">
+                                        <input name="delete" class="checkbox_animated check-it" type="checkbox"
+                                               th:value="${product.productId}">
+                                    </td>
+                                    <td th:text="${product.productId}"></td>
+                                    <td>
+                                        <img width="100px" th:src="@{/{url}(url=${product.image})}">
+                                    </td>
+                                    <td th:text="${product.name}"></td>
+                                    <td><span th:class="${product.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${product.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
+                                    <td>
+                                        <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}"
+                                              th:method="POST">
+                                            <div class="btn-group btn-group-sm">
+                                                <a th:href="@{/dashboard/products/{id}/images(id=${product.productId})}"
+                                                   class="btn btn-sm btn-info">hình ảnh</a>
 
-                                            <a th:href="@{/dashboard/products/{id}(id=${product.productId})}"
-                                               class="btn btn-xs btn-warning">sửa</a>
+                                                <a th:href="@{/dashboard/products/{id}(id=${product.productId})}"
+                                                   class="btn btn-xs btn-warning">sửa</a>
 
-                                            <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                                <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
             </div>

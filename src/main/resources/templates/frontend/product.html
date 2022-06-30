@@ -186,23 +186,27 @@
                 </div>
             </div>
             <div class="row search-product">
-                <div class="col-xl-2 col-md-4 col-6" th:each="relatedProduct : ${relatedProducts}">
-                    <div class="product-box">
+                <div class="col-xl-2 col-md-4 col-6" th:each="product : ${relatedProducts.content}">
+                    <div class="product-box product-style-5">
+                        <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
+                            <h6 th:text="${product.name}"></h6>
+                        </a>
+                        <h5 th:text="${product.unitName}"></h5>
+                        <h4 th:text="${#numbers.formatDecimal(product.exportPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
+                        <div class="addtocart_btn">
+                            <a th:href="@{/san-pham/{slug}(slug=${product.slug})}"
+                               class="add-button add_cart" title="Add to cart">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="../assets/images/pro3/33.jpg"
-                                                 class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
+                                    <img alt=""
+                                         class="img-fluid blur-up lazyload bg-img"
+                                         th:src="@{/{url}(url=${product.image})}"/>
+                                </a>
                             </div>
-                            <div class="back">
-                                <a href="#"><img src="../assets/images/pro3/34.jpg"
-                                                 class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="product-detail">
-                            <a th:href="@{/san-pham/{slug}(slug=${relatedProduct.slug})}">
-                                <h6 th:text="${relatedProduct.name}"></h6>
-                            </a>
-                            <h4 th:text="${relatedProduct.exportPrice}">$500.00</h4>
                         </div>
                     </div>
                 </div>

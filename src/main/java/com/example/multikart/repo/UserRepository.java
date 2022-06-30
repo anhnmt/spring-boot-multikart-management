@@ -16,10 +16,18 @@ public interface UserRepository extends CrudRepository<User, Long> {
             "WHERE u.status = :status\n" +
             " AND r.status = :status")
     List<UserDTO> findAllByStatus(Integer status);
+    @Query("SELECT new com.example.multikart.domain.dto.UserDTO(u, r)\n" +
+            "FROM User u\n" +
+            "LEFT JOIN Role r on u.roleId = r.roleId\n" +
+            "WHERE u.status <> :status" +
+            " AND r.status <> :status")
+    List<UserDTO> findAllByStatusNot(Integer status);
 
     User findByUserIdAndStatus(Long userId, Integer status);
+    User findByUserIdAndStatusNot(Long userId, Integer status);
 
     User findByEmailAndStatus(String email, Integer status);
 
     int countByEmailAndStatus(String email, Integer status);
+    int countByEmailAndStatusNot(String email, Integer status);
 }

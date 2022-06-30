@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface ProductService {
     String findAllProducts(Model model);
 
@@ -19,4 +22,6 @@ public interface ProductService {
     String deleteProduct(Long id, Model model, RedirectAttributes redirect);
 
     String frontendProduct(String slug, Model model, RedirectAttributes redirect);
+
+    String multiDeleteProduct(List<Long> delete, Model model, RedirectAttributes redirect);
 }

@@ -3,17 +3,27 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.AddToCartRequestDTO;
+import com.example.multikart.domain.dto.ItemProductDTO;
 import com.example.multikart.domain.dto.ProductRequestDTO;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
+import com.example.multikart.service.RedisCache;
+import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
@@ -25,12 +35,21 @@ public class ProductServiceImpl implements ProductService {
     private SupplierRepository supplierRepository;
     @Autowired
     private ProductImageRepository productImageRepository;
+    @Autowired
+    private RedisCache redisCache;
 
 
     @Override
     public String findAllProducts(Model model) {
-        var products = productRepository.findAllByStatus(DefaultStatus.ACTIVE);
-        model.addAttribute("products", products);
+        List<ItemProductDTO> productsCache = redisCache.getObject(ScreenRedis.PRODUCT.name(), "FIND_ALL", new TypeReference<>() {
+        });
+        if (productsCache == null) {
+            var products = productRepository.findAllByStatusNot(DefaultStatus.DELETED);
+            model.addAttribute("products", products);
+            redisCache.putObject(ScreenRedis.PRODUCT.name(), "FIND_ALL", products);
+        } else {
+            model.addAttribute("products", productsCache);
+        }
 
         return "backend/product/index";
     }
@@ -55,12 +74,12 @@ public class ProductServiceImpl implements ProductService {
             return "backend/product/create";
         }
 
-        var count = productRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+        var count = productRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
         }
 
-        var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+        var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
         if (countSlug > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -90,13 +109,15 @@ public class ProductServiceImpl implements ProductService {
         var newProduct = new Product(input);
         productRepository.save(newProduct);
 
+        redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/products";
     }
 
     @Override
     public String editProduct(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
 
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
@@ -114,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String updateProduct(Long id, ProductRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -130,7 +151,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (!product.getName().equals(input.getName())) {
-            var count = productRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+            var count = productRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
             } else {
@@ -138,7 +159,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         if (!product.getSlug().equals(input.getSlug())) {
-            var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+            var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
             if (countSlug > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             } else {
@@ -177,14 +198,16 @@ public class ProductServiceImpl implements ProductService {
         product.setSupplierId(input.getSupplierId());
         product.setStatus(input.getStatus());
         productRepository.save(product);
-
+        //delete cache redis
+        redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Sửa thành công");
         return "redirect:/dashboard/products";
     }
 
     @Override
     public String deleteProduct(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -194,6 +217,8 @@ public class ProductServiceImpl implements ProductService {
         product.setStatus(DefaultStatus.DELETED);
         productRepository.save(product);
 
+        redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/products";
     }
@@ -206,12 +231,32 @@ public class ProductServiceImpl implements ProductService {
         var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(product.getProductId(), DefaultStatus.ACTIVE);
         model.addAttribute("images", images);
 
-        var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), product.getCategoryId(), DefaultStatus.ACTIVE);
+        var pageRequest = PageRequest.of(0, 12);
+        var relatedProducts = productRepository.findRelatedByProductIdAndStatus(product.getProductId(), DefaultStatus.ACTIVE, pageRequest);
         model.addAttribute("relatedProducts", relatedProducts);
 
         var cart = AddToCartRequestDTO.builder().productId(product.getProductId()).quantity(1).build();
         model.addAttribute("cart", cart);
 
         return "frontend/product";
+    }
+
+    @Override
+    @Transactional
+    public String multiDeleteProduct(List<Long> delete, Model model, RedirectAttributes redirect) {
+        log.info("multiDeleteProduct: {}", delete);
+
+        try {
+            productRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
+            productImageRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
+            redisCache.delete(ScreenRedis.PRODUCT.name());
+            redisCache.delete(ScreenRedis.HOME.name());
+
+            redirect.addFlashAttribute("success", "Xóa thành công");
+        } catch (Exception e) {
+            redirect.addFlashAttribute("error", "Xóa không thành công");
+        }
+
+        return "redirect:/dashboard/products";
     }
 }

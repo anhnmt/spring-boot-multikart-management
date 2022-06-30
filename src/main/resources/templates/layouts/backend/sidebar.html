@@ -19,7 +19,7 @@
     <div class="sidebar custom-scrollbar">
         <a href="#" class="sidebar-back d-lg-none d-block"><i class="fa fa-times" aria-hidden="true"></i></a>
         <div class="sidebar-user">
-            <img class="img-60" th:src="@{/backend/assets/images/dashboard/user3.jpg}" alt="#"/>
+            <img class="img-60" th:src="@{/{url}(url=${session.user.avatar})}" alt="#"/>
             <div>
                 <h6 class="f-14" th:text="${session.user.name}">JOHN</h6>
                 <p>general manager.</p>

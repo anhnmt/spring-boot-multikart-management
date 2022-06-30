@@ -52,7 +52,8 @@
                                             <tbody>
                                             <tr class="table-order" th:each="orderDetail : ${orderDetails}">
                                                 <td>
-                                                    <a target="_blank" th:href="@{/san-pham/{slug}(slug=${orderDetail.slug})}">
+                                                    <a target="_blank"
+                                                       th:href="@{/san-pham/{slug}(slug=${orderDetail.slug})}">
                                                         <img width="100px" th:src="@{/{url}(url=${orderDetail.image})}"
                                                              class="img-fluid blur-up lazyload" alt="">
                                                     </a>
@@ -96,7 +97,8 @@
                                                     <h4 class="theme-color fw-bold">Tổng tiền :</h4>
                                                 </td>
                                                 <td>
-                                                    <h4 class="theme-color fw-bold" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
+                                                    <h4 class="theme-color fw-bold"
+                                                        th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
                                                 </td>
                                             </tr>
                                             </tfoot>
@@ -110,11 +112,14 @@
                                             <div class="order-success">
                                                 <h4>Thông tin người nhận</h4>
                                                 <ul class="order-details">
-                                                    <li th:text="${order.customerName}"></li>
-                                                    <li th:text="${order.phone}"></li>
-                                                    <li th:text="${order.email}"></li>
-                                                    <li th:text="${
-                                                    (order.address != null ? order.address + ', ' : '') + (order.ward != null ? order.ward + ', ' : '') + (order.district != null ? order.district + ', ' : '') + (order.province != null ? order.province : '')}"></li>
+                                                    <li th:text="${order.customerName != null ? 'Họ tên: ' + order.customerName: ''}"></li>
+                                                    <li th:text="${order.phone != null ? 'Số điện thoại: ' + order.phone: ''}"></li>
+                                                    <li th:text="${order.email != null ? 'Email: ' + order.email: ''}"></li>
+                                                    <li id="orderAddress"
+                                                        th:text="${(order.address != null ? 'Địa chỉ: ' + order.address : '')}"></li>
+                                                    <li id="provinceId"></li>
+                                                    <li id="districtId"></li>
+                                                    <li id="wardId"></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -137,15 +142,26 @@
                                             </div>
                                         </div>
 
-<!--                                        <div class="col-12">-->
-<!--                                            <div class="order-success">-->
-<!--                                                <div class="delivery-sec">-->
-<!--                                                    <h3>expected date of delivery: <span>october 22,-->
-<!--                                                                        2021</span></h3>-->
-<!--                                                    <a href="order-tracking.html">track order</a>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="col-12">
+                                            <div class="order-success">
+                                                <div class="payment-mode">
+                                                    <h4>Cập nhật trạng thái</h4>
+
+                                                    <form th:object="${order}"
+                                                          th:action="@{/dashboard/orders/update}" action="#"
+                                                          class="needs-validation customer-add"
+                                                          method="post">
+                                                        <div class="form-group row">
+                                                            <select name="status" th:field="*{status}"
+                                                                    required>
+                                                                <option value="">--Trạng thái--</option>
+                                                                <option value="">Kích hoạt</option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -157,6 +173,67 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+</div>
+
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        let provinceId = [[${order.provinceId}]];
+        let districtId = [[${order.districtId}]];
+        let wardId = [[${order.wardId}]];
+
+        // preload
+        $(function () {
+            loadProvince();
+            loadDistrict(provinceId);
+            loadWard(districtId);
+        });
+
+        function loadProvince() {
+            $.ajax({
+                url: "[(@{/dvhc/provinces})]",
+                method: 'GET',
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        if (provinceId === value.code) {
+                            $("#provinceId").html("Tỉnh/TP: " + value.name);
+                        }
+                    });
+                }
+            });
+        }
+
+        function loadDistrict(code) {
+            $.ajax({
+                url: "[(@{/dvhc/provinces/})]" + code,
+                method: 'GET',
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        if (districtId === value.code) {
+                            $("#districtId").html("Quận/Huyện: " + value.name);
+                        }
+                    });
+                }
+            });
+        }
+
+        function loadWard(code) {
+            $.ajax({
+                url: "[(@{/dvhc/districts/})]" + code,
+                method: 'GET',
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        if (wardId === value.code) {
+                            $("#wardId").html("Xã/Phường: " + value.name);
+                        }
+                    });
+                }
+            });
+        }
+
+        /*]]>*/
+    </script>
 </div>
 
 </body>

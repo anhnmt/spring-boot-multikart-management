@@ -1,12 +1,12 @@
 package com.example.multikart.domain.dto;
 
+import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.model.OrderDetail;
 import com.example.multikart.domain.model.Product;
 import com.example.multikart.domain.model.ProductImage;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
@@ -32,8 +32,15 @@ public class OrderDetailDTO implements Serializable {
         quantity = orderDetail.getAmount();
         price = orderDetail.getPrice();
 
-        name = product.getName();
-        slug = product.getSlug();
-        image = productImage.getUrl();
+        if (!DataUtils.isNullOrEmpty(product)) {
+            name = product.getName();
+            slug = product.getSlug();
+        }
+
+        if (!DataUtils.isNullOrEmpty(productImage)) {
+            image = DataUtils.getValueOrDefault(productImage.getUrl(), "assets/images/no_image.jpg");
+        } else {
+            image = "assets/images/no_image.jpg";
+        }
     }
 }

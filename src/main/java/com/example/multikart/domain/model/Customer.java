@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "customers")
+@Table(name = "customers", indexes = @Index(columnList = "email, phone, status"))
 public class Customer extends BaseModel implements Serializable {
     private static final long serialVersionUID = -1813145955899712226L;
 
@@ -40,6 +40,8 @@ public class Customer extends BaseModel implements Serializable {
     private String districtId;
     private String wardId;
     private String address;
+
+    private String avatar;
 
     // Trạng thái
     @Column(name = "status", columnDefinition = "integer default 1", nullable = false)

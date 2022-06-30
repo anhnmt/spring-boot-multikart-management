@@ -1,6 +1,7 @@
 package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
+import com.example.multikart.common.Const.OrderStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.common.Utils;
 import com.example.multikart.domain.dto.UserLoginRequestDTO;
@@ -9,6 +10,7 @@ import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.CustomerRepository;
+import com.example.multikart.repo.OrderRepository;
 import com.example.multikart.repo.UserRepository;
 import com.example.multikart.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -31,6 +39,11 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+
+    private String customerDirectory = "uploads/images/customers";
+    private String userDirectory = "uploads/images/users";
 
     @Override
     public String backendLogin(Model model) {
@@ -51,17 +64,17 @@ public class AuthServiceImpl implements AuthService {
         var user = userRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             result.rejectValue("email", "", "Email không tồn tại");
-        }
-
-        if (!bcryptPasswordEncoder.matches(input.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "", "Mật khẩu không khớp");
-        }
-
-        if (result.hasErrors()) {
             model.addAttribute("user", input);
             return "backend/auth/login";
         }
 
+        if (!bcryptPasswordEncoder.matches(input.getPassword(), user.getPassword())) {
+            result.rejectValue("password", "", "Mật khẩu không khớp");
+            model.addAttribute("user", input);
+            return "backend/auth/login";
+        }
+
+        user.setAvatar(DataUtils.getValueOrDefault(user.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("user", user);
 
         if (!DataUtils.isNullOrEmpty(referer)) {
@@ -107,7 +120,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         if (!user.getEmail().equals(input.getEmail())) {
-            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            var count = userRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("email", "", "Email đã được sử dụng");
             }
@@ -126,7 +139,56 @@ public class AuthServiceImpl implements AuthService {
 
         redirect.addFlashAttribute("success", "Sửa thành công");
 
+        user.setAvatar(DataUtils.getValueOrDefault(user.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("user", user);
+        return "redirect:/dashboard/profile";
+    }
+
+    @Override
+    public String backendPostAvatar(MultipartFile file, HttpSession session, RedirectAttributes redirect) throws IOException {
+        var userSession = Utils.getUserSession(session);
+
+        var user = userRepository.findByUserIdAndStatus(userSession.getUserId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(user)) {
+            redirect.addFlashAttribute("error", "Tài khoản không tồn tại");
+
+            return "redirect:/";
+        }
+
+        var newCus = userRepository.save(user);
+        session.setAttribute("user", newCus);
+
+        if (DataUtils.isNullOrEmpty(file)) {
+            redirect.addFlashAttribute("error", "Vui lòng chọn file");
+
+            return "redirect:/dashboard/profile";
+        }
+
+        Path uploadPath = Paths.get(userDirectory);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String extension = Utils.getExtensionByStringHandling(file.getOriginalFilename());
+        log.info("File extension: " + extension);
+
+        String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        fileName = fileName + "." + extension;
+        String uploadDir = userDirectory + "/" + user.getUserId();
+
+        try {
+            Utils.saveFile(uploadDir, fileName, file);
+
+            user.setAvatar(uploadDir + "/" + fileName);
+            userRepository.save(user);
+
+            redirect.addFlashAttribute("success", "Cập nhật thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+            redirect.addFlashAttribute("error", "Cập nhật thành công");
+        }
+
         return "redirect:/dashboard/profile";
     }
 
@@ -149,17 +211,17 @@ public class AuthServiceImpl implements AuthService {
         var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(cus)) {
             result.rejectValue("email", "", "Email không tồn tại");
-        }
-
-        if (!bcryptPasswordEncoder.matches(input.getPassword(), cus.getPassword())) {
-            result.rejectValue("password", "", "Mật khẩu không khớp");
-        }
-
-        if (result.hasErrors()) {
             model.addAttribute("customer", input);
             return "frontend/auth/login";
         }
 
+        if (!bcryptPasswordEncoder.matches(input.getPassword(), cus.getPassword())) {
+            result.rejectValue("password", "", "Mật khẩu không khớp");
+            model.addAttribute("customer", input);
+            return "frontend/auth/login";
+        }
+
+        cus.setAvatar(DataUtils.getValueOrDefault(cus.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("customer", cus);
 
         if (!DataUtils.isNullOrEmpty(referer)) {
@@ -191,21 +253,23 @@ public class AuthServiceImpl implements AuthService {
             return "frontend/auth/register";
         }
 
-        var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+        var cus = customerRepository.findByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
         if (!DataUtils.isNullOrEmpty(cus)) {
             result.rejectValue("email", "", "Email đã tồn tại");
+
+            model.addAttribute("customer", input);
+            return "frontend/auth/register";
         }
 
         if (!input.getPassword().equalsIgnoreCase(input.getConfirmPassword())) {
             result.rejectValue("password", "", "Mật khẩu không khớp");
-        }
 
-        if (result.hasErrors()) {
             model.addAttribute("customer", input);
             return "frontend/auth/register";
         }
 
         var newCus = customerRepository.save(new Customer(input));
+        newCus.setAvatar(DataUtils.getValueOrDefault(newCus.getAvatar(), "assets/images/user_image.png"));
 
         session.setAttribute("customer", newCus);
         return "redirect:/";
@@ -222,7 +286,14 @@ public class AuthServiceImpl implements AuthService {
             return "redirect:/";
         }
 
+        customer.setAvatar(DataUtils.getValueOrDefault(customer.getAvatar(), "assets/images/user_image.png"));
         model.addAttribute("customer", customer);
+
+        var totalOrders = orderRepository.countByCustomerIdAndStatusNot(customer.getCustomerId(), OrderStatus.DELETED);
+        model.addAttribute("totalOrders", totalOrders);
+
+        var ordersPending = orderRepository.countByCustomerIdAndStatus(customer.getCustomerId(), OrderStatus.PENDING);
+        model.addAttribute("ordersPending", ordersPending);
 
         return "frontend/profile";
     }
@@ -251,15 +322,12 @@ public class AuthServiceImpl implements AuthService {
             var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
             if (count > 0) {
                 result.rejectValue("email", "", "Email đã được sử dụng");
+
+                model.addAttribute("user", input);
+                return "frontend/profile";
             }
 
             customer.setEmail(input.getEmail());
-        }
-
-        if (result.hasErrors()) {
-            model.addAttribute("user", input);
-
-            return "frontend/profile";
         }
 
         customer.setName(input.getName());
@@ -270,9 +338,57 @@ public class AuthServiceImpl implements AuthService {
         customer.setWardId(input.getWardId());
 
         var newCus = customerRepository.save(customer);
+        newCus.setAvatar(DataUtils.getValueOrDefault(newCus.getAvatar(), "assets/images/user_image.png"));
         session.setAttribute("customer", newCus);
 
         redirect.addFlashAttribute("success", "Cập nhật thành công");
+        return "redirect:/profile";
+    }
+
+    @Override
+    public String frontendPostAvatar(MultipartFile file, HttpSession session, RedirectAttributes redirect) throws IOException {
+        var customerSession = Utils.getCustomerSession(session);
+
+        var customer = customerRepository.findByCustomerIdAndStatus(customerSession.getCustomerId(), DefaultStatus.ACTIVE);
+        if (DataUtils.isNullOrEmpty(customer)) {
+            redirect.addFlashAttribute("error", "Tài khoản không tồn tại");
+
+            return "redirect:/";
+        }
+
+        var newCus = customerRepository.save(customer);
+        session.setAttribute("customer", newCus);
+
+        if (DataUtils.isNullOrEmpty(file)) {
+            redirect.addFlashAttribute("error", "Vui lòng chọn file");
+
+            return "redirect:/profile";
+        }
+
+        Path uploadPath = Paths.get(customerDirectory);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        String extension = Utils.getExtensionByStringHandling(file.getOriginalFilename());
+        log.info("File extension: " + extension);
+
+        String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        fileName = fileName + "." + extension;
+        String uploadDir = customerDirectory + "/" + customer.getCustomerId();
+
+        try {
+            Utils.saveFile(uploadDir, fileName, file);
+
+            customer.setAvatar(uploadDir + "/" + fileName);
+            customerRepository.save(customer);
+
+            redirect.addFlashAttribute("success", "Cập nhật thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+            redirect.addFlashAttribute("error", "Cập nhật thành công");
+        }
+
         return "redirect:/profile";
     }
 }

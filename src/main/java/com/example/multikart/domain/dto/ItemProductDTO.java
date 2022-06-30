@@ -4,13 +4,15 @@ import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.model.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ItemProductDTO {
+public class ItemProductDTO implements Serializable {
     private Long productId;
 
     private Long categoryId;
@@ -50,11 +52,15 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        categoryId = category.getCategoryId();
-        categoryName = category.getName();
+        if (!DataUtils.isNullOrEmpty(category)) {
+            categoryId = category.getCategoryId();
+            categoryName = category.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
-            image = productImage.getUrl();
+            image = DataUtils.getValueOrDefault(productImage.getUrl(), "assets/images/no_image.jpg");
+        } else {
+            image = "assets/images/no_image.jpg";
         }
     }
 
@@ -68,14 +74,20 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        categoryId = category.getCategoryId();
-        categoryName = category.getName();
+        if (!DataUtils.isNullOrEmpty(category)) {
+            categoryId = category.getCategoryId();
+            categoryName = category.getName();
+        }
 
-        unitId = unit.getUnitId();
-        unitName = unit.getName();
+        if (!DataUtils.isNullOrEmpty(unit)) {
+            unitId = unit.getUnitId();
+            unitName = unit.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
-            image = productImage.getUrl();
+            image = DataUtils.getValueOrDefault(productImage.getUrl(), "assets/images/no_image.jpg");
+        } else {
+            image = "assets/images/no_image.jpg";
         }
     }
 
@@ -89,11 +101,15 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        unitId = unit.getUnitId();
-        unitName = unit.getName();
+        if (!DataUtils.isNullOrEmpty(unit)) {
+            unitId = unit.getUnitId();
+            unitName = unit.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
-            image = productImage.getUrl();
+            image = DataUtils.getValueOrDefault(productImage.getUrl(), "assets/images/no_image.jpg");
+        } else {
+            image = "assets/images/no_image.jpg";
         }
     }
 
@@ -107,17 +123,25 @@ public class ItemProductDTO {
         description = product.getDescription();
         status = product.getStatus();
 
-        categoryId = category.getCategoryId();
-        categoryName = category.getName();
+        if (!DataUtils.isNullOrEmpty(category)) {
+            categoryId = category.getCategoryId();
+            categoryName = category.getName();
+        }
 
-        unitId = unit.getUnitId();
-        unitName = unit.getName();
+        if (!DataUtils.isNullOrEmpty(unit)) {
+            unitId = unit.getUnitId();
+            unitName = unit.getName();
+        }
 
-        supplierId = supplier.getSupplierId();
-        supplierName = supplier.getName();
+        if (!DataUtils.isNullOrEmpty(supplier)) {
+            supplierId = supplier.getSupplierId();
+            supplierName = supplier.getName();
+        }
 
         if (!DataUtils.isNullOrEmpty(productImage)) {
-            image = productImage.getUrl();
+            image = DataUtils.getValueOrDefault(productImage.getUrl(), "assets/images/no_image.jpg");
+        } else {
+            image = "assets/images/no_image.jpg";
         }
     }
 }

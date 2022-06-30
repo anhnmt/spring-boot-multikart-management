@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/frontend/layout}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2 th:text="${search}"></h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/}">trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="${search}"></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ratio_asos">
+        <div class="collection-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="collection-content col">
+                        <div class="page-main-content">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="collection-product-wrapper">
+                                        <div class="product-wrapper-grid">
+                                            <div class="row margin-res">
+                                                <div class="col-lg-2 col-6 col-grid-box"
+                                                     th:each="product : ${products.content}">
+                                                    <div class="product-box product-style-5">
+                                                        <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
+                                                            <h6 th:text="${product.name}"></h6>
+                                                        </a>
+                                                        <h5 th:text="${product.unitName}"></h5>
+                                                        <h4 th:text="${#numbers.formatDecimal(product.exportPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
+                                                        <div class="addtocart_btn">
+                                                            <a th:href="@{/san-pham/{slug}(slug=${product.slug})}"
+                                                               class="add-button add_cart" title="Add to cart">
+                                                                <i class="fa fa-plus"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="img-wrapper">
+                                                            <div class="front">
+                                                                <a th:href="@{/san-pham/{slug}(slug=${product.slug})}">
+                                                                    <img alt=""
+                                                                         class="img-fluid blur-up lazyload bg-img"
+                                                                         th:src="@{/{url}(url=${product.image})}"/>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-pagination">
+                                            <div class="theme-paggination-block">
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                        <nav aria-label="Page navigation">
+                                                            <ul class="pagination">
+                                                                <li class="page-item" th:class="${products.hasPrevious() ? 'page-item' : 'page-item disabled'}">
+                                                                    <a class="page-link" aria-label="Previous" th:href="@{/search(search=${search}, size=${products.size}, page=${currentPage - 1})}">
+                                                                        <span
+                                                                            aria-hidden="true"><i
+                                                                            class="fa fa-chevron-left"
+                                                                            aria-hidden="true"></i></span>
+                                                                        <span class="sr-only">Trước</span></a>
+                                                                </li>
+                                                                <li th:if="${products.totalPages > 0}"
+                                                                    th:each="pageNumber : ${pageNumbers}"
+                                                                    th:class="${pageNumber==products.number + 1} ? 'page-item active disabled' : 'page-item'">
+                                                                    <a class="page-link"
+                                                                       th:href="@{/search(search=${search}, size=${products.size}, page=${pageNumber})}" th:text="${pageNumber}"></a>
+                                                                </li>
+                                                                <li class="page-item" th:class="${products.hasNext() ? 'page-item' : 'page-item disabled'}">
+                                                                    <a class="page-link" aria-label="Next" th:href="@{/search(search=${search}, size=${products.size}, page=${currentPage + 1})}">
+                                                                        <span
+                                                                                aria-hidden="true"><i
+                                                                                class="fa fa-chevron-right"
+                                                                                aria-hidden="true"></i></span> <span
+                                                                            class="sr-only">Sau</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                        <div class="product-search-count-bottom">
+                                                            <h5 th:text="${'Tổng trang: ' + products.totalPages}"></h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="footer">
+    <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
+</div>
+
+</body>
+</html>

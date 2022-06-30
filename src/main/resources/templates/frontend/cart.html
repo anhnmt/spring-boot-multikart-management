@@ -44,11 +44,13 @@
                         </tr>
                         </thead>
                         <tbody th:each="cart : ${carts}">
-                        <form id="removeFromCart" th:action="@{/cart/{id}/delete(id=${cart.productId})}" th:method="POST">
+                        <form id="removeFromCart" th:action="@{/cart/{id}/delete(id=${cart.productId})}"
+                              th:method="POST">
                             <tr>
                                 <td>
                                     <a th:href="@{/san-pham/{slug}(slug=${cart.slug})}">
-                                        <img th:src="${cart.image}" alt="">
+                                            <img alt=""
+                                                 th:src="@{/{url}(url=${cart.image})}"/>
                                     </a>
                                 </td>
                                 <td><a th:href="@{/san-pham/{slug}(slug=${cart.slug})}" th:text="${cart.name}"></a>
@@ -62,11 +64,13 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <h2 class="td-color" th:text="${#numbers.formatDecimal(cart.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
+                                            <h2 class="td-color"
+                                                th:text="${#numbers.formatDecimal(cart.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
                                         </div>
                                         <div class="col">
                                             <h2 class="td-color">
-                                                <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
+                                                <a th:onclick="document.getElementById('removeFromCart').submit()"
+                                                   class="icon"><i class="ti-close"></i></a>
                                             </h2>
                                         </div>
                                     </div>
@@ -83,10 +87,12 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i class="ti-close"></i></a>
+                                    <a th:onclick="document.getElementById('removeFromCart').submit()" class="icon"><i
+                                            class="ti-close"></i></a>
                                 </td>
                                 <td>
-                                    <h2 class="td-color" th:text="${#numbers.formatDecimal(cart.price * cart.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
+                                    <h2 class="td-color"
+                                        th:text="${#numbers.formatDecimal(cart.price * cart.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h2>
                                 </td>
                             </tr>
                         </form>

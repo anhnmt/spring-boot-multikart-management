@@ -60,7 +60,7 @@
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.email}"></td>
                                 <td th:text="${user.roleName}"></td>
-                                <td><span class="badge badge-success" th:text="${user.status}"></span></td>
+                                <td><span th:class="${user.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${user.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/users/{id}/delete(id=${user.userId})}" action="#"
                                           th:method="POST">

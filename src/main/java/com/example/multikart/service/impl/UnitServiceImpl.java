@@ -19,7 +19,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public String findAllUnits(Model model) {
-        var units = unitRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var units = unitRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("units", units);
 
         return "backend/unit/index";
@@ -40,7 +40,7 @@ public class UnitServiceImpl implements UnitService {
             return "backend/unit/create";
         }
 
-        var count = unitRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+        var count = unitRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -60,7 +60,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public String editUnit(Long id, Model model, RedirectAttributes redirect) {
-        var unit = unitRepository.findByUnitIdAndStatus(id, DefaultStatus.ACTIVE);
+        var unit = unitRepository.findByUnitIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(unit)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -74,7 +74,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public String updateUnit(Long id, UnitRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var unit = unitRepository.findByUnitIdAndStatus(id, DefaultStatus.ACTIVE);
+        var unit = unitRepository.findByUnitIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(unit)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -88,7 +88,7 @@ public class UnitServiceImpl implements UnitService {
         }
 
         if (!unit.getName().equals(input.getName())) {
-            var count = unitRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+            var count = unitRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -111,7 +111,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public String deleteUnit(Long id, Model model, RedirectAttributes redirect) {
-        var unit = unitRepository.findByUnitIdAndStatus(id, DefaultStatus.ACTIVE);
+        var unit = unitRepository.findByUnitIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(unit)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 

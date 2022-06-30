@@ -2,20 +2,24 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.CategoryProductDTO;
 import com.example.multikart.domain.dto.CategoryRequestDTO;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Category;
 import com.example.multikart.repo.CategoryRepository;
 import com.example.multikart.repo.ProductRepository;
 import com.example.multikart.service.CategoryService;
+import com.example.multikart.service.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -23,10 +27,11 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public String findAllCategories(Model model) {
-        var categories = categoryRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var categories = categoryRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("categories", categories);
 
         return "backend/category/index";
@@ -47,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-        var count = categoryRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+        var count = categoryRepository.findBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -61,13 +66,14 @@ public class CategoryServiceImpl implements CategoryService {
         var newCategory = new Category(input);
         categoryRepository.save(newCategory);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Thêm thành công");
         return "redirect:/dashboard/categories";
     }
 
     @Override
     public String editCategory(Long id, Model model, RedirectAttributes redirect) {
-        var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
+        var category = categoryRepository.findByCategoryIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");
 
@@ -81,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String updateCategory(Long id, CategoryRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
+        var category = categoryRepository.findByCategoryIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");
 
@@ -95,7 +101,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         if (!category.getSlug().equals(input.getSlug())) {
-            var count = categoryRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+            var count = categoryRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             }
@@ -113,13 +119,14 @@ public class CategoryServiceImpl implements CategoryService {
         category.setStatus(input.getStatus());
         categoryRepository.save(category);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Sửa thành công");
         return "redirect:/dashboard/categories";
     }
 
     @Override
     public String deleteCategory(Long id, Model model, RedirectAttributes redirect) {
-        var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
+        var category = categoryRepository.findByCategoryIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");
 
@@ -129,17 +136,32 @@ public class CategoryServiceImpl implements CategoryService {
         category.setStatus(DefaultStatus.DELETED);
         categoryRepository.save(category);
 
+        redisCache.delete(ScreenRedis.HOME.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
         return "redirect:/dashboard/categories";
     }
 
     @Override
-    public String frontendCategory(String slug, Model model, RedirectAttributes redirect) {
+    public String frontendCategory(String slug, Optional<Integer> page, Optional<Integer> size, Model model, RedirectAttributes redirect) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        model.addAttribute("slug", slug);
+        model.addAttribute("currentPage", currentPage);
+
         var category = categoryRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("category", category);
 
-        var products = productRepository.findAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE);
+        var pageRequest = PageRequest.of(currentPage - 1, pageSize);
+        var products = productRepository.findPageAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE, pageRequest);
         model.addAttribute("products", products);
+
+        int totalPages = products.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
         return "frontend/category";
     }

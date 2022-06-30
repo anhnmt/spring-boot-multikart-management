@@ -54,7 +54,7 @@
                             <tr th:each="payment : ${payments}">
                                 <td th:text="${payment.paymentId}"></td>
                                 <td th:text="${payment.name}"></td>
-                                <td><span class="badge badge-success" th:text="${payment.status}"></span></td>
+                                <td><span th:class="${payment.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${payment.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/payments/{id}/delete(id=${payment.paymentId})}"
                                           action="#"

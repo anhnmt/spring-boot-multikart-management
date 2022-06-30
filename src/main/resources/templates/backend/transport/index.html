@@ -54,7 +54,7 @@
                             <tr th:each="transport : ${transports}">
                                 <td th:text="${transport.transportId}"></td>
                                 <td th:text="${transport.name}"></td>
-                                <td><span class="badge badge-success" th:text="${transport.status}"></span></td>
+                                <td><span th:class="${transport.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${transport.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/transports/{id}/delete(id=${transport.transportId})}"
                                           action="#"

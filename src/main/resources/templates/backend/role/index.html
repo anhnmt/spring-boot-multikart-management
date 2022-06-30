@@ -47,24 +47,24 @@
                                 <th>ID</th>
                                 <th>Tên</th>
                                 <th>Trạng thái</th>
-                                <th></th>
+<!--                                <th></th>-->
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="role : ${roles}">
                                 <td th:text="${role.roleId}"></td>
                                 <td th:text="${role.name}"></td>
-                                <td><span class="badge badge-success" th:text="${role.status}"></span></td>
-                                <td>
-                                    <form th:action="@{/dashboard/roles/{id}/delete(id=${role.roleId})}" action="#"
-                                          th:method="POST">
-                                        <div class="btn-group btn-group-sm">
-                                            <a th:href="@{/dashboard/roles/{id}(id=${role.roleId})}"
-                                               class="btn btn-xs btn-warning">sửa</a>
-                                            <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>
-                                        </div>
-                                    </form>
-                                </td>
+                                <td><span th:class="${role.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${role.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
+<!--                                <td>-->
+<!--                                    <form th:action="@{/dashboard/roles/{id}/delete(id=${role.roleId})}" action="#"-->
+<!--                                          th:method="POST">-->
+<!--                                        <div class="btn-group btn-group-sm">-->
+<!--                                            <a th:href="@{/dashboard/roles/{id}(id=${role.roleId})}"-->
+<!--                                               class="btn btn-xs btn-warning">sửa</a>-->
+<!--                                            <button th:type="submit" class="btn btn-xs btn-primary">xóa</button>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>

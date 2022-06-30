@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "product_images")
+@Table(name = "product_images", indexes = @Index(columnList = "product_id, position, status"))
 public class ProductImage extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "payments")
+@Table(name = "payments", indexes = @Index(columnList = "status"))
 public class Payment extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

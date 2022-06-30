@@ -3,10 +3,12 @@ package com.example.multikart.service.impl;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.common.Utils;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.ProductImage;
 import com.example.multikart.repo.ProductImageRepository;
 import com.example.multikart.repo.ProductRepository;
 import com.example.multikart.service.ProductImageService;
+import com.example.multikart.service.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,12 +34,14 @@ public class ProductImageServiceImpl implements ProductImageService {
     private ProductImageRepository productImageRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private RedisCache redisCache;
 
     private String productDirectory = "uploads/images/products";
 
     @Override
     public String findAllProductImages(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -44,13 +49,14 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
         model.addAttribute("product", product);
 
-        var images = productImageRepository.findAllByProductIdAndStatusOrderByPositionAsc(id, DefaultStatus.ACTIVE);
+        var images = productImageRepository.findAllByProductIdAndStatusNotOrderByPositionAsc(id, DefaultStatus.DELETED).stream().filter(Objects::nonNull).peek(x -> x.setUrl(DataUtils.getValueOrDefault(x.getUrl(), "assets/images/no_image.jpg"))).collect(Collectors.toList());
+
         model.addAttribute("images", images);
 
-        var min = productImageRepository.findMinPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var min = productImageRepository.findMinPositionByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         model.addAttribute("min", min);
 
-        var max = productImageRepository.findMaxPositionByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var max = productImageRepository.findMaxPositionByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         model.addAttribute("max", max);
 
         return "backend/product_image/index";
@@ -58,7 +64,7 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public String upload(Long id, MultipartFile file, RedirectAttributes redirect) throws IOException {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -77,11 +83,16 @@ public class ProductImageServiceImpl implements ProductImageService {
             Files.createDirectories(uploadPath);
         }
 
+        String extension = Utils.getExtensionByStringHandling(file.getOriginalFilename());
+        log.info("File extension: " + extension);
+
         String fileName = Utils.toSlug(StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
+        fileName = fileName + "." + extension;
+
         String uploadDir = productDirectory + "/" + id;
 
         try {
-            saveFile(uploadDir, fileName, file);
+            Utils.saveFile(uploadDir, fileName, file);
 
             var count = productImageRepository.countByProductIdAndStatus(id, DefaultStatus.ACTIVE);
             var productImage = ProductImage.builder()
@@ -92,6 +103,8 @@ public class ProductImageServiceImpl implements ProductImageService {
                     .build();
             productImageRepository.save(productImage);
 
+            redisCache.delete(ScreenRedis.HOME.name());
+            redisCache.delete(ScreenRedis.PRODUCT.name());
             redirect.addFlashAttribute("success", "Thêm thành công");
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,7 +117,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     @Transactional
     public String delete(Long productId, Long productImageId, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(productId, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -122,6 +135,8 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImageRepository.save(productImage);
         productImageRepository.updatePositionDelete(productId, productImageId, productImage.getPosition(), DefaultStatus.ACTIVE);
 
+        redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Xóa thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
@@ -130,7 +145,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     @Transactional
     public String up(Long productId, Long productImageId, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(productId, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -148,6 +163,8 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImage.setPosition(productImage.getPosition() - 1);
         productImageRepository.save(productImage);
 
+        redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
@@ -156,7 +173,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     @Transactional
     public String down(Long productId, Long productImageId, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(productId, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(productId, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -174,23 +191,10 @@ public class ProductImageServiceImpl implements ProductImageService {
         productImage.setPosition(productImage.getPosition() + 1);
         productImageRepository.save(productImage);
 
+        redisCache.delete(ScreenRedis.HOME.name());
+        redisCache.delete(ScreenRedis.PRODUCT.name());
         redirect.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/dashboard/products/" + productId + "/images";
-    }
-
-    private void saveFile(String uploadDir, String filename, MultipartFile multipartFile) throws IOException {
-        Path uploadPath = Paths.get(uploadDir);
-
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
-            throw new IOException("Could not save image file: " + filename, ioe);
-        }
     }
 }

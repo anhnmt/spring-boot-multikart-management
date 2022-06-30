@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String findAllCustomers(Model model) {
-        var customers = customerRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var customers = customerRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("customers", customers);
 
         return "backend/customer/index";
@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
-        var count = customerRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+        var count = customerRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String editCustomer(Long id, Model model, RedirectAttributes redirect) {
-        var customer = customerRepository.findByCustomerIdAndStatus(id, DefaultStatus.ACTIVE);
+        var customer = customerRepository.findByCustomerIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(customer)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
 
@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String updateCustomer(Long id, CustomerRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var customer = customerRepository.findByCustomerIdAndStatus(id, DefaultStatus.ACTIVE);
+        var customer = customerRepository.findByCustomerIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(customer)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
 
@@ -96,7 +96,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         if (!customer.getEmail().equals(input.getEmail())) {
-            var count = customerRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            var count = customerRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("email", "email.required", "Email đã được sử dụng");
             }
@@ -120,7 +120,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deleteCustomer(Long id, Model model, RedirectAttributes redirect) {
-        var customer = customerRepository.findByCustomerIdAndStatus(id, DefaultStatus.ACTIVE);
+        var customer = customerRepository.findByCustomerIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(customer)) {
             redirect.addFlashAttribute("error", "Người dùng không tồn tại");
 

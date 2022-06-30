@@ -1,5 +1,6 @@
 package com.example.multikart.domain.dto;
 
+import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.domain.model.Order;
 import com.example.multikart.domain.model.Payment;
@@ -50,11 +51,6 @@ public class OrderDTO implements Serializable {
         this.orderId = order.getOrderId();
         this.name = order.getName();
 
-        this.customerId = customer.getCustomerId();
-        this.customerName = customer.getName();
-        this.phone = customer.getPhone();
-        this.email = customer.getEmail();
-
         this.address = order.getAddress();
 
         this.provinceId = order.getProvinceId();
@@ -68,22 +64,28 @@ public class OrderDTO implements Serializable {
         this.status = order.getStatus();
 
         this.createdAt = order.getCreatedAt();
+
+        if (!DataUtils.isNullOrEmpty(customer)) {
+            this.customerId = customer.getCustomerId();
+            this.customerName = customer.getName();
+            this.phone = customer.getPhone();
+            this.email = customer.getEmail();
+        }
     }
 
     public OrderDTO(Order order, Customer customer, Payment payment, Transport transport) {
         this.orderId = order.getOrderId();
         this.name = order.getName();
 
-        this.customerId = customer.getCustomerId();
-        this.customerName = customer.getName();
-        this.phone = customer.getPhone();
-        this.email = customer.getEmail();
+        if (!DataUtils.isNullOrEmpty(payment)) {
+            this.paymentId = payment.getPaymentId();
+            this.paymentName = payment.getName();
+        }
 
-        this.paymentId = payment.getPaymentId();
-        this.paymentName = payment.getName();
-
-        this.transportId = transport.getTransportId();
-        this.transportName = transport.getName();
+        if (!DataUtils.isNullOrEmpty(transport)) {
+            this.transportId = transport.getTransportId();
+            this.transportName = transport.getName();
+        }
 
         this.address = order.getAddress();
 
@@ -98,5 +100,12 @@ public class OrderDTO implements Serializable {
         this.status = order.getStatus();
 
         this.createdAt = order.getCreatedAt();
+
+        if (!DataUtils.isNullOrEmpty(customer)) {
+            this.customerId = customer.getCustomerId();
+            this.customerName = customer.getName();
+            this.phone = customer.getPhone();
+            this.email = customer.getEmail();
+        }
     }
 }

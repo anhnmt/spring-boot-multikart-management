@@ -64,7 +64,23 @@
                                                             <span class="fs-6" th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
                                                         </td>
                                                         <td>
-                                                                <span class="badge rounded-pill bg-success custom-badge">Shipped</span>
+                                                            <div th:switch="${order.status}">
+                                                                <div th:case="1">
+                                                                    <span class="badge rounded-pill bg-warning custom-badge">Pending</span>
+                                                                </div>
+                                                                <div th:case="2">
+                                                                    <span class="badge rounded-pill bg-danger custom-badge" >Shipping</span>
+                                                                </div>
+                                                                <div th:case="3">
+                                                                    <span class="badge rounded-pill bg-secondary custom-badge" >Canceled</span>
+                                                                </div>
+                                                                <div th:case="4">
+                                                                    <span class="badge rounded-pill bg-success custom-badge">Shipped</span>
+                                                                </div>
+                                                                <div th:case="*">
+                                                                    <span class="badge rounded-pill bg-dark custom-badge">Undefined</span>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                         <td>
                                                             <span class="theme-color fs-6" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span>
