@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
         List<ItemProductDTO> productsCache = redisCache.getObject(ScreenRedis.PRODUCT.name(), "FIND_ALL", new TypeReference<>() {
         });
         if (productsCache == null) {
-            var products = productRepository.findAllByStatus(DefaultStatus.ACTIVE);
+            var products = productRepository.findAllByStatusNot(DefaultStatus.DELETED);
             model.addAttribute("products", products);
             redisCache.putObject(ScreenRedis.PRODUCT.name(), "FIND_ALL", products);
         } else {
@@ -74,12 +74,12 @@ public class ProductServiceImpl implements ProductService {
             return "backend/product/create";
         }
 
-        var count = productRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+        var count = productRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
         }
 
-        var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+        var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
         if (countSlug > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -117,7 +117,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String editProduct(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
 
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
@@ -135,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String updateProduct(Long id, ProductRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 
@@ -151,7 +151,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (!product.getName().equals(input.getName())) {
-            var count = productRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+            var count = productRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
             } else {
@@ -159,7 +159,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         if (!product.getSlug().equals(input.getSlug())) {
-            var countSlug = productRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+            var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
             if (countSlug > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             } else {
@@ -207,7 +207,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String deleteProduct(Long id, Model model, RedirectAttributes redirect) {
-        var product = productRepository.findByProductIdAndStatus(id, DefaultStatus.ACTIVE);
+        var product = productRepository.findByProductIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(product)) {
             redirect.addFlashAttribute("error", "Sản phẩm không tồn tại");
 

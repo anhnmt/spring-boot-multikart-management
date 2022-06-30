@@ -1,6 +1,7 @@
 package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const;
+import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
 import com.example.multikart.domain.dto.PaymentRequestDTO;
 import com.example.multikart.domain.model.Payment;
@@ -19,7 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String findAllPayments(Model model) {
-        var payments = paymentRepository.findAllByStatus(Const.DefaultStatus.ACTIVE);
+        var payments = paymentRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("payments", payments);
 
         return "backend/payment/index";
@@ -27,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String createPayment(Model model) {
-        model.addAttribute("payment", Payment.builder().status(Const.DefaultStatus.ACTIVE).build());
+        model.addAttribute("payment", Payment.builder().status(DefaultStatus.ACTIVE).build());
 
         return "backend/payment/create";
     }
@@ -40,7 +41,7 @@ public class PaymentServiceImpl implements PaymentService {
             return "backend/payment/create";
         }
 
-        var count = paymentRepository.countByNameAndStatus(input.getName(), Const.DefaultStatus.ACTIVE);
+        var count = paymentRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -60,7 +61,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String editPayment(Long id, Model model, RedirectAttributes redirect) {
-        var payment = paymentRepository.findByPaymentIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var payment = paymentRepository.findByPaymentIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(payment)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -74,7 +75,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String updatePayment(Long id, PaymentRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var payment = paymentRepository.findByPaymentIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var payment = paymentRepository.findByPaymentIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(payment)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -88,7 +89,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         if (!payment.getName().equals(input.getName())) {
-            var count = paymentRepository.countByNameAndStatus(input.getName(), Const.DefaultStatus.ACTIVE);
+            var count = paymentRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -111,14 +112,14 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String deletePayment(Long id, Model model, RedirectAttributes redirect) {
-        var payment = paymentRepository.findByPaymentIdAndStatus(id, Const.DefaultStatus.ACTIVE);
+        var payment = paymentRepository.findByPaymentIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(payment)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
             return "redirect:/dashboard/payments";
         }
 
-        payment.setStatus(Const.DefaultStatus.DELETED);
+        payment.setStatus(DefaultStatus.DELETED);
         paymentRepository.save(payment);
 
         redirect.addFlashAttribute("success", "Xóa thành công");

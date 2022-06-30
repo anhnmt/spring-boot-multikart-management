@@ -19,7 +19,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public String findAllSuppliers(Model model) {
-        var suppliers = supplierRepository.findAllByStatus(DefaultStatus.ACTIVE);
+        var suppliers = supplierRepository.findAllByStatusNot(DefaultStatus.DELETED);
         model.addAttribute("suppliers", suppliers);
 
         return "backend/supplier/index";
@@ -40,7 +40,7 @@ public class SupplierServiceImpl implements SupplierService {
             return "backend/supplier/create";
         }
 
-        var count = supplierRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+        var count = supplierRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -60,7 +60,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public String editSupplier(Long id, Model model, RedirectAttributes redirect) {
-        var supplier = supplierRepository.findBySupplierIdAndStatus(id, DefaultStatus.ACTIVE);
+        var supplier = supplierRepository.findBySupplierIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(supplier)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -74,7 +74,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public String updateSupplier(Long id, SupplierRequestDTO input, BindingResult result, Model model, RedirectAttributes redirect) {
-        var supplier = supplierRepository.findBySupplierIdAndStatus(id, DefaultStatus.ACTIVE);
+        var supplier = supplierRepository.findBySupplierIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(supplier)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 
@@ -88,7 +88,7 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         if (!supplier.getName().equals(input.getName())) {
-            var count = supplierRepository.countByNameAndStatus(input.getName(), DefaultStatus.ACTIVE);
+            var count = supplierRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -111,7 +111,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public String deleteSupplier(Long id, Model model, RedirectAttributes redirect) {
-        var supplier = supplierRepository.findBySupplierIdAndStatus(id, DefaultStatus.ACTIVE);
+        var supplier = supplierRepository.findBySupplierIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(supplier)) {
             redirect.addFlashAttribute("error", "Đơn vị không tồn tại");
 

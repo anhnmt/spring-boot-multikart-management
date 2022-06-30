@@ -24,8 +24,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<UserDTO> findAllByStatusNot(Integer status);
 
     User findByUserIdAndStatus(Long userId, Integer status);
+    User findByUserIdAndStatusNot(Long userId, Integer status);
 
     User findByEmailAndStatus(String email, Integer status);
 
     int countByEmailAndStatus(String email, Integer status);
+    int countByEmailAndStatusNot(String email, Integer status);
 }

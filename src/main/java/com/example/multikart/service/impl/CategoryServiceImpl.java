@@ -2,7 +2,6 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.CategoryProductDTO;
 import com.example.multikart.domain.dto.CategoryRequestDTO;
 import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Category;
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-        var count = categoryRepository.findBySlugAndStatusNot(input.getSlug(), DefaultStatus.ACTIVE);
+        var count = categoryRepository.findBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -103,7 +101,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         if (!category.getSlug().equals(input.getSlug())) {
-            var count = categoryRepository.countBySlugAndStatus(input.getSlug(), DefaultStatus.ACTIVE);
+            var count = categoryRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             }
@@ -128,7 +126,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String deleteCategory(Long id, Model model, RedirectAttributes redirect) {
-        var category = categoryRepository.findByCategoryIdAndStatus(id, DefaultStatus.ACTIVE);
+        var category = categoryRepository.findByCategoryIdAndStatusNot(id, DefaultStatus.DELETED);
         if (DataUtils.isNullOrEmpty(category)) {
             redirect.addFlashAttribute("error", "Danh mục không tồn tại");
 
@@ -152,8 +150,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         var category = categoryRepository.findBySlugAndStatus(slug, DefaultStatus.ACTIVE);
         model.addAttribute("category", category);
-
-//        var products = productRepository.findAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE);
 
         var pageRequest = PageRequest.of(currentPage - 1, pageSize);
         var products = productRepository.findPageAllByCategoryIdAndStatus(category.getCategoryId(), DefaultStatus.ACTIVE, pageRequest);

@@ -1,6 +1,5 @@
 package com.example.multikart.service.impl;
 
-import com.example.multikart.common.Const;
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.Const.OrderStatus;
 import com.example.multikart.common.DataUtils;
@@ -9,7 +8,6 @@ import com.example.multikart.domain.dto.UserLoginRequestDTO;
 import com.example.multikart.domain.dto.UserProfileRequestDTO;
 import com.example.multikart.domain.dto.UserRegisterRequestDTO;
 import com.example.multikart.domain.model.Customer;
-import com.example.multikart.domain.model.ProductImage;
 import com.example.multikart.domain.model.User;
 import com.example.multikart.repo.CustomerRepository;
 import com.example.multikart.repo.OrderRepository;
@@ -26,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -67,13 +64,12 @@ public class AuthServiceImpl implements AuthService {
         var user = userRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {
             result.rejectValue("email", "", "Email không tồn tại");
+            model.addAttribute("user", input);
+            return "backend/auth/login";
         }
 
         if (!bcryptPasswordEncoder.matches(input.getPassword(), user.getPassword())) {
             result.rejectValue("password", "", "Mật khẩu không khớp");
-        }
-
-        if (result.hasErrors()) {
             model.addAttribute("user", input);
             return "backend/auth/login";
         }
@@ -124,7 +120,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         if (!user.getEmail().equals(input.getEmail())) {
-            var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+            var count = userRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("email", "", "Email đã được sử dụng");
             }
@@ -215,13 +211,12 @@ public class AuthServiceImpl implements AuthService {
         var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(cus)) {
             result.rejectValue("email", "", "Email không tồn tại");
+            model.addAttribute("customer", input);
+            return "frontend/auth/login";
         }
 
         if (!bcryptPasswordEncoder.matches(input.getPassword(), cus.getPassword())) {
             result.rejectValue("password", "", "Mật khẩu không khớp");
-        }
-
-        if (result.hasErrors()) {
             model.addAttribute("customer", input);
             return "frontend/auth/login";
         }
@@ -258,16 +253,17 @@ public class AuthServiceImpl implements AuthService {
             return "frontend/auth/register";
         }
 
-        var cus = customerRepository.findByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
+        var cus = customerRepository.findByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
         if (!DataUtils.isNullOrEmpty(cus)) {
             result.rejectValue("email", "", "Email đã tồn tại");
+
+            model.addAttribute("customer", input);
+            return "frontend/auth/register";
         }
 
         if (!input.getPassword().equalsIgnoreCase(input.getConfirmPassword())) {
             result.rejectValue("password", "", "Mật khẩu không khớp");
-        }
 
-        if (result.hasErrors()) {
             model.addAttribute("customer", input);
             return "frontend/auth/register";
         }
@@ -326,15 +322,12 @@ public class AuthServiceImpl implements AuthService {
             var count = userRepository.countByEmailAndStatus(input.getEmail(), DefaultStatus.ACTIVE);
             if (count > 0) {
                 result.rejectValue("email", "", "Email đã được sử dụng");
+
+                model.addAttribute("user", input);
+                return "frontend/profile";
             }
 
             customer.setEmail(input.getEmail());
-        }
-
-        if (result.hasErrors()) {
-            model.addAttribute("user", input);
-
-            return "frontend/profile";
         }
 
         customer.setName(input.getName());
