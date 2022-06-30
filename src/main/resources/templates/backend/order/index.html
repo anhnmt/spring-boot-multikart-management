@@ -64,16 +64,19 @@
                                 <td>
                                     <div th:switch="${order.status}">
                                         <div th:case="1">
-                                            <span class="badge badge-success" th:text="'Active'"></span>
+                                            <span class="badge rounded-pill bg-warning custom-badge">Pending</span>
                                         </div>
-                                        <div th:case="6">
-                                            <span class="badge badge-secondary" th:text="'SHIPPED'"></span>
+                                        <div th:case="2">
+                                            <span class="badge rounded-pill bg-danger custom-badge" >Shipping</span>
                                         </div>
                                         <div th:case="3">
-                                            <span class="badge badge-info" th:text="'PENDING'"></span>
+                                            <span class="badge rounded-pill bg-secondary custom-badge" >Canceled</span>
                                         </div>
-                                        <div th:case="0">
-                                            <span class="badge badge-danger" th:text="'DELETED'"></span>
+                                        <div th:case="4">
+                                            <span class="badge rounded-pill bg-success custom-badge">Shipped</span>
+                                        </div>
+                                        <div th:case="*">
+                                            <span class="badge rounded-pill bg-dark custom-badge">Undefined</span>
                                         </div>
                                     </div>
                                 </td>
