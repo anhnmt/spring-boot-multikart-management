@@ -67,7 +67,11 @@
                                     </td>
                                     <td th:text="${product.productId}"></td>
                                     <td>
-                                        <img width="100px" th:src="@{/{url}(url=${product.image})}">
+                                        <a target="_blank"
+                                           th:href="@{/san-pham/{slug}(slug=${product.slug})}">
+                                            <img width="100px" th:src="@{/{url}(url=${product.image})}"
+                                                 class="img-fluid blur-up lazyload" alt="">
+                                        </a>
                                     </td>
                                     <td th:text="${product.name}"></td>
                                     <td th:text="${product.amount}"></td>
