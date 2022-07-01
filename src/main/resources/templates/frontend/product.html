@@ -89,7 +89,7 @@
                                                                   th:text="${product.unitName}"></a></li>
                                         </ul>
                                     </div>
-                                    <h6 class="product-title">số lượng</h6>
+                                    <h6 class="product-title">số lượng <span th:text="'(' + ${product.amount} + ')'"></span></h6>
                                     <div class="qty-box">
                                         <div class="input-group"><span class="input-group-prepend">
                                             <button type="button" class="btn quantity-left-minus" data-type="minus"
@@ -160,14 +160,14 @@
                 <div class="col-sm-12 col-lg-12">
                     <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
                         <li class="nav-item"><a class="nav-link active" id="top-home-tab"><i
-                                class="icofont icofont-ui-home"></i>Mô tả</a>
+                                class="icofont icofont-ui-home"></i>Mô tả sản phẩm</a>
                             <div class="material-border"></div>
                         </li>
                     </ul>
                     <div class="tab-content nav-material" id="top-tabContent">
                         <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                              aria-labelledby="top-home-tab">
-                            <div class="product-tab-discription" th:text="${product.description}">
+                            <div class="product-tab-discription" th:text="${product.description ? product.description : 'Sản phẩm chưa có mô tả...'}">
                             </div>
                         </div>
                     </div>

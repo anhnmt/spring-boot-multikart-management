@@ -54,6 +54,7 @@
                                     <th>ID</th>
                                     <th>Ảnh</th>
                                     <th>Tên</th>
+                                    <th>Số lượng</th>
                                     <th>Trạng thái</th>
                                     <th></th>
                                 </tr>
@@ -69,6 +70,7 @@
                                         <img width="100px" th:src="@{/{url}(url=${product.image})}">
                                     </td>
                                     <td th:text="${product.name}"></td>
+                                    <td th:text="${product.amount}"></td>
                                     <td><span th:class="${product.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${product.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
                                     <td>
                                         <form th:action="@{/dashboard/products/{id}/delete(id=${product.productId})}"

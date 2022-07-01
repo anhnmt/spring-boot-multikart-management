@@ -38,6 +38,11 @@ public class CartServiceImpl implements CartService {
             return "redirect:/";
         }
 
+        if (product.getAmount() == 0 || product.getAmount() < input.getQuantity()) {
+            redirect.addFlashAttribute("error", "Sản phẩm không đủ số lượng");
+            return "redirect:/";
+        }
+
         var carts = Utils.getCartSession(session);
         // add or update cart
         if (!Utils.checkExistCart(carts, input.getProductId())) {
