@@ -37,7 +37,7 @@ public class HomeServiceImpl implements HomeService {
         });
         if (categoryProductsCache == null) {
             categories.parallelStream().forEach(c -> {
-                var pageRequest = PageRequest.of(0, 12);
+                var pageRequest = PageRequest.of(0, 6);
                 var products = productRepository.findAllByCategoryIdAndStatus(c.getCategoryId(), DefaultStatus.ACTIVE, pageRequest);
                 var categoryProduct = CategoryProductDTO.builder().categoryId(c.getCategoryId()).name(c.getName()).slug(c.getSlug()).products(products).build();
 

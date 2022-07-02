@@ -2,6 +2,7 @@ package com.example.multikart.repo;
 
 import com.example.multikart.domain.dto.OrderDTO;
 import com.example.multikart.domain.model.Order;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -54,9 +55,18 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     int countByNameAndStatus(String name, Integer status);
 
     int countByCustomerIdAndStatus(Long customerId, Integer status);
+
     int countByCustomerIdAndStatusNot(Long customerId, Integer status);
+
     @Query("SELECT SUM(o.totalPrice)\n" +
             "FROM Order o\n" +
             "WHERE o.status = :status")
     int sumTotalRevenue(Integer status);
+
+    @Modifying
+    @Query("UPDATE Order o\n" +
+            "SET o.status = :orderStatus\n" +
+            "WHERE o.status <> :status\n" +
+            "  and o.orderId = :orderId")
+    void updateStatusByOrderIdAndStatusNot(Long orderId, Integer orderStatus, Integer status);
 }

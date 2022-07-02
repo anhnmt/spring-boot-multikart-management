@@ -2,7 +2,6 @@ package com.example.multikart.repo;
 
 import com.example.multikart.domain.dto.OrderDetailDTO;
 import com.example.multikart.domain.model.OrderDetail;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

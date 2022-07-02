@@ -1,19 +1,15 @@
 package com.example.multikart.config;
 
-import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.domain.model.*;
 import com.example.multikart.repo.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Component

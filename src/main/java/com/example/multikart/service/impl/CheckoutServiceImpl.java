@@ -4,14 +4,13 @@ import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.Const.OrderStatus;
 import com.example.multikart.common.Utils;
 import com.example.multikart.domain.dto.CheckoutRequestDTO;
+import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.domain.model.Order;
 import com.example.multikart.domain.model.OrderDetail;
-import com.example.multikart.repo.OrderDetailRepository;
-import com.example.multikart.repo.OrderRepository;
-import com.example.multikart.repo.PaymentRepository;
-import com.example.multikart.repo.TransportRepository;
+import com.example.multikart.repo.*;
 import com.example.multikart.service.CheckoutService;
+import com.example.multikart.service.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +30,11 @@ public class CheckoutServiceImpl implements CheckoutService {
     private OrderRepository orderRepository;
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private RedisCache redisCache;
 
     @Override
     public String view(HttpSession session, Model model) {
@@ -94,12 +98,19 @@ public class CheckoutServiceImpl implements CheckoutService {
                     .status(OrderStatus.PENDING)
                     .build());
 
-            carts.forEach(cart -> orderDetailRepository.save(OrderDetail.builder()
-                    .orderId(newOrder.getOrderId())
-                    .productId(cart.getProductId())
-                    .amount(cart.getQuantity())
-                    .price(cart.getPrice())
-                    .build()));
+            carts.parallelStream().forEach(cart -> {
+                orderDetailRepository.save(OrderDetail.builder()
+                        .orderId(newOrder.getOrderId())
+                        .productId(cart.getProductId())
+                        .amount(cart.getQuantity())
+                        .price(cart.getPrice())
+                        .build());
+
+                productRepository.updateMinusByProductIdAndAmountAndStatus(cart.getProductId(), cart.getQuantity(), DefaultStatus.ACTIVE);
+            });
+
+            redisCache.delete(ScreenRedis.PRODUCT.name());
+            redisCache.delete(ScreenRedis.HOME.name());
         } catch (Exception e) {
             e.printStackTrace();
             redirect.addFlashAttribute("error", "Đặt hàng thất bại");

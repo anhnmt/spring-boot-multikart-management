@@ -15,6 +15,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     Customer findByCustomerIdAndStatusNot(Long customerId, Integer status);
 
     Customer findByEmailAndStatus(String email, Integer status);
+
     Customer findByEmailAndStatusNot(String email, Integer status);
 
     int countByEmailAndStatusNot(String email, Integer status);

@@ -247,8 +247,8 @@ public class ProductServiceImpl implements ProductService {
         log.info("multiDeleteProduct: {}", delete);
 
         try {
-            productRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
-            productImageRepository.deleteAllByProductIdInAndStatus(delete, DefaultStatus.DELETED);
+            productRepository.deleteAllByProductIdInAndStatusNot(delete, DefaultStatus.DELETED);
+            productImageRepository.deleteAllByProductIdInAndStatusNot(delete, DefaultStatus.DELETED);
             redisCache.delete(ScreenRedis.PRODUCT.name());
             redisCache.delete(ScreenRedis.HOME.name());
 

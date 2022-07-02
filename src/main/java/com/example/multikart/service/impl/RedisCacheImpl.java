@@ -1,6 +1,5 @@
 package com.example.multikart.service.impl;
 
-import com.example.multikart.domain.dto.ScreenRedis;
 import com.example.multikart.service.RedisCache;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
