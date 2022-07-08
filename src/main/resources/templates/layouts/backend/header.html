@@ -28,18 +28,8 @@
         </div>
         <div class="nav-right col">
             <ul class="nav-menus">
-                <li>
-                    <form class="form-inline search-form">
-                        <div class="form-group">
-                            <input class="form-control-plaintext" type="search" placeholder="Search.."/>
-                            <span class="d-sm-none mobile-search">
-                                        <i data-feather="search"></i>
-                                    </span>
-                        </div>
-                    </form>
-                </li>
                 <li class="onhover-dropdown">
-                    <div class="media align-items-center">
+                    <div class="media align-items-center pull-right">
                         <img class="align-self-center pull-right img-50 blur-up lazyloaded"
                              th:src="@{/{url}(url=${session.user.avatar})}" alt="header-user"/>
                         <div class="dotted-animation">
