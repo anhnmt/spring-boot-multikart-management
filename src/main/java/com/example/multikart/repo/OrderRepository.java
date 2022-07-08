@@ -2,6 +2,9 @@ package com.example.multikart.repo;
 
 import com.example.multikart.domain.dto.OrderDTO;
 import com.example.multikart.domain.model.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -21,6 +24,14 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
             " AND p.status = :status\n" +
             " AND t.status = :status")
     List<OrderDTO> findAllByStatusNot(Integer orderStatus, Integer status);
+
+    @Query("SELECT new com.example.multikart.domain.dto.OrderDTO(o, c, p)\n" +
+            "FROM Order o\n" +
+            "LEFT JOIN Customer c on o.customerId = c.customerId\n" +
+            "LEFT JOIN Payment p on o.paymentId = p.paymentId\n" +
+            "WHERE o.status <> :orderStatus\n" +
+            " AND p.status = :status")
+    Page<OrderDTO> findAllByStatusNotAndPaginate(Integer orderStatus, Integer status, Pageable pageable);
 
     @Query("SELECT new com.example.multikart.domain.dto.OrderDTO(o, c, p, t)\n" +
             "FROM Order o\n" +
