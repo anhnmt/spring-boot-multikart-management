@@ -5,8 +5,6 @@ import com.example.multikart.domain.model.Role;
 import com.example.multikart.domain.model.User;
 import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Getter

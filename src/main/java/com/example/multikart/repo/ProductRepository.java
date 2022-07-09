@@ -58,6 +58,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     Page<ItemProductDTO> findPageAllByNameAndStatus(String name, Integer status, Pageable pageable);
 
     Product findByProductIdAndStatus(Long productId, Integer status);
+
     Product findByProductIdAndStatusNot(Long productId, Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, u, pi)\n" +
@@ -69,12 +70,17 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     ItemProductDTO findWithImageByProductIdAndStatus(Long productId, Integer status);
 
     int countByNameAndStatus(String name, Integer status);
+
     int countByNameAndStatusNot(String name, Integer status);
 
     int countByStatusIn(List<Integer> status);
 
     int countBySlugAndStatus(String slug, Integer status);
+
     int countBySlugAndStatusNot(String slug, Integer status);
+
+    @Query("SELECT COUNT(p) FROM Product p WHERE (lower(p.name) = lower(:name) or lower(p.slug) = lower(:slug)) and p.status <> :status")
+    int countByNameOrSlugAndStatusNot(String name, String slug, Integer status);
 
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u ,s, pi)\n" +
             "FROM Product p\n" +
@@ -100,5 +106,19 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             "SET p.status = :status\n" +
             "WHERE p.status <> :status\n" +
             "  and p.productId in :productIds")
-    void deleteAllByProductIdInAndStatus(List<Long> productIds, Integer status);
+    void deleteAllByProductIdInAndStatusNot(List<Long> productIds, Integer status);
+
+    @Modifying
+    @Query("UPDATE Product p\n" +
+            "SET p.amount = p.amount - :amount\n" +
+            "WHERE p.status = :status\n" +
+            "  and p.productId = :productId")
+    void updateMinusByProductIdAndAmountAndStatus(Long productId, Integer amount, Integer status);
+
+    @Modifying
+    @Query("UPDATE Product p\n" +
+            "SET p.amount = p.amount + :amount\n" +
+            "WHERE p.status = :status\n" +
+            "  and p.productId = :productId")
+    void updatePlusByProductIdAndAmountAndStatus(Long productId, Integer amount, Integer status);
 }

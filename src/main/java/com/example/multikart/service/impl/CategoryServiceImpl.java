@@ -29,6 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     private ProductRepository productRepository;
     @Autowired
     private RedisCache redisCache;
+
     @Override
     public String findAllCategories(Model model) {
         var categories = categoryRepository.findAllByStatusNot(DefaultStatus.DELETED);

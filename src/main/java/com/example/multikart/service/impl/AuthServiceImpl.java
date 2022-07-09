@@ -42,8 +42,8 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private OrderRepository orderRepository;
 
-    private String customerDirectory = "uploads/images/customers";
-    private String userDirectory = "uploads/images/users";
+    private final String customerDirectory = "uploads/images/customers";
+    private final String userDirectory = "uploads/images/users";
 
     @Override
     public String backendLogin(Model model) {

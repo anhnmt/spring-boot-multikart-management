@@ -16,6 +16,7 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
     ProductImage findByProductImageIdAndStatus(Long productImageId, Integer status);
 
     List<ProductImage> findAllByProductIdAndStatusOrderByPositionAsc(Long productId, Integer status);
+
     List<ProductImage> findAllByProductIdAndStatusNotOrderByPositionAsc(Long productId, Integer status);
 
     List<ProductImage> findAllByStatus(Integer status);
@@ -27,11 +28,13 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
 
     @Query("Select min(position) from ProductImage where productId = :productId and status = :status")
     Integer findMinPositionByProductIdAndStatus(@Param("productId") Long productId, @Param("status") Integer status);
+
     @Query("Select min(position) from ProductImage where productId = :productId and status <> :status")
     Integer findMinPositionByProductIdAndStatusNot(@Param("productId") Long productId, @Param("status") Integer status);
 
     @Query("Select max(position) from ProductImage where productId = :productId and status = :status")
     Integer findMaxPositionByProductIdAndStatus(@Param("productId") Long productId, @Param("status") Integer status);
+
     @Query("Select max(position) from ProductImage where productId = :productId and status <> :status")
     Integer findMaxPositionByProductIdAndStatusNot(@Param("productId") Long productId, @Param("status") Integer status);
 
@@ -67,5 +70,5 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
             "SET pi.status = :status\n" +
             "WHERE pi.status <> :status\n" +
             "  and pi.productId in :productIds")
-    void deleteAllByProductIdInAndStatus(List<Long> productIds, Integer status);
+    void deleteAllByProductIdInAndStatusNot(List<Long> productIds, Integer status);
 }

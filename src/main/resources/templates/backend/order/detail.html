@@ -148,16 +148,22 @@
                                                     <h4>Cập nhật trạng thái</h4>
 
                                                     <form th:object="${order}"
-                                                          th:action="@{/dashboard/orders/update}" action="#"
+                                                          th:action="@{/dashboard/orders/{id}(id=${order.orderId})}"
                                                           class="needs-validation customer-add"
                                                           method="post">
                                                         <div class="form-group row">
-                                                            <select name="status" th:field="*{status}"
+                                                            <select th:disabled="${order.status == 3}" class="form-select form-select-sm" name="status" th:field="*{status}"
                                                                     required>
                                                                 <option value="">--Trạng thái--</option>
-                                                                <option value="">Kích hoạt</option>
+                                                                <option value="1">PENDING</option>
+                                                                <option value="2">SHIPPING</option>
+                                                                <option value="3">CANCELED</option>
+                                                                <option value="4">SHIPPED</option>
                                                             </select>
                                                         </div>
+
+                                                        <button th:disabled="${order.status == 3}" type="submit" class="btn btn-sm btn-primary">Lưu
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </div>

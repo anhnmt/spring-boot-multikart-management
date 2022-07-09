@@ -19,11 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -37,7 +35,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Autowired
     private RedisCache redisCache;
 
-    private String productDirectory = "uploads/images/products";
+    private final String productDirectory = "uploads/images/products";
 
     @Override
     public String findAllProductImages(Long id, Model model, RedirectAttributes redirect) {

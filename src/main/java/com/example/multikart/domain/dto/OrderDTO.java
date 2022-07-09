@@ -9,7 +9,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -85,6 +84,37 @@ public class OrderDTO implements Serializable {
         if (!DataUtils.isNullOrEmpty(transport)) {
             this.transportId = transport.getTransportId();
             this.transportName = transport.getName();
+        }
+
+        this.address = order.getAddress();
+
+        this.provinceId = order.getProvinceId();
+
+        this.districtId = order.getDistrictId();
+
+        this.wardId = order.getWardId();
+
+        this.totalPrice = order.getTotalPrice();
+
+        this.status = order.getStatus();
+
+        this.createdAt = order.getCreatedAt();
+
+        if (!DataUtils.isNullOrEmpty(customer)) {
+            this.customerId = customer.getCustomerId();
+            this.customerName = customer.getName();
+            this.phone = customer.getPhone();
+            this.email = customer.getEmail();
+        }
+    }
+
+    public OrderDTO(Order order, Customer customer, Payment payment) {
+        this.orderId = order.getOrderId();
+        this.name = order.getName();
+
+        if (!DataUtils.isNullOrEmpty(payment)) {
+            this.paymentId = payment.getPaymentId();
+            this.paymentName = payment.getName();
         }
 
         this.address = order.getAddress();

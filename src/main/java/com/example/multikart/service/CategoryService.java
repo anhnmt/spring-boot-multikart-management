@@ -3,7 +3,6 @@ package com.example.multikart.service;
 import com.example.multikart.domain.dto.CategoryRequestDTO;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
