@@ -5,6 +5,8 @@ import com.example.multikart.repo.*;
 import com.example.multikart.service.DashboardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -15,15 +17,13 @@ import java.util.Arrays;
 public class DashboardServiceImpl implements DashboardService {
 
     @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
     private ProductRepository productRepository;
     @Autowired
     private OrderRepository oderRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UnitRepository unitRepository;
+    private OrderRepository orderRepository;
 
     @Override
     public String dashboard(Model model) {
@@ -35,6 +35,11 @@ public class DashboardServiceImpl implements DashboardService {
         model.addAttribute("totalRevenue", totalRevenue);
         var totalUser = userRepository.count();
         model.addAttribute("totalUser", totalUser);
+
+        var sort = Sort.by("updatedAt").descending();
+        var pageRequest = PageRequest.of(0, 6, sort);
+        var orders = orderRepository.findAllByStatusNotAndPaginate(Const.OrderStatus.DELETED, Const.DefaultStatus.ACTIVE, pageRequest);
+        model.addAttribute("lastOrders", orders);
 
         return "backend/index";
     }

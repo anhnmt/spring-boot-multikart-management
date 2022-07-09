@@ -79,6 +79,9 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     int countBySlugAndStatusNot(String slug, Integer status);
 
+    @Query("SELECT COUNT(p) FROM Product p WHERE (lower(p.name) = lower(:name) or lower(p.slug) = lower(:slug)) and p.status <> :status")
+    int countByNameOrSlugAndStatusNot(String name, String slug, Integer status);
+
     @Query("SELECT new com.example.multikart.domain.dto.ItemProductDTO(p, c, u ,s, pi)\n" +
             "FROM Product p\n" +
             "LEFT JOIN Category c on p.categoryId = c.categoryId\n" +

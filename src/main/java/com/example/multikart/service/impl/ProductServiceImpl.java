@@ -2,24 +2,35 @@ package com.example.multikart.service.impl;
 
 import com.example.multikart.common.Const.DefaultStatus;
 import com.example.multikart.common.DataUtils;
-import com.example.multikart.domain.dto.AddToCartRequestDTO;
-import com.example.multikart.domain.dto.ItemProductDTO;
-import com.example.multikart.domain.dto.ProductRequestDTO;
-import com.example.multikart.domain.dto.ScreenRedis;
+import com.example.multikart.common.Utils;
+import com.example.multikart.domain.dto.*;
+import com.example.multikart.domain.model.Category;
 import com.example.multikart.domain.model.Product;
+import com.example.multikart.domain.model.Supplier;
+import com.example.multikart.domain.model.Unit;
 import com.example.multikart.repo.*;
 import com.example.multikart.service.ProductService;
 import com.example.multikart.service.RedisCache;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -258,5 +269,216 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return "redirect:/dashboard/products";
+    }
+
+    @Override
+    @Transactional
+    public String upload(MultipartFile file, Model model, RedirectAttributes redirect) {
+
+        if (DataUtils.isNullOrEmpty(file)) {
+            redirect.addFlashAttribute("error", "Vui lòng chọn file");
+
+            return "redirect:/dashboard/products/create";
+        }
+
+        try {
+            var listProducts = readSheetToProducts(file.getInputStream());
+
+            log.info("listProducts: {}", listProducts);
+
+            var categories = categoryRepository.findAllByStatusNot(DefaultStatus.DELETED);
+            var units = unitRepository.findAllByStatusNot(DefaultStatus.DELETED);
+            var suppliers = supplierRepository.findAllByStatusNot(DefaultStatus.DELETED);
+
+            List<Product> products = new ArrayList<>();
+            listProducts.parallelStream().forEach(x -> {
+
+                // check empty name
+                if (DataUtils.isNullOrEmpty(x.getName())
+                        || DataUtils.isNullOrEmpty(x.getCategoryName())
+                        || DataUtils.isNullOrEmpty(x.getUnitName())
+                        || DataUtils.isNullOrEmpty(x.getSupplierName())
+                ) {
+                    return;
+                }
+
+                var product = new Product();
+                product.setName(x.getName());
+
+                // check slug not empty
+                var slug = "";
+                if (DataUtils.isNullOrEmpty(x.getSlug())) {
+                    slug = Utils.toSlug(x.getName());
+                } else {
+                    slug = x.getSlug();
+                }
+                product.setSlug(slug);
+
+                // check if exist
+                var count = productRepository.countByNameOrSlugAndStatusNot(x.getName(), slug, DefaultStatus.DELETED);
+                if (count > 0) {
+                    return;
+                }
+
+                product.setAmount(x.getAmount());
+                product.setExportPrice(x.getExportPrice());
+                product.setImportPrice(x.getImportPrice());
+                product.setStatus(x.getStatus());
+
+                // find or create category
+                var category = findOrCreateCategory(categories, x.getCategoryName());
+                product.setCategoryId(category.getCategoryId());
+
+                // find or create unit
+                var unit = findOrCreateUnit(units, x.getUnitName());
+                product.setUnitId(unit.getUnitId());
+
+                // find or create supplier
+                var supplier = findOrCreateSupplier(suppliers, x.getSupplierName());
+                product.setSupplierId(supplier.getSupplierId());
+
+                products.add(product);
+            });
+
+            productRepository.saveAll(products);
+
+            //delete cache redis
+            redisCache.delete(ScreenRedis.HOME.name());
+            redisCache.delete(ScreenRedis.PRODUCT.name());
+
+            redirect.addFlashAttribute("success", "Thêm thành công");
+            return "redirect:/dashboard/products";
+        } catch (Exception e) {
+            redirect.addFlashAttribute("error", "Có lỗi xảy ra!");
+
+            return "redirect:/dashboard/products/create";
+        }
+    }
+
+    private List<ProductExcelDTO> readSheetToProducts(InputStream inputStream) throws IOException {
+        List<ProductExcelDTO> products = new ArrayList<>();
+
+        Workbook workbook = new XSSFWorkbook(inputStream);
+
+        Sheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rows = sheet.iterator();
+
+        int rowNumber = 0;
+        while (rows.hasNext()) {
+            Row currentRow = rows.next();
+
+            // skip header
+            if (rowNumber == 0) {
+                rowNumber++;
+                continue;
+            }
+
+            Iterator<Cell> cellsInRow = currentRow.iterator();
+
+            ProductExcelDTO product = new ProductExcelDTO();
+
+            int cellIdx = 0;
+            while (cellsInRow.hasNext()) {
+                Cell currentCell = cellsInRow.next();
+
+                switch (cellIdx) {
+
+                    case 0:
+                        product.setName(currentCell.getStringCellValue());
+                        break;
+                    case 1:
+                        product.setSlug(currentCell.getStringCellValue());
+                        break;
+                    case 2:
+                        product.setAmount((int) currentCell.getNumericCellValue());
+                        break;
+                    case 3:
+                        product.setCategoryName(currentCell.getStringCellValue());
+                        break;
+                    case 4:
+                        product.setExportPrice((float) currentCell.getNumericCellValue());
+                        break;
+                    case 5:
+                        product.setImportPrice((float) currentCell.getNumericCellValue());
+                        break;
+                    case 6:
+                        var status = currentCell.getStringCellValue();
+                        if (status.equalsIgnoreCase("Active")) {
+                            product.setStatus(DefaultStatus.ACTIVE);
+                        } else {
+                            product.setStatus(DefaultStatus.DISABLED);
+                        }
+                        break;
+                    case 7:
+                        product.setSupplierName(currentCell.getStringCellValue());
+                        break;
+                    case 8:
+                        product.setUnitName(currentCell.getStringCellValue());
+                        break;
+                    case 9:
+                        product.setDescription(currentCell.getRichStringCellValue().getString());
+                        break;
+                    default:
+                        break;
+                }
+
+                cellIdx++;
+            }
+
+            products.add(product);
+        }
+
+        workbook.close();
+
+        return products;
+    }
+
+    private Category findOrCreateCategory(List<Category> categories, String categoryName) {
+        var category = categories.parallelStream()
+                .filter(s -> s.getName().equalsIgnoreCase(categoryName))
+                .findFirst()
+                .orElse(null);
+
+        if (DataUtils.isNullOrEmpty(category)) {
+            category = categoryRepository.save(Category.builder()
+                    .name(categoryName)
+                    .slug(Utils.toSlug(categoryName))
+                    .status(DefaultStatus.ACTIVE)
+                    .build());
+        }
+
+        return category;
+    }
+
+    private Unit findOrCreateUnit(List<Unit> units, String unitName) {
+        var unit = units.parallelStream()
+                .filter(s -> s.getName().equalsIgnoreCase(unitName))
+                .findFirst()
+                .orElse(null);
+
+        if (DataUtils.isNullOrEmpty(unit)) {
+            unit = unitRepository.save(Unit.builder()
+                    .name(unitName)
+                    .status(DefaultStatus.ACTIVE)
+                    .build());
+        }
+
+        return unit;
+    }
+
+    private Supplier findOrCreateSupplier(List<Supplier> suppliers, String supplierName) {
+        var supplier = suppliers.parallelStream()
+                .filter(s -> s.getName().equalsIgnoreCase(supplierName))
+                .findFirst()
+                .orElse(null);
+
+        if (DataUtils.isNullOrEmpty(supplier)) {
+            supplier = supplierRepository.save(Supplier.builder()
+                    .name(supplierName)
+                    .status(DefaultStatus.ACTIVE)
+                    .build());
+        }
+
+        return supplier;
     }
 }
