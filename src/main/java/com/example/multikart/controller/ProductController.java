@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -52,6 +53,11 @@ public class ProductController {
     @PostMapping("/dashboard/products/multiDelete")
     public String multiDelete(@Valid @RequestParam("delete") List<Long> delete, Model model, RedirectAttributes redirect) {
         return productService.multiDeleteProduct(delete, model, redirect);
+    }
+
+    @PostMapping("/dashboard/products/upload")
+    public String upload(@RequestParam("file") MultipartFile file, Model model, RedirectAttributes redirect) {
+        return productService.upload(file, model, redirect);
     }
 
     /**

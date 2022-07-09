@@ -45,6 +45,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
+
+                <div class="card ">
+                    <div class="card-body">
+                        <form method="post" id="singleFileUpload" th:object="${product}"
+                              th:action="@{/dashboard/products/upload}"
+                              enctype="multipart/form-data">
+                            <input type="file" name="file" accept=".xlsx, .xls, .csv"/>
+                            <button th:type="submit" class="btn btn-xs btn-primary">thêm nhiều sản phẩm</button>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="card tab2-card">
                     <div class="card-body">
                         <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
