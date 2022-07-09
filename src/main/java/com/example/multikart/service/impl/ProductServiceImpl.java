@@ -292,6 +292,8 @@ public class ProductServiceImpl implements ProductService {
 
             List<Product> products = new ArrayList<>();
             listProducts.parallelStream().forEach(x -> {
+
+                // check empty name
                 if (DataUtils.isNullOrEmpty(x.getName())
                         || DataUtils.isNullOrEmpty(x.getCategoryName())
                         || DataUtils.isNullOrEmpty(x.getUnitName())
@@ -303,10 +305,19 @@ public class ProductServiceImpl implements ProductService {
                 var product = new Product();
                 product.setName(x.getName());
 
+                // check slug not empty
+                var slug = "";
                 if (DataUtils.isNullOrEmpty(x.getSlug())) {
-                    product.setSlug(Utils.toSlug(x.getName()));
+                    slug = Utils.toSlug(x.getName());
                 } else {
-                    product.setSlug(x.getSlug());
+                    slug = x.getSlug();
+                }
+                product.setSlug(slug);
+
+                // check if exist
+                var count = productRepository.countByNameOrSlugAndStatusNot(x.getName(), slug, DefaultStatus.DELETED);
+                if (count > 0) {
+                    return;
                 }
 
                 product.setAmount(x.getAmount());
@@ -314,12 +325,15 @@ public class ProductServiceImpl implements ProductService {
                 product.setImportPrice(x.getImportPrice());
                 product.setStatus(x.getStatus());
 
+                // find or create category
                 var category = findOrCreateCategory(categories, x.getCategoryName());
                 product.setCategoryId(category.getCategoryId());
 
+                // find or create unit
                 var unit = findOrCreateUnit(units, x.getUnitName());
                 product.setUnitId(unit.getUnitId());
 
+                // find or create supplier
                 var supplier = findOrCreateSupplier(suppliers, x.getSupplierName());
                 product.setSupplierId(supplier.getSupplierId());
 
@@ -327,17 +341,18 @@ public class ProductServiceImpl implements ProductService {
             });
 
             productRepository.saveAll(products);
+
+            //delete cache redis
+            redisCache.delete(ScreenRedis.HOME.name());
+            redisCache.delete(ScreenRedis.PRODUCT.name());
+
+            redirect.addFlashAttribute("success", "Thêm thành công");
+            return "redirect:/dashboard/products";
         } catch (Exception e) {
             redirect.addFlashAttribute("error", "Có lỗi xảy ra!");
 
             return "redirect:/dashboard/products/create";
         }
-
-        //delete cache redis
-        redisCache.delete(ScreenRedis.HOME.name());
-        redisCache.delete(ScreenRedis.PRODUCT.name());
-        redirect.addFlashAttribute("success", "Thêm thành công");
-        return "redirect:/dashboard/products";
     }
 
     private List<ProductExcelDTO> readSheetToProducts(InputStream inputStream) throws IOException {
@@ -419,7 +434,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Category findOrCreateCategory(List<Category> categories, String categoryName) {
-        var category = categories.stream()
+        var category = categories.parallelStream()
                 .filter(s -> s.getName().equalsIgnoreCase(categoryName))
                 .findFirst()
                 .orElse(null);
@@ -436,7 +451,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Unit findOrCreateUnit(List<Unit> units, String unitName) {
-        var unit = units.stream()
+        var unit = units.parallelStream()
                 .filter(s -> s.getName().equalsIgnoreCase(unitName))
                 .findFirst()
                 .orElse(null);
@@ -452,7 +467,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Supplier findOrCreateSupplier(List<Supplier> suppliers, String supplierName) {
-        var supplier = suppliers.stream()
+        var supplier = suppliers.parallelStream()
                 .filter(s -> s.getName().equalsIgnoreCase(supplierName))
                 .findFirst()
                 .orElse(null);
