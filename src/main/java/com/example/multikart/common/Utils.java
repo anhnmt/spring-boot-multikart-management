@@ -55,6 +55,11 @@ public class Utils {
         return carts.stream().map(cart -> cart.getPrice() * cart.getQuantity()).reduce(total, Float::sum);
     }
 
+    public static float getItemTotalPriceCart(List<CartDTO> carts, Long id) {
+        var total = 0.0f;
+        return carts.stream().filter(x -> x.getProductId().equals(id)).map(cart -> cart.getPrice() * cart.getQuantity()).reduce(total, Float::sum);
+    }
+
     public static Customer getCustomerSession(HttpSession session) {
         var customer = (Customer) session.getAttribute("customer");
         if (DataUtils.isNullOrEmpty(customer)) {

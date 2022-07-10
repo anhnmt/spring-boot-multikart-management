@@ -188,9 +188,25 @@
     let error = [[${error}]];
 
     if (error && error !== "") {
-        toastr.error('Lỗi rồi!', error, {timeOut: 5000});
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Lỗi rồi!",
+            text: error,
+        });
     } else if (success && success !== "") {
-        toastr.success('Thành công!', success, {timeOut: 5000});
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "success",
+            title: "Thành công!",
+            text: success,
+        });
     }
 
 </script>
