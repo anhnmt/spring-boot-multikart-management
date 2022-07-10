@@ -12,8 +12,8 @@
     <meta content="multikart" name="description"/>
     <meta content="multikart" name="keywords"/>
     <meta content="multikart" name="author"/>
-    <link rel="icon" th:href="@{/assets/images/favicon/26.png}" type="image/x-icon"/>
-    <link rel="shortcut icon" th:href="@{/assets/images/favicon/26.png}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{/assets/images/favicon/1.png}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon/1.png}" type="image/x-icon"/>
     <title>Siêu thị MultiKart - Tươi ngon thượng hạng!</title>
 
     <!--Google font-->
@@ -105,6 +105,9 @@
 <!-- latest jquery-->
 <script th:src="@{/assets/js/jquery-3.3.1.min.js}"></script>
 
+<!-- latest jquery validation-->
+<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+
 <!-- portfolio js -->
 <script th:src="@{/assets/js/isotope.min.js}"></script>
 <script th:src="@{/assets/js/main.js}"></script>
@@ -185,9 +188,25 @@
     let error = [[${error}]];
 
     if (error && error !== "") {
-        toastr.error('Lỗi rồi!', error, {timeOut: 5000});
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Lỗi rồi!",
+            text: error,
+        });
     } else if (success && success !== "") {
-        toastr.success('Thành công!', success, {timeOut: 5000});
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "success",
+            title: "Thành công!",
+            text: success,
+        });
     }
 
 </script>

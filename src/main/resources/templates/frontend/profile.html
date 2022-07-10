@@ -71,7 +71,7 @@
                                         </div>
                                         <div class="checkout-form">
                                             <form method="post" th:object="${customer}" th:action="@{/profile}"
-                                                  class="needs-validation">
+                                                  class="needs-validation" id="form-profile">
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-row row check-out">
@@ -79,20 +79,20 @@
                                                                 <div class="field-label">Họ tên <span>*</span></div>
                                                                 <input type="text" name="name" th:field="*{name}"
                                                                        th:value="${customer.name}"
-                                                                       placeholder="Họ và tên" required>
+                                                                       placeholder="Họ và tên">
                                                             </div>
                                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="field-label">Số điện thoại <span>*</span>
                                                                 </div>
                                                                 <input type="text" name="phone" th:field="*{phone}"
                                                                        th:value="${customer.phone}"
-                                                                       placeholder="Số điện thoại" required>
+                                                                       placeholder="Số điện thoại">
                                                             </div>
                                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="field-label">Email <span>*</span></div>
                                                                 <input type="text" name="email" th:field="*{email}"
                                                                        th:value="${customer.email}"
-                                                                       placeholder="Địa chỉ email" required>
+                                                                       placeholder="Địa chỉ email">
                                                             </div>
                                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="field-label">Mật khẩu</div>
@@ -133,7 +133,7 @@
                                                                 </div>
                                                                 <input type="text" name="address" th:field="*{address}"
                                                                        value="" placeholder="Số nhà, tên đường"
-                                                                       required>
+                                                                       >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -233,6 +233,55 @@
         }
 
         /*]]>*/
+
+        $.validator.addMethod('regex', function (value, element, parameter) {
+            var re = new RegExp(parameter);
+            return this.optional(element) || re.test(value);
+        }, '');
+
+        $("#form-profile").validate({
+            onkeyup: function(element) {$(element).valid()},
+            errorClass: 'error text-danger',
+            element: 'span',
+            rules: {
+                name: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    regex: "(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b"
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password:{
+                    minlength: 6,
+                },
+                address: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Vui lòng không để trống",
+                },
+                phone: {
+                    required: "Vui lòng không để trống",
+                    regex: "SDT không đúng định dạng"
+                },
+                email: {
+                    required: "Vui lòng không để trống",
+                    email: "Email không đúng định dạng"
+                },
+                password:{
+                    minlength: "Độ dài tối thiểu là 6"
+                },
+                address: {
+                    required: "Vui lòng không để trống",
+                }
+            }
+        });
     </script>
 </div>
 

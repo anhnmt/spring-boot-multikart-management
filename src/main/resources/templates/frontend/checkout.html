@@ -32,7 +32,8 @@
         <div class="container">
             <div class="checkout-page">
                 <div class="checkout-form">
-                    <form method="post" th:object="${checkout}" th:action="@{/checkout}" class="needs-validation">
+                    <form method="post" th:object="${checkout}" th:action="@{/checkout}" class="needs-validation"
+                          id="form-checkout">
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
@@ -41,15 +42,18 @@
                                 <div class="row check-out">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Họ tên <span>*</span></div>
-                                        <input type="text" name="name" th:field="*{name}" th:value="${checkout.name}" placeholder="Họ và tên" required>
+                                        <input type="text" name="name" th:field="*{name}" th:value="${checkout.name}"
+                                               placeholder="Họ và tên">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Số điện thoại <span>*</span></div>
-                                        <input type="text" name="phone" th:field="*{phone}" th:value="${checkout.phone}" placeholder="Số điện thoại" required>
+                                        <input type="text" name="phone" th:field="*{phone}" th:value="${checkout.phone}"
+                                               placeholder="Số điện thoại">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">Email <span>*</span></div>
-                                        <input type="text" name="email" th:field="*{email}" th:value="${checkout.email}" placeholder="Địa chỉ email" required>
+                                        <input type="text" name="email" th:field="*{email}" th:value="${checkout.email}"
+                                               placeholder="Địa chỉ email">
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Tỉnh/Thành phố <span>*</span></div>
@@ -71,11 +75,13 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Địa chỉ <span>*</span></div>
-                                        <input type="text" name="address" th:field="*{address}" value="" placeholder="Số nhà, tên đường" required>
+                                        <input type="text" name="address" th:field="*{address}" value=""
+                                               placeholder="Số nhà, tên đường">
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">Ghi chú</div>
-                                        <input type="text" name="description" th:field="*{description}" value="" placeholder="Nhập yêu cầu khác của bạn nếu có">
+                                        <input type="text" name="description" th:field="*{description}" value=""
+                                               placeholder="Nhập yêu cầu khác của bạn nếu có">
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +93,8 @@
                                         </div>
                                         <ul class="qty">
                                             <li th:each="cart : ${carts}">
-                                                <em style="font-style:normal;" th:text="${cart.name}"/> × <em style="font-style:normal;" th:text="${cart.quantity}"/>
+                                                <em style="font-style:normal;" th:text="${cart.name}"/> × <em
+                                                    style="font-style:normal;" th:text="${cart.quantity}"/>
                                                 <span th:text="${#numbers.formatDecimal(cart.price * cart.quantity, 0, 'COMMA', 0, 'POINT') + ' ₫'}"/>
                                             </li>
                                         </ul>
@@ -95,14 +102,20 @@
                                             <li>Vận chuyển
                                                 <div class="shipping">
                                                     <div class="shopping-option" th:each="transport : ${transports}">
-                                                        <input name="transportId" th:id="'transport-' + ${transport.transportId}" type="radio" th:value="${transport.transportId}" th:checked="${transportStat.index == 0}">
-                                                        <label th:for="'transport-' + ${transport.transportId}" th:text="${transport.name}"></label>
+                                                        <input name="transportId"
+                                                               th:id="'transport-' + ${transport.transportId}"
+                                                               type="radio" th:value="${transport.transportId}"
+                                                               th:checked="${transportStat.index == 0}">
+                                                        <label th:for="'transport-' + ${transport.transportId}"
+                                                               th:text="${transport.name}"></label>
                                                     </div>
                                                 </div>
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Thành tiền <span class="count" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span></li>
+                                            <li>Thành tiền <span class="count"
+                                                                 th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
@@ -111,8 +124,12 @@
                                                 <ul>
                                                     <li th:each="payment : ${payments}">
                                                         <div class="radio-option">
-                                                            <input name="paymentId" th:id="'payment-' + ${payment.paymentId}" type="radio" th:value="${payment.paymentId}" th:checked="${paymentStat.index == 0}">
-                                                            <label th:for="'payment-' + ${payment.paymentId}" th:text="${payment.name}"></label>
+                                                            <input name="paymentId"
+                                                                   th:id="'payment-' + ${payment.paymentId}"
+                                                                   type="radio" th:value="${payment.paymentId}"
+                                                                   th:checked="${paymentStat.index == 0}">
+                                                            <label th:for="'payment-' + ${payment.paymentId}"
+                                                                   th:text="${payment.name}"></label>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -146,7 +163,7 @@
         let wardId = [[${checkout.wardId}]];
 
         // preload
-        $(function() {
+        $(function () {
             $('#districts').find('option:not(:first)').remove();
             $('#wards').find('option:not(:first)').remove();
             loadProvince();
@@ -154,7 +171,7 @@
             loadWard(districtId);
         });
 
-        $("#provinces").on('change', function(e) {
+        $("#provinces").on('change', function (e) {
             e.preventDefault();
             let code = $(this).find(':selected').data("code");
             $('#districts').find('option:not(:first)').remove();
@@ -162,7 +179,7 @@
             loadDistrict(code);
         });
 
-        $("#districts").on('change', function(e) {
+        $("#districts").on('change', function (e) {
             e.preventDefault();
             let code = $(this).find(':selected').data("code");
             $('#wards').find('option:not(:first)').remove();
@@ -173,10 +190,10 @@
             $.ajax({
                 url: "[(@{/dvhc/provinces})]",
                 method: 'GET',
-                success: function(data) {
-                    $.each(data, function(key, value) {
+                success: function (data) {
+                    $.each(data, function (key, value) {
                         $("#provinces").append(
-                            "<option "+ (provinceId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                            "<option " + (provinceId === value.code ? "selected" : "") + " data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
                         );
                     });
                 }
@@ -187,10 +204,10 @@
             $.ajax({
                 url: "[(@{/dvhc/provinces/})]" + code,
                 method: 'GET',
-                success: function(data) {
-                    $.each(data, function(key, value) {
+                success: function (data) {
+                    $.each(data, function (key, value) {
                         $("#districts").append(
-                            "<option "+ (districtId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                            "<option " + (districtId === value.code ? "selected" : "") + " data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
                         );
                     });
                 }
@@ -201,16 +218,60 @@
             $.ajax({
                 url: "[(@{/dvhc/districts/})]" + code,
                 method: 'GET',
-                success: function(data) {
-                    $.each(data, function(key, value) {
+                success: function (data) {
+                    $.each(data, function (key, value) {
                         $("#wards").append(
-                            "<option "+ (wardId === value.code ? "selected" : "") +" data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
+                            "<option " + (wardId === value.code ? "selected" : "") + " data-code=\"" + value.code + "\" value=\"" + value.code + "\">" + value.name + "</option>"
                         );
                     });
                 }
             });
         }
+
         /*]]>*/
+
+        $.validator.addMethod('regex', function (value, element, parameter) {
+            var re = new RegExp(parameter);
+            return this.optional(element) || re.test(value);
+        }, '');
+
+        $("#form-checkout").validate({
+            onkeyup: function(element) {$(element).valid()},
+            errorClass: 'error text-danger',
+            element: 'span',
+            rules: {
+                name: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    regex: "(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b"
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                address: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Vui lòng không để trống",
+                },
+                phone: {
+                    required: "Vui lòng không để trống",
+                    regex: "SDT không đúng định dạng"
+                },
+                email: {
+                    required: "Vui lòng không để trống",
+                    email: "Email không đúng định dạng"
+                },
+                address: {
+                    required: "Vui lòng không để trống",
+                }
+            }
+        });
     </script>
 </div>
 
