@@ -74,7 +74,7 @@
 
                                 <form th:object="${user}" th:action="@{/dashboard/profile}"
                                       class="needs-validation user-add"
-                                      method="post">
+                                      method="post" id="form-profile">
                                     <div class="form-group row">
                                         <label for="name" class="col-xl-3 col-md-4"><span>*</span>
                                             Tên</label>
@@ -114,6 +114,37 @@
     </div>
     <!-- Container-fluid Ends-->
 </div>
+<script layout:fragment="customScript" th:inline="javascript">
+    $("#form-profile").validate({
+        onkeyup: function(element) {$(element).valid()},
+        errorClass: 'error text-danger',
+        element: 'span',
+        rules: {
+            name: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            password:{
+                minlength: 6,
+            }
+        },
+        messages: {
+            name: {
+                required: "Vui lòng không để trống",
+            },
+            email: {
+                required: "Vui lòng không để trống",
+                email: "Email không đúng định dạng"
+            },
+            password:{
+                minlength: "Độ dài tối thiểu là 6"
+            }
+        }
+    });
+</script>
 
 </body>
 </html>
