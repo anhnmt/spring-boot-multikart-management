@@ -47,7 +47,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query("SELECT new com.example.multikart.domain.dto.OrderDTO(o, c, p, t)\n" +
             "FROM Order o\n" +
             "LEFT JOIN Customer c on o.customerId = c.customerId\n" +
-            "LEFT JOIN Payment p on o.paymentId = p.paymentId\n AND p.status = :status" +
+            "LEFT JOIN Payment p on o.paymentId = p.paymentId AND p.status = :status\n" +
             "LEFT JOIN Transport t on o.transportId = t.transportId AND t.status = :status\n" +
             "WHERE o.status <> :orderStatus\n" +
             " AND o.customerId = :customerId\n" +

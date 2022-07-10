@@ -1,12 +1,16 @@
 server:
   port: 8080
+  compression:
+    enabled: true
 
 spring:
   application:
     name: base-project
 
   main:
-    lazy-initialization: true
+    banner-mode: off
+    logStartupInfo: false
+#    lazy-initialization: true
 
   # DATASOURCE
   datasource:
@@ -26,6 +30,9 @@ spring:
         format_sql: true
         jdbc:
           batch_size: 100
+      cache:
+        use_second_level_cache: true
+        use_query_cache: true
 
   session:
     storeType: redis # Session store type.
@@ -36,7 +43,7 @@ spring:
 
   # THYMELEAF
   thymeleaf:
-    cache: false
+    cache: true
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
@@ -84,5 +91,5 @@ logging:
     org.hibernate.SQL: INFO
   pattern:
     console: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId},%X{X-Span-Export}] [${spring.application.name}] %-5level [%thread] %logger{50}.%M - %msg%n"
-  file:
-    name: logs/default.log
+#  file:
+#    name: logs/default.log
