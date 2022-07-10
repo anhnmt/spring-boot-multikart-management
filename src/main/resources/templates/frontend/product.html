@@ -278,7 +278,7 @@
                 }
             });
 
-            $(".qty").on("change", function (e) {
+            $(".qty").on("change", debounce(function (e) {
                 console.log("qty change");
 
                 var self = this;
@@ -294,7 +294,7 @@
 
                 $(self).closest(".qty-box").find(".plus").attr("disabled", false);
                 $(self).closest(".qty-box").find(".minus").attr("disabled", false);
-            });
+            }, 300));
         });
 
         /*]]>*/
