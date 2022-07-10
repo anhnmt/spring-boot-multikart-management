@@ -18,13 +18,16 @@ public class CartDTO implements Serializable {
     private String slug;
     private String image;
 
-    private Integer quantity;
+    private Integer amount; // product amount
+
+    private Integer quantity; // cart quantity
     private Float price;
 
     public CartDTO(Product product, Integer number) {
         productId = product.getProductId();
         name = product.getName();
         slug = product.getSlug();
+        amount = product.getAmount();
         quantity = number;
         price = product.getExportPrice();
     }
@@ -34,6 +37,7 @@ public class CartDTO implements Serializable {
         name = product.getName();
         slug = product.getSlug();
         image = product.getImage();
+        amount = product.getAmount();
         quantity = number;
         price = product.getExportPrice();
     }

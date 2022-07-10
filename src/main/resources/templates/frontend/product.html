@@ -91,6 +91,7 @@
                                     </div>
                                     <h6 class="product-title">số lượng <b th:text="'(' + ${product.amount} + ')'"></b></h6>
                                     <div class="qty-box">
+                                        <input type="hidden" class="product_amount" th:value="${product.amount}">
                                         <div class="input-group"><span class="input-group-prepend">
                                             <button type="button" class="btn quantity-left-minus minus" data-type="minus"
                                                     data-field="">
@@ -225,8 +226,6 @@
     <div th:replace="layouts/frontend/nosidebar-footer :: footer"></div>
 </div>
 
-
-
 <div layout:fragment="customScript">
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -252,10 +251,12 @@
         $(function() {
             $(".plus").on("click", function() {
                 var self = this;
-                var qty = $(".qty");
-                if (parseInt(qty.val()) < parseInt(maxQty)) {
+                var qty = $(self).closest(".qty-box").find(".qty");
+                var maxQty = $(self).closest(".qty-box").find(".product_amount").val();
+
+                if (parseInt(qty.val()) <= parseInt(maxQty)) {
                     qty.val(+parseInt(qty.val()) + 1);
-                    $(".minus").attr("disabled", false);
+                    $(self).closest(".qty-box").find(".minus").attr("disabled", false);
                     //Trigger change event
                     qty.trigger("change");
                 } else {
@@ -265,27 +266,34 @@
 
             $(".minus").on("click", function() {
                 var self = this;
-                var qty = $(".qty");
+                var qty = $(self).closest(".qty-box").find(".qty");
+
                 if (parseInt(qty.val()) < 2) {
                     $(self).attr("disabled", true);
                 } else {
                     qty.val(+parseInt(qty.val()) - 1);
-                    $(".plus").attr("disabled", false);
+                    $(self).closest(".qty-box").find(".plus").attr("disabled", false);
                     //Trigger change event
                     qty.trigger("change");
                 }
             });
 
-            $(".qty").on("change", function(e) {
+            $(".qty").on("change", function (e) {
+                console.log("qty change");
+
                 var self = this;
+                var maxQty = $(self).closest(".qty-box").find(".product_amount").val();
+
                 if (parseInt($(self).val()) <= 0 || isNaN($(self).val())) {
                     $(self).val(1);
                 }
-                if (parseInt($(self).val()) > maxQty) {
+
+                if (parseInt($(self).val()) >= maxQty) {
                     $(self).val(maxQty);
                 }
-                $(".plus").attr("disabled", false);
-                $(".minus").attr("disabled", false);
+
+                $(self).closest(".qty-box").find(".plus").attr("disabled", false);
+                $(self).closest(".qty-box").find(".minus").attr("disabled", false);
             });
         });
 
