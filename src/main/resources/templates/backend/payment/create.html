@@ -56,7 +56,7 @@
                         </ul>
                         <form th:object="${payment}" th:action="@{/dashboard/payments/create}" action="#"
                               class="needs-validation user-add"
-                              method="post">
+                              method="post" id="form-input">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active show" id="account" role="tabpanel"
                                      aria-labelledby="account-tab">
@@ -65,10 +65,10 @@
                                             Tên</label>
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
-                                                   required placeholder="Tên phương thức thanh toán..."
+                                                   placeholder="Tên phương thức thanh toán..."
                                                    th:field="*{name}">
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
-                                                 th:errors="*{name}"></div>
+                                            <span class="error text-danger" th:if="${#fields.hasErrors('name')}"
+                                                 th:errors="*{name}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -104,5 +104,29 @@
     <!-- Container-fluid Ends-->
 </div>
 
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        $("input").on("change keyup", function (){
+            $(this).parent().children("span.error").first().remove();
+        });
+
+        $("#form-input").validate({
+            onkeyup: function (element) {
+                $(element).valid()
+            },
+            errorClass: 'error text-danger',
+            rules: {
+                name: {
+                    required: true
+                }
+            },
+            messages:{
+                name:{
+                    required: "Không được để trống"
+                }
+            }
+        })
+    </script>
+</div>
 </body>
 </html>

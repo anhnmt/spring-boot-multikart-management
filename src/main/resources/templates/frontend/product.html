@@ -254,7 +254,7 @@
                 var qty = $(self).closest(".qty-box").find(".qty");
                 var maxQty = $(self).closest(".qty-box").find(".product_amount").val();
 
-                if (parseInt(qty.val()) <= parseInt(maxQty)) {
+                if (parseInt(qty.val()) < parseInt(maxQty)) {
                     qty.val(+parseInt(qty.val()) + 1);
                     $(self).closest(".qty-box").find(".minus").attr("disabled", false);
                     //Trigger change event

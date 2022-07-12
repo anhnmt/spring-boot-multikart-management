@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Builder
 public class TransportRequestDTO {
+    private Long transportId;
     @NotBlank
     private String name;
 

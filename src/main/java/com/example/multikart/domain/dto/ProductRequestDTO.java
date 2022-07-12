@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @Setter
 @Builder
 public class ProductRequestDTO {
+    private Long productId;
     @NotBlank
     private String name;
     @NotBlank

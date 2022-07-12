@@ -53,26 +53,31 @@
                 </ul>
             </li>
 
+            <!--            <li>-->
+            <!--                <a class="sidebar-header">-->
+            <!--                    <i data-feather="user-plus"></i>-->
+            <!--                    <span>Phân quyền</span>-->
+            <!--                    <i class="fa fa-angle-right pull-right"></i>-->
+            <!--                </a>-->
+            <!--                <ul class="sidebar-submenu">-->
+            <!--                    <li>-->
+            <!--                        <a th:href="@{/dashboard/roles}">-->
+            <!--                            <i class="fa fa-circle"></i>Danh sách-->
+            <!--                        </a>-->
+            <!--                    </li>-->
+            <!--                    <li>-->
+            <!--                        <a th:href="@{/dashboard/roles/create}">-->
+            <!--                            <i class="fa fa-circle"></i>Thêm mới-->
+            <!--                        </a>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </li>-->
             <li>
-                <a class="sidebar-header">
-                    <i data-feather="user-plus"></i>
-                    <span>Phân quyền</span>
-                    <i class="fa fa-angle-right pull-right"></i>
+                <a class="sidebar-header" th:href="@{/dashboard/roles}">
+                    <i data-feather="home"></i>
+                    <span>Danh sách quyền</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a th:href="@{/dashboard/roles}">
-                            <i class="fa fa-circle"></i>Danh sách
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/dashboard/roles/create}">
-                            <i class="fa fa-circle"></i>Thêm mới
-                        </a>
-                    </li>
-                </ul>
             </li>
-
             <li>
                 <a class="sidebar-header">
                     <i data-feather="users"></i>
@@ -126,7 +131,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/dashboard/units/create}">
+                        <a th:href="@{/dashboard/suppliers/create}">
                             <i class="fa fa-circle"></i>Thêm mới
                         </a>
                     </li>
