@@ -57,7 +57,7 @@
                                 <td><span th:class="${unit.status == 1 ? 'badge badge-success' : 'badge badge-danger'}" class="badge badge-success" th:text="${unit.status == 1 ? 'Hoạt động' : 'Tạm ngừng'}"></span></td>
                                 <td>
                                     <form th:action="@{/dashboard/units/{id}/delete(id=${unit.unitId})}" action="#"
-                                          th:method="POST">
+                                          th:method="POST" class="delete-form">
                                         <div class="btn-group btn-group-sm">
                                             <a th:href="@{/dashboard/units/{id}(id=${unit.unitId})}"
                                                class="btn btn-xs btn-warning">sửa</a>
@@ -76,5 +76,27 @@
     <!-- Container-fluid Ends-->
 </div>
 
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        $(".delete-form").submit(function(e){
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Xác nhận xoá?',
+                text: "Bạn sẽ không thể khôi phục dữ liệu!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý!',
+                cancelButtonText: 'Huỷ!',
+            }).then((result) => {
+                if (result.value) {
+                    e.currentTarget.submit();
+                }
+            });
+        });
+    </script>
+</div>
 </body>
 </html>
