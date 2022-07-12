@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-        var count = categoryRepository.findBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
+        var count = categoryRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }

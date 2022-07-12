@@ -75,9 +75,9 @@
                                             <div class="show-div setting">
                                                 <h6>Cài đặt</h6>
                                                 <ul>
-                                                    <li><a th:href="@{/profile}">tài khoản</a></li>
+                                                    <li><a th:href="@{/profile}">Tài khoản</a></li>
                                                     <li>
-                                                        <form id="signout" th:action="@{/signout}" th:method="POST">
+                                                        <form id="logout" th:action="@{/signout}" th:method="POST">
                                                             <a th:onclick="document.getElementById('logout').submit()">
                                                                 Đăng xuẩt
                                                             </a>
@@ -88,9 +88,10 @@
                                         </div>
                                         <div th:if="${session.customer == null}">
                                             <div class="setting">
-                                                <a th:href="@{/signin}">
+                                                <a th:href="@{/signin}" style="color: #222222">
                                                     <img src="../assets/images/icon/user-1.png"
-                                                         class="img-fluid blur-up lazyload" alt=""> Đăng nhập
+                                                         class="img-fluid blur-up lazyload" alt="">
+                                                    Đăng nhập
                                                 </a>
                                             </div>
                                         </div>
@@ -99,10 +100,11 @@
                                         <a class="view-cart" th:href="@{/cart}">
                                             <div>
                                                 <img alt=""
-                                                      class="img-fluid blur-up lazyload"
-                                                      th:src="@{/assets/images/icon/trolley.png}"/>
+                                                     class="img-fluid blur-up lazyload"
+                                                     th:src="@{/assets/images/icon/trolley.png}"/>
                                             </div>
-                                            <span class="cart_qty_cls" th:text="${#lists.isEmpty(session.carts) ? 0 : #lists.size(session.carts)}"></span>
+                                            <span class="cart_qty_cls"
+                                                  th:text="${#lists.isEmpty(session.carts) ? 0 : #lists.size(session.carts)}"></span>
                                         </a>
                                     </li>
                                 </ul>
