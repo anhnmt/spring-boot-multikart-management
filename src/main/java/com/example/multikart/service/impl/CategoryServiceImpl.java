@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
             return "backend/category/create";
         }
 
-        var count = categoryRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
+        var count = categoryRepository.countBySlugAndStatusNot(input.getSlug().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -98,11 +98,11 @@ public class CategoryServiceImpl implements CategoryService {
         if (result.hasErrors()) {
             model.addAttribute("category", input);
 
-            return "backend/category/create";
+            return "backend/category/edit";
         }
 
         if (!category.getSlug().equals(input.getSlug())) {
-            var count = categoryRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
+            var count = categoryRepository.countBySlugAndStatusNot(input.getSlug().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             }
@@ -113,7 +113,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (result.hasErrors()) {
             model.addAttribute("category", input);
 
-            return "backend/category/create";
+            return "backend/category/edit";
         }
 
         category.setName(input.getName());

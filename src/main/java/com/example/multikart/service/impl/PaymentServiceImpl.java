@@ -40,7 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
             return "backend/payment/create";
         }
 
-        var count = paymentRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+        var count = paymentRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -84,11 +84,11 @@ public class PaymentServiceImpl implements PaymentService {
         if (result.hasErrors()) {
             model.addAttribute("payment", input);
 
-            return "backend/payment/create";
+            return "backend/payment/edit";
         }
 
         if (!payment.getName().equals(input.getName())) {
-            var count = paymentRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+            var count = paymentRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -99,7 +99,7 @@ public class PaymentServiceImpl implements PaymentService {
         if (result.hasErrors()) {
             model.addAttribute("payment", input);
 
-            return "backend/payment/create";
+            return "backend/payment/edit";
         }
 
         payment.setStatus(input.getStatus());

@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         input.setPassword(bcryptPasswordEncoder.encode(input.getPassword()));
-        var count = customerRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
+        var count = customerRepository.countByEmailAndStatusNot(input.getEmail().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
@@ -88,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (result.hasErrors()) {
             model.addAttribute("customer", input);
 
-            return "backend/customer/create";
+            return "backend/customer/edit";
         }
 
         if (!input.getPassword().isEmpty()) {
@@ -96,7 +96,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         if (!customer.getEmail().equals(input.getEmail())) {
-            var count = customerRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
+            var count = customerRepository.countByEmailAndStatusNot(input.getEmail().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("email", "email.required", "Email đã được sử dụng");
             }
@@ -107,7 +107,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (result.hasErrors()) {
             model.addAttribute("customer", input);
 
-            return "backend/customer/create";
+            return "backend/customer/edit";
         }
 
         customer.setName(input.getName());

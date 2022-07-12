@@ -40,7 +40,7 @@ public class TransportServiceImpl implements TransportService {
             return "backend/transport/create";
         }
 
-        var count = transportRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+        var count = transportRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -84,11 +84,11 @@ public class TransportServiceImpl implements TransportService {
         if (result.hasErrors()) {
             model.addAttribute("transport", input);
 
-            return "backend/transport/create";
+            return "backend/transport/edit";
         }
 
         if (!transport.getName().equals(input.getName())) {
-            var count = transportRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+            var count = transportRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -99,7 +99,7 @@ public class TransportServiceImpl implements TransportService {
         if (result.hasErrors()) {
             model.addAttribute("transport", input);
 
-            return "backend/transport/create";
+            return "backend/transport/edit";
         }
 
         transport.setStatus(input.getStatus());

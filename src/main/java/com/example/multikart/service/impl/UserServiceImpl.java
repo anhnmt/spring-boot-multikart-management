@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             return "backend/user/create";
         }
 
-        var count = userRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
+        var count = userRepository.countByEmailAndStatusNot(input.getEmail().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("email", "email.required", "Email đã được sử dụng");
         }
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
             model.addAttribute("user", input);
             model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
-            return "backend/user/create";
+            return "backend/user/edit";
         }
 
         if (!input.getPassword().isEmpty()) {
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!user.getEmail().equals(input.getEmail())) {
-            var count = userRepository.countByEmailAndStatusNot(input.getEmail(), DefaultStatus.DELETED);
+            var count = userRepository.countByEmailAndStatusNot(input.getEmail().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("email", "email.required", "Email đã được sử dụng");
             }
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
             model.addAttribute("user", input);
             model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
-            return "backend/user/create";
+            return "backend/user/edit";
         }
 
         user.setName(input.getName());
