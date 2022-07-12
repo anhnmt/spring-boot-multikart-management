@@ -75,8 +75,8 @@
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="slug" type="text" th:field="*{slug}"
                                                    placeholder="Đường dẫn...">
-                                            <div class="alert text-danger" th:if="${#fields.hasErrors('slug')}"
-                                                 th:errors="*{slug}"></div>
+                                            <span class="error text-danger" th:if="${#fields.hasErrors('slug')}"
+                                                 th:errors="*{slug}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">

@@ -154,6 +154,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (result.hasErrors()) {
+            input.setProductId(id);
             model.addAttribute("product", input);
             model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
             model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
@@ -193,6 +194,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (result.hasErrors()) {
+            input.setProductId(id);
             model.addAttribute("product", input);
             model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
             model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));

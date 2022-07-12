@@ -82,6 +82,7 @@ public class TransportServiceImpl implements TransportService {
         }
 
         if (result.hasErrors()) {
+            input.setTransportId(id);
             model.addAttribute("transport", input);
 
             return "backend/transport/edit";
@@ -97,6 +98,7 @@ public class TransportServiceImpl implements TransportService {
         }
 
         if (result.hasErrors()) {
+            input.setTransportId(id);
             model.addAttribute("transport", input);
 
             return "backend/transport/edit";

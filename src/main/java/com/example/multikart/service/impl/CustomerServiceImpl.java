@@ -86,6 +86,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         if (result.hasErrors()) {
+            input.setCustomerId(id);
             model.addAttribute("customer", input);
 
             return "backend/customer/edit";
@@ -105,6 +106,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         if (result.hasErrors()) {
+            input.setCustomerId(id);
             model.addAttribute("customer", input);
 
             return "backend/customer/edit";

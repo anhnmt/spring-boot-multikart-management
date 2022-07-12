@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Builder
 public class SupplierRequestDTO {
+    private Long supplierId;
     @NotBlank
     private String name;
 

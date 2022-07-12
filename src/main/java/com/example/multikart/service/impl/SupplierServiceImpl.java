@@ -82,6 +82,7 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         if (result.hasErrors()) {
+            input.setSupplierId(id);
             model.addAttribute("supplier", input);
 
             return "backend/supplier/edit";
@@ -97,6 +98,7 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         if (result.hasErrors()) {
+            input.setSupplierId(id);
             model.addAttribute("supplier", input);
 
             return "backend/supplier/edit";

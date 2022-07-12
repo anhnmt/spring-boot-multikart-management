@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Builder
 public class UnitRequestDTO {
+    private Long unitId;
     @NotBlank
     private String name;
 

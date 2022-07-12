@@ -96,6 +96,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         if (result.hasErrors()) {
+            input.setCategoryId(id);
             model.addAttribute("category", input);
 
             return "backend/category/edit";
@@ -111,6 +112,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         if (result.hasErrors()) {
+            input.setCategoryId(id);
             model.addAttribute("category", input);
 
             return "backend/category/edit";

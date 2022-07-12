@@ -82,6 +82,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         if (result.hasErrors()) {
+            input.setPaymentId(id);
             model.addAttribute("payment", input);
 
             return "backend/payment/edit";
@@ -97,6 +98,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         if (result.hasErrors()) {
+            input.setPaymentId(id);
             model.addAttribute("payment", input);
 
             return "backend/payment/edit";

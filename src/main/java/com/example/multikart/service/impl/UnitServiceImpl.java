@@ -82,6 +82,7 @@ public class UnitServiceImpl implements UnitService {
         }
 
         if (result.hasErrors()) {
+            input.setUnitId(id);
             model.addAttribute("unit", input);
 
             return "backend/unit/edit";
@@ -97,6 +98,7 @@ public class UnitServiceImpl implements UnitService {
         }
 
         if (result.hasErrors()) {
+            input.setUnitId(id);
             model.addAttribute("unit", input);
 
             return "backend/unit/edit";

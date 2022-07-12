@@ -93,6 +93,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (result.hasErrors()) {
+            input.setUserId(id);
             model.addAttribute("user", input);
             model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
@@ -113,6 +114,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (result.hasErrors()) {
+            input.setUserId(id);
             model.addAttribute("user", input);
             model.addAttribute("roles", roleRepository.findAllByStatus(DefaultStatus.ACTIVE));
 
