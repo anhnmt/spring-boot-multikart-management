@@ -230,8 +230,6 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        let maxQty = [[${product.amount}]];
-
         function debounce(func, wait) {
             var timeout;
 
@@ -294,7 +292,7 @@
 
                 $(self).closest(".qty-box").find(".plus").attr("disabled", false);
                 $(self).closest(".qty-box").find(".minus").attr("disabled", false);
-            }, 300));
+            }, 200));
         });
 
         /*]]>*/
