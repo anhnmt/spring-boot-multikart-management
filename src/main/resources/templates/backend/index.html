@@ -133,6 +133,7 @@
                                     <th scope="col">Tổng tiền</th>
                                     <th scope="col">Phương thức thanh toán</th>
                                     <th scope="col">Trạng thái</th>
+                                    <th scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -158,6 +159,10 @@
                                                 <span class="badge rounded-pill bg-dark custom-badge">Undefined</span>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/dashboard/orders/{id}(id=${order.orderId})}"
+                                           class="btn btn-xs btn-success">chi tiết</a>
                                     </td>
                                 </tr>
                                 </tbody>
