@@ -56,7 +56,7 @@
                         <form th:object="${category}"
                               th:action="@{/dashboard/categories/{id}(id=${category.categoryId})}" action="#"
                               class="needs-validation user-add"
-                              method="post">
+                              method="post" id="form-input">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active show" id="account" role="tabpanel"
                                      aria-labelledby="account-tab">
@@ -65,18 +65,18 @@
                                             Tên</label>
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="name" type="text"
-                                                   required placeholder="Tên danh mục..." th:field="*{name}">
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
-                                                 th:errors="*{name}"></div>
+                                                   placeholder="Tên danh mục..." th:field="*{name}">
+                                            <span class="error text-danger" th:if="${#fields.hasErrors('name')}"
+                                                 th:errors="*{name}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="slug" class="col-xl-3 col-md-4"><span>*</span> Đường dẫn</label>
                                         <div class="col-xl-8 col-md-7">
                                             <input class="form-control" id="slug" type="text" th:field="*{slug}"
-                                                   placeholder="Đường dẫn..." required>
-                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('slug')}"
-                                                 th:errors="*{slug}"></div>
+                                                   placeholder="Đường dẫn...">
+                                            <span class="error text-danger" th:if="${#fields.hasErrors('slug')}"
+                                                 th:errors="*{slug}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -112,5 +112,41 @@
     <!-- Container-fluid Ends-->
 </div>
 
+<div layout:fragment="customScript">
+    <script th:inline="javascript">
+        $("input").on("change keyup", function (){
+            $(this).parent().children("span.error").first().remove();
+        });
+
+        $('input[name="name"]').on("keyup", function (e) {
+            let name = e.target.value.toString();
+            let slug = convertToSlug(name);
+            $('input[name="slug"]').val(slug);
+        })
+
+        $("#form-input").validate({
+            onkeyup: function (element) {
+                $(element).valid()
+            },
+            errorClass: 'error text-danger',
+            rules: {
+                name: {
+                    required: true
+                },
+                slug:{
+                    required: true
+                }
+            },
+            messages:{
+                name:{
+                    required: "Không được để trống"
+                },
+                slug:{
+                    required: "Không được để trống"
+                }
+            }
+        })
+    </script>
+</div>
 </body>
 </html>

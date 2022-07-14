@@ -40,7 +40,7 @@ public class SupplierServiceImpl implements SupplierService {
             return "backend/supplier/create";
         }
 
-        var count = supplierRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+        var count = supplierRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -82,13 +82,14 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         if (result.hasErrors()) {
+            input.setSupplierId(id);
             model.addAttribute("supplier", input);
 
-            return "backend/supplier/create";
+            return "backend/supplier/edit";
         }
 
         if (!supplier.getName().equals(input.getName())) {
-            var count = supplierRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+            var count = supplierRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -97,9 +98,10 @@ public class SupplierServiceImpl implements SupplierService {
         }
 
         if (result.hasErrors()) {
+            input.setSupplierId(id);
             model.addAttribute("supplier", input);
 
-            return "backend/supplier/create";
+            return "backend/supplier/edit";
         }
 
         supplier.setStatus(input.getStatus());

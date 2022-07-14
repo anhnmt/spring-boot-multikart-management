@@ -40,7 +40,7 @@ public class UnitServiceImpl implements UnitService {
             return "backend/unit/create";
         }
 
-        var count = unitRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+        var count = unitRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
         }
@@ -82,13 +82,14 @@ public class UnitServiceImpl implements UnitService {
         }
 
         if (result.hasErrors()) {
+            input.setUnitId(id);
             model.addAttribute("unit", input);
 
-            return "backend/unit/create";
+            return "backend/unit/edit";
         }
 
         if (!unit.getName().equals(input.getName())) {
-            var count = unitRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+            var count = unitRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên đơn vị đã được sử dụng");
             }
@@ -97,9 +98,10 @@ public class UnitServiceImpl implements UnitService {
         }
 
         if (result.hasErrors()) {
+            input.setUnitId(id);
             model.addAttribute("unit", input);
 
-            return "backend/unit/create";
+            return "backend/unit/edit";
         }
 
         unit.setStatus(input.getStatus());

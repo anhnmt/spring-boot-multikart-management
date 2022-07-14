@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Builder
 public class PaymentRequestDTO {
+    private Long paymentId;
     @NotBlank
     private String name;
 

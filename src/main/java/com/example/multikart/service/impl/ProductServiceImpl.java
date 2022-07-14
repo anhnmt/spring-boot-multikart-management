@@ -85,12 +85,12 @@ public class ProductServiceImpl implements ProductService {
             return "backend/product/create";
         }
 
-        var count = productRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+        var count = productRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
         if (count > 0) {
             result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
         }
 
-        var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
+        var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug().trim(), DefaultStatus.DELETED);
         if (countSlug > 0) {
             result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
         }
@@ -154,6 +154,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (result.hasErrors()) {
+            input.setProductId(id);
             model.addAttribute("product", input);
             model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
             model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
@@ -162,7 +163,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (!product.getName().equals(input.getName())) {
-            var count = productRepository.countByNameAndStatusNot(input.getName(), DefaultStatus.DELETED);
+            var count = productRepository.countByNameAndStatusNot(input.getName().trim(), DefaultStatus.DELETED);
             if (count > 0) {
                 result.rejectValue("name", "", "Tên sản phẩm đã được sử dụng");
             } else {
@@ -170,7 +171,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         if (!product.getSlug().equals(input.getSlug())) {
-            var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug(), DefaultStatus.DELETED);
+            var countSlug = productRepository.countBySlugAndStatusNot(input.getSlug().trim(), DefaultStatus.DELETED);
             if (countSlug > 0) {
                 result.rejectValue("slug", "", "Đường dẫn đã được sử dụng");
             } else {
@@ -193,6 +194,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (result.hasErrors()) {
+            input.setProductId(id);
             model.addAttribute("product", input);
             model.addAttribute("categories", categoryRepository.findAllByStatus(DefaultStatus.ACTIVE));
             model.addAttribute("units", unitRepository.findAllByStatus(DefaultStatus.ACTIVE));
