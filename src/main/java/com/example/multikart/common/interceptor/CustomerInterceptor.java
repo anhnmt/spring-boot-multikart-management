@@ -1,6 +1,7 @@
 package com.example.multikart.common.interceptor;
 
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.model.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
         log.info("\n-------- CustomerInterceptor.preHandle --- ");
         log.info("Current url: {}", request.getRequestURL());
 
-        var customer = (Customer) request.getSession().getAttribute("customer");
+        var customer = Utils.getCustomerSession(request.getSession());
         log.info("User : {}", customer);
 
         if (DataUtils.isNullOrEmpty(customer)) {

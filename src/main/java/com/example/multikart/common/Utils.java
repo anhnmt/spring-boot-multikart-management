@@ -1,6 +1,7 @@
 package com.example.multikart.common;
 
 import com.example.multikart.domain.dto.CartDTO;
+import com.example.multikart.domain.dto.UserDTO;
 import com.example.multikart.domain.model.Customer;
 import com.example.multikart.domain.model.User;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,10 +70,10 @@ public class Utils {
         return customer;
     }
 
-    public static User getUserSession(HttpSession session) {
-        var user = (User) session.getAttribute("user");
+    public static UserDTO getUserSession(HttpSession session) {
+        var user = (UserDTO) session.getAttribute("user");
         if (DataUtils.isNullOrEmpty(user)) {
-            return new User();
+            return new UserDTO();
         }
 
         return user;
