@@ -66,7 +66,6 @@ public class Utils {
         if (DataUtils.isNullOrEmpty(customer)) {
             return new Customer();
         }
-
         return customer;
     }
 
@@ -75,7 +74,6 @@ public class Utils {
         if (DataUtils.isNullOrEmpty(user)) {
             return new UserDTO();
         }
-
         return user;
     }
 
