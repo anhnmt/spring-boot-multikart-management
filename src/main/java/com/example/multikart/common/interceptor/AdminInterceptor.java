@@ -1,6 +1,7 @@
 package com.example.multikart.common.interceptor;
 
 import com.example.multikart.common.DataUtils;
+import com.example.multikart.common.Utils;
 import com.example.multikart.domain.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,8 +20,7 @@ public class AdminInterceptor implements HandlerInterceptor {
 
         log.info("\n-------- AdminInterceptor.preHandle --- ");
         log.info("Current url: {}", request.getRequestURL());
-
-        var user = (User) request.getSession().getAttribute("user");
+        var user = Utils.getUserSession(request.getSession());
         log.info("User : {}", user);
 
         if (DataUtils.isNullOrEmpty(user)) {
