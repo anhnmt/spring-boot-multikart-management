@@ -10,7 +10,7 @@
     <div class="dashboard-sidebar" style="z-index: 0;">
         <div class="profile-top">
             <div class="profile-image">
-                <img th:src="@{/{url}(url=${session.customer.avatar})}" alt="" class="img-fluid">
+                <img th:src="@{/{url}(url=${session.customer.avatar != null ? session.customer.avatar : 'assets/images/user_image.png'})}" alt="" class="img-fluid">
             </div>
             <div class="profile-detail">
                 <h5 th:text="${session.customer.name}"></h5>

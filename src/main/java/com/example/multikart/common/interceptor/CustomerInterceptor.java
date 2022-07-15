@@ -21,7 +21,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
         log.info("\n-------- CustomerInterceptor.preHandle --- ");
         log.info("Current url: {}", request.getRequestURL());
 
-        var customer = Utils.getCustomerSession(request.getSession());
+        var customer = (Customer) request.getSession().getAttribute("customer");
         log.info("User : {}", customer);
 
         if (DataUtils.isNullOrEmpty(customer)) {
