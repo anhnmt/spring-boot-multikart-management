@@ -25,6 +25,8 @@ public class UserDTO implements Serializable {
     private String password;
     private Integer status;
 
+    private String avatar;
+
     public UserDTO(User user, Role role) {
         this.userId = user.getUserId();
 
@@ -37,5 +39,6 @@ public class UserDTO implements Serializable {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.status = user.getStatus();
+        this.avatar = user.getAvatar();
     }
 }

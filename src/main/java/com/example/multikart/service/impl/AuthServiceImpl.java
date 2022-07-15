@@ -92,7 +92,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String backendProfile(HttpSession session, Model model) {
-        var user = (User) session.getAttribute("user");
+        var user = Utils.getUserSession(session);
         model.addAttribute("user", user);
 
         return "backend/profile";
@@ -100,7 +100,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String backendPostProfile(UserProfileRequestDTO input, HttpSession session, BindingResult result, Model model, RedirectAttributes redirect) {
-        var userSession = (User) session.getAttribute("user");
+        var userSession = Utils.getUserSession(session);
 
         var user = userRepository.findByUserIdAndStatus(userSession.getUserId(), DefaultStatus.ACTIVE);
         if (DataUtils.isNullOrEmpty(user)) {

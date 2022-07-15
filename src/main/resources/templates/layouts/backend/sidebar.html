@@ -21,8 +21,8 @@
         <div class="sidebar-user">
             <img class="img-60" th:src="@{/{url}(url=${session.user.avatar})}" alt="#"/>
             <div>
-                <h6 class="f-14" th:text="${session.user.name}">JOHN</h6>
-                <p>general manager.</p>
+                <h6 class="f-14" th:text="${session.user.name}"></h6>
+                <p th:text="${session.user.roleName}"></p>
             </div>
         </div>
         <ul class="sidebar-menu">
@@ -33,7 +33,7 @@
                 </a>
             </li>
 
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
                     <i data-feather="user-plus"></i>
                     <span>Người dùng</span>
@@ -52,35 +52,15 @@
                     </li>
                 </ul>
             </li>
-
-            <!--            <li>-->
-            <!--                <a class="sidebar-header">-->
-            <!--                    <i data-feather="user-plus"></i>-->
-            <!--                    <span>Phân quyền</span>-->
-            <!--                    <i class="fa fa-angle-right pull-right"></i>-->
-            <!--                </a>-->
-            <!--                <ul class="sidebar-submenu">-->
-            <!--                    <li>-->
-            <!--                        <a th:href="@{/dashboard/roles}">-->
-            <!--                            <i class="fa fa-circle"></i>Danh sách-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                    <li>-->
-            <!--                        <a th:href="@{/dashboard/roles/create}">-->
-            <!--                            <i class="fa fa-circle"></i>Thêm mới-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                </ul>-->
-            <!--            </li>-->
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header" th:href="@{/dashboard/roles}">
-                    <i data-feather="home"></i>
+                    <i data-feather="lock"></i>
                     <span>Danh sách quyền</span>
                 </a>
             </li>
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
-                    <i data-feather="users"></i>
+                    <i data-feather="book-open"></i>
                     <span>Danh mục</span>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
@@ -98,9 +78,9 @@
                 </ul>
             </li>
 
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
-                    <i data-feather="users"></i>
+                    <i data-feather="book"></i>
                     <span>Đơn vị tính</span>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
@@ -118,9 +98,9 @@
                 </ul>
             </li>
 
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
-                    <i data-feather="users"></i>
+                    <i data-feather="award"></i>
                     <span>Nhà cung cấp</span>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
@@ -138,7 +118,7 @@
                 </ul>
             </li>
 
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
                     <i data-feather="users"></i>
                     <span>Khách hàng</span>
@@ -160,7 +140,7 @@
 
             <li>
                 <a class="sidebar-header">
-                    <i data-feather="users"></i>
+                    <i data-feather="package"></i>
                     <span>Sản phẩm</span>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
@@ -178,9 +158,9 @@
                 </ul>
             </li>
 
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
-                    <i data-feather="users"></i>
+                    <i data-feather="credit-card"></i>
                     <span>Thanh toán</span>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
@@ -198,9 +178,9 @@
                 </ul>
             </li>
 
-            <li>
+            <li th:if="${#strings.equals(session.user.roleName, 'ADMIN')}">
                 <a class="sidebar-header">
-                    <i data-feather="users"></i>
+                    <i data-feather="truck"></i>
                     <span>Vận chuyển</span>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
@@ -220,7 +200,7 @@
 
             <li>
                 <a class="sidebar-header" th:href="@{/dashboard/orders}">
-                    <i data-feather="users"></i>
+                    <i data-feather="archive"></i>
                     <span>Hóa đơn</span>
                 </a>
             </li>

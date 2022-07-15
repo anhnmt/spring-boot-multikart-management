@@ -99,15 +99,15 @@ public class RunnerConfig implements CommandLineRunner {
             List<Category> categories = new ArrayList<>();
             categories.add(Category.builder().name("Rau - Củ - Trái Cây").slug("rau-cu-trai-cay").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
             categories.add(Category.builder().name("Thịt - Trứng - Hải Sản").slug("thit-trung-hai-san").icon("/assets/svg/vegetables/meats.svg").status(1).build());
-            categories.add(Category.builder().name("Thực Phẩm Chế Biến").slug("thuc-pham-che-bien").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
-            categories.add(Category.builder().name("Thực Phẩm Đông Lạnh").slug("thuc-pham-dong-lanh").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
-            categories.add(Category.builder().name("Thực Phẩm Khô - Gia Vị").slug("thuc-pham-kho-gia-vi").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
-            categories.add(Category.builder().name("Bánh Kẹo - Đồ Ăn Vặt").slug("banh-keo-do-an-vat").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
+            categories.add(Category.builder().name("Thực Phẩm Chế Biến").slug("thuc-pham-che-bien").icon("/assets/svg/vegetables/breakfast.svg").status(1).build());
+            categories.add(Category.builder().name("Thực Phẩm Đông Lạnh").slug("thuc-pham-dong-lanh").icon("/assets/svg/vegetables/frozen.svg").status(1).build());
+            categories.add(Category.builder().name("Thực Phẩm Khô - Gia Vị").slug("thuc-pham-kho-gia-vi").icon("/assets/svg/grocery/beverages.svg").status(1).build());
+            categories.add(Category.builder().name("Bánh Kẹo - Đồ Ăn Vặt").slug("banh-keo-do-an-vat").icon("/assets/svg/vegetables/biscuit.svg").status(1).build());
             categories.add(Category.builder().name("Sữa - Sản Phẩm Từ Sữa").slug("sua-san-pham-tu-sua").icon("/assets/svg/vegetables/milk.svg").status(1).build());
             categories.add(Category.builder().name("Đồ Uống - Giải Khát").slug("do-uong-giai-khat").icon("/assets/svg/vegetables/drink.svg").status(1).build());
-            categories.add(Category.builder().name("Hóa Mỹ Phẩm").slug("hoa-my-pham").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
-            categories.add(Category.builder().name("Chăm Sóc Cá Nhân").slug("cham-soc-ca-nhan").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
-            categories.add(Category.builder().name("Chăm Sóc Mẹ Và Bé").slug("cham-soc-me-va-be").icon("/assets/svg/vegetables/vegetable.svg").status(1).build());
+            categories.add(Category.builder().name("Hóa Mỹ Phẩm").slug("hoa-my-pham").icon("/assets/svg/vegetables/grocery.svg").status(1).build());
+            categories.add(Category.builder().name("Chăm Sóc Cá Nhân").slug("cham-soc-ca-nhan").icon("/assets/svg/medical/cream.svg").status(1).build());
+            categories.add(Category.builder().name("Chăm Sóc Mẹ Và Bé").slug("cham-soc-me-va-be").icon("/assets/svg/grocery/skin-care.svg").status(1).build());
 
             categoryRepository.saveAll(categories);
         }
